@@ -47,14 +47,29 @@ correct order) and are followed by the non-duplicate elements of SRC-LIST"
 ;; set up package management with cask and pallet
 ;;
 ;; Prerequisites:
+;; 
 ;; 1. Install cask using instructions from https://github.com/cask/cask:
 ;;      curl -fsSkL https://raw.github.com/cask/cask/master/go | python
 ;;    -or-
 ;;    Install using homebrew:
 ;;      brew install cask
-;; 2. Add the cask bin directory to your path if you installed cask via the "curl"
-;;    method: ~/.cask/bin
-;; 3. Cd to your .emacs.d directory and run the "cask install" command.
+;; 2. Add the Cask bin directory to your PATH if you installed cask via the 
+;;    "curl" method: ~/.cask/bin
+;; 3. cd to your $HOME/.emacs.d directory and run the "cask install" command.
+;;
+;; NOTE:
+;;
+;; Here is what to do if you get the following error (see also
+;; http://comments.gmane.org/gmane.emacs.orgmode/70880).
+;;
+;;  invalid function org-with-silent-modifications
+;;
+;; 1. Exit out Emacs
+;; 2. cd to $HOME/.emacs.d
+;; 3. rm -rf .cask
+;; 4. cask install
+;; 5. restart Emacs
+;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; This is the location for all my Emacs configuration
