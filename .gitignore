@@ -1,4 +1,4 @@
 .cask/
 *~
-auto-save-list/
 init-ext.el
+.DS_Store
