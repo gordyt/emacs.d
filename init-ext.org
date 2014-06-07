@@ -1,0 +1,114 @@
+* File Header
+#+BEGIN_SRC emacs-lisp :padline no
+  ;;; init-ext.el -- Automatically generated initialization file
+  ;;;
+  ;;; This file is generated from the init-ext.org file, so no edits
+  ;;; should be made to this file directly.
+  ;;;
+  ;;; Commentary:
+  ;;;
+  ;;; See init-ext.org for complete documentation.
+  ;;;
+  ;;; Code:
+  ;;;
+  
+#+END_SRC
+* Load Private settings
+
+These are things like email settings, etc.  I keep them in a file in my 
+~emacs.d~ directory called ~.private.el~ and I do /not/ save this file in git.
+
+#+BEGIN_SRC emacs-lisp
+(setq got/private-settings
+      (expand-file-name ".private.el" got/dotfiles-dir))
+(when (file-exists-p got/private-settings)
+  (load-file got/private-settings))
+#+END_SRC
+* Custom Settings File
+
+Here I am specifying an alternate location for any custom settings.  This
+helps keep my ~init.el~ file cleaner.
+
+#+BEGIN_SRC emacs-lisp
+(setq custom-file (expand-file-name "custom.el" got/dotfiles-dir))
+#+END_SRC
+
+* Library Paths
+
+All configuration is stored under =got/dotfiles-dir= (=~/.emacs.d=).  
+Meta-information files (backups, etc.) are stored in =got/metafiles-dir=.
+
+#+BEGIN_SRC emacs-lisp
+(setq got/metafiles-dir "~/.emacs-meta")
+(unless (file-exists-p got/metafiles-dir)
+       (make-directory got/metafiles-dir))
+#+END_SRC
+
+* Packages List
+
+The table that follows this code block documents all of the packages
+that I am currently using.  To update the list, just move the point
+to anywhere inside the code block and type ~C-c C-c~ and answer "yes"
+to the prompt.
+
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  (defun got/gen-package-table ()
+    "Generate a table of all installed packages, along with their descriptions"
+    (cons '("_Package Name_" "_Package Description_")
+    (sort
+     (mapcar
+      (lambda (pkg-desc)
+        (list (car pkg-desc) (package-desc-doc (cdr pkg-desc))))
+      package-alist)
+     `(lambda (a b) (string-lessp (car a) (car b))))))
+  
+  (got/gen-package-table)
+#+END_SRC
+
+#+RESULTS:
+| _Package Name_       | _Package Description_                                                              |
+| bind-key             | A simple way to manage personal keybindings                                        |
+| cask                 | Cask: Project management for Emacs package development                             |
+| dash                 | A modern list library for Emacs                                                    |
+| diminish             | Diminished modes are minor modes with no modeline display                          |
+| drag-stuff           | Drag stuff (lines, words, region, etc...) around                                   |
+| epl                  | Emacs Package Library                                                              |
+| exec-path-from-shell | Get environment variables such as $PATH from the shell                             |
+| expand-region        | Increase selected region by semantic units.                                        |
+| f                    | Modern API for working with files and directories                                  |
+| flycheck             | Modern on-the-fly syntax checking for GNU Emacs                                    |
+| flycheck-cask        | Cask support in Flycheck                                                           |
+| git-commit-mode      | Major mode for editing git commit messages                                         |
+| git-rebase-mode      | Major mode for editing git rebase files                                            |
+| htmlize              | Convert buffer text and decorations to HTML.                                       |
+| idle-highlight-mode  | highlight the word the point is on                                                 |
+| magit                | control Git from Emacs                                                             |
+| multiple-cursors     | Multiple cursors for Emacs.                                                        |
+| nyan-mode            | Nyan Cat shows position in current buffer in mode-line.                            |
+| package-build        | Tools for assembling a package archive                                             |
+| pallet               | A package management tool for Emacs, using Cask.                                   |
+| pkg-info             | Information about packages                                                         |
+| popwin               | Popup Window Manager.                                                              |
+| prodigy              | Manage external services from within Emacs                                         |
+| projectile           | Manage and navigate projects in Emacs easily                                       |
+| s                    | The long lost Emacs string manipulation library.                                   |
+| shut-up              | Shut up would you!                                                                 |
+| smartparens          | Automatic insertion, wrapping and paredit-like navigation with user defined pairs. |
+| smex                 | M-x interface with Ido-style fuzzy matching.                                       |
+| use-package          | A use-package declaration for simplifying your .emacs                              |
+| web-mode             | major mode for editing html templates                                              |
+| yasnippet            | Yet another snippet extension for Emacs.                                           |
+
+* Additional Paths
+
+Add all top-level directories in =got/dotfiles-dir= to the load path.
+
+#+BEGIN_SRC emacs-lisp
+  (let ((default-directory user-emacs-directory))
+    (normal-top-level-add-subdirs-to-load-path))
+#+END_SRC
+
+
+
+
