@@ -70,7 +70,6 @@ correct order) and are followed by the non-duplicate elements of SRC-LIST"
 
 (cask-initialize)
 
-
 ;; Pallet maintains the "Cask" file in your .emacs.d directory.
 (unless (package-installed-p 'pallet)
   (error "Package 'pallet' not available.  Please cd to %s and run 'cask install'" got/dotfiles-dir))
