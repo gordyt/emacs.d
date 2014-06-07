@@ -1,5 +1,4 @@
 (source gnu)
-(source marmalade)
 (source melpa)
 
 (depends-on "bind-key")
@@ -18,6 +17,7 @@
 (depends-on "magit")
 (depends-on "multiple-cursors")
 (depends-on "nyan-mode")
+(depends-on "org")
 (depends-on "pallet")
 (depends-on "popwin")
 (depends-on "prodigy")
