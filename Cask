@@ -12,6 +12,7 @@
 (depends-on "flycheck")
 (depends-on "flycheck")
 (depends-on "flycheck-cask")
+(depends-on "helm")
 (depends-on "htmlize")
 (depends-on "idle-highlight-mode")
 (depends-on "magit")

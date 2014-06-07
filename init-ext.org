@@ -66,6 +66,40 @@ to the prompt.
   (got/gen-package-table)
 #+END_SRC
 
+#+RESULTS:
+| _Package Name_       | _Package Description_                                                              |
+| bind-key             | A simple way to manage personal keybindings                                        |
+| cask                 | Cask: Project management for Emacs package development                             |
+| dash                 | A modern list library for Emacs                                                    |
+| diminish             | Diminished modes are minor modes with no modeline display                          |
+| drag-stuff           | Drag stuff (lines, words, region, etc...) around                                   |
+| epl                  | Emacs Package Library                                                              |
+| exec-path-from-shell | Get environment variables such as $PATH from the shell                             |
+| expand-region        | Increase selected region by semantic units.                                        |
+| f                    | Modern API for working with files and directories                                  |
+| flycheck             | Modern on-the-fly syntax checking for GNU Emacs                                    |
+| flycheck-cask        | Cask support in Flycheck                                                           |
+| git-commit-mode      | Major mode for editing git commit messages                                         |
+| git-rebase-mode      | Major mode for editing git rebase files                                            |
+| htmlize              | Convert buffer text and decorations to HTML.                                       |
+| idle-highlight-mode  | highlight the word the point is on                                                 |
+| magit                | control Git from Emacs                                                             |
+| multiple-cursors     | Multiple cursors for Emacs.                                                        |
+| nyan-mode            | Nyan Cat shows position in current buffer in mode-line.                            |
+| package-build        | Tools for assembling a package archive                                             |
+| pallet               | A package management tool for Emacs, using Cask.                                   |
+| pkg-info             | Information about packages                                                         |
+| popwin               | Popup Window Manager.                                                              |
+| prodigy              | Manage external services from within Emacs                                         |
+| projectile           | Manage and navigate projects in Emacs easily                                       |
+| s                    | The long lost Emacs string manipulation library.                                   |
+| shut-up              | Shut up would you!                                                                 |
+| smartparens          | Automatic insertion, wrapping and paredit-like navigation with user defined pairs. |
+| smex                 | M-x interface with Ido-style fuzzy matching.                                       |
+| use-package          | A use-package declaration for simplifying your .emacs                              |
+| web-mode             | major mode for editing html templates                                              |
+| yasnippet            | Yet another snippet extension for Emacs.                                           |
+
 * Additional Paths
 
 ** Lisp
@@ -82,10 +116,12 @@ Add all top-level directories in =got/dotfiles-dir= to the load path.
 These variables are used to configure where other services store various files that
 they create.
 
-| Variable Name        | Description                 |
-|----------------------+-----------------------------|
-| got/meta-backup      | Location for backup files   |
-| got/auto-save-prefix | Location for autosave files |
+| Variable Name        | Description                   |
+|----------------------+-------------------------------|
+| got/meta-backup      | Location for backup files     |
+| got/auto-save-prefix | Location for autosave files   |
+| got/themes-dir       | Location for my custom themes |
+
 
 
 #+BEGIN_SRC emacs-lisp
@@ -95,9 +131,19 @@ they create.
   (defvar got/auto-save-prefix
     (expand-file-name "autosaves/saves-" got/metafiles-dir)
     "Locations of autosave files")
+  (defvar got/themes-dir
+    (expand-file-name "themes" got/dotfiles-dir)
+    "Location for my custom themes")
 #+END_SRC
 
 * General Emacs Configuration
+** Bind-Key
+Require ~bind-key~ early so we can use it when configuring
+other packages.
+
+#+BEGIN_SRC emacs-lisp
+(require 'bind-key)
+#+END_SRC
 
 ** Autosave Files
 
@@ -129,3 +175,28 @@ Configure the behaviour of Emacs file backups.
   )
 #+END_SRC
 
+** Helm
+This is a handy key-binding to use when you are in some detail help from a
+helm session.  This will bring you back into the helm session.
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'helm)
+    (bind-key "C-c h" 'helm-resume)
+    (require 'helm-misc)
+    (bind-key "C-c M-x" 'helm-M-x)
+    (bind-key "C-h a" 'helm-apropos)
+    (bind-key "M-s a" 'helm-do-grep)
+    (bind-key "M-s b" 'helm-occur)
+    (bind-key "M-s F" 'helm-for-files))
+#+END_SRC
+
+* Theme Configuration
+
+Load my default theme.
+
+#+BEGIN_SRC emacs-lisp
+(setq custom-theme-directory got/themes-dir)
+;; specifying the t option to load-theme prevents being asked about
+;; loading an unsafe theme.
+(load-theme 'gordy t)
+#+END_SRC
