@@ -1,0 +1,4 @@
+* vendor
+
+This directory contains packages that are not available in the normal
+repositories.
