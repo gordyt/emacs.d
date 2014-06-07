@@ -93,19 +93,19 @@ they create.
     (expand-file-name "backups" got/metafiles-dir)
     "Location of backup files")
   (defvar got/auto-save-prefix
-    (expand-file-name "autosaves/saves" got/metafiles-dir)
+    (expand-file-name "autosaves/saves-" got/metafiles-dir)
     "Locations of autosave files")
 #+END_SRC
-
 
 * General Emacs Configuration
 
 ** Autosave Files
 
-Configure the behaviour of Emacs auto-save.
+Configure the behaviour of Emacs auto-save.  Here we tell Emacs
+where to put the autosave files.
 
 #+BEGIN_SRC emacs-lisp
- (setq auto-save-list-file-prefix
+ (setq auto-save-list-file-prefix got/auto-save-prefix)
 #+END_SRC
 
 ** Backup Files
