@@ -143,12 +143,21 @@ they create.
 #+END_SRC
 
 * General Emacs Configuration
+
 ** Bind-Key
 Require ~bind-key~ early so we can use it when configuring
 other packages.
 
 #+BEGIN_SRC emacs-lisp
 (require 'bind-key)
+#+END_SRC
+** Alarm Bell
+
+The bell rings whenever (ding) is called.  Here we make if flash the frame
+rather than make a sound (which I find annoying).
+
+#+BEGIN_SRC emacs-lisp
+(setq visible-bell t)
 #+END_SRC
 
 ** Autosave Files
