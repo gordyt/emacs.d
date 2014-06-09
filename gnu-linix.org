@@ -1,0 +1,19 @@
+* gnu/linux initialization file
+
+This file is a placeholder for any settings that are specific
+to gnu/linux.
+
+#+BEGIN_SRC emacs-lisp :padline no
+  ;;; gnu-linux.el -- Automatically generated darwin initialization file.
+  ;;;
+  ;;; This file is generated from the gnu-linix.org file, so no edits
+  ;;; should be made to this file directly.
+  ;;;
+  ;;; Commentary:
+  ;;;
+  ;;; See gnu-linux.org for complete documentation.
+  ;;;
+  ;;; Code:
+  ;;;
+
+#+END_SRC

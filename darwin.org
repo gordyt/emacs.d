@@ -1,0 +1,19 @@
+* darwin (mac os x) specific settings
+
+This file is a placeholder for any settings that are specific
+to mac os x.
+
+#+BEGIN_SRC emacs-lisp :padline no
+  ;;; darwin.el -- Automatically generated darwin initialization file.
+  ;;;
+  ;;; This file is generated from the darwin.org file, so no edits
+  ;;; should be made to this file directly.
+  ;;;
+  ;;; Commentary:
+  ;;;
+  ;;; See darwin.org for complete documentation.
+  ;;;
+  ;;; Code:
+  ;;;
+
+#+END_SRC

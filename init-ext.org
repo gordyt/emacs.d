@@ -74,6 +74,32 @@ to the prompt.
 | use-package          | A use-package declaration for simplifying your .emacs                              |
 | web-mode             | major mode for editing html templates                                              |
 | yasnippet            | Yet another snippet extension for Emacs.                                           |
+* Utility Functions
+
+These are just miscellaneous functions that are used later on.
+
+#+BEGIN_SRC emacs-lisp
+  (defun got/load-file-base-name (directory base-name)
+    "Look for files located in DIRECTORY whose base name is BASE-NAME.
+  
+  If BASE-NAME.org exists, load it via org-babel-laod-file
+  Else if BASE-NAME.el exists, load it via load"
+    (let ((org-file (expand-file-name (concat base-name ".org") directory))
+          (lisp-file (expand-file-name  (concat base-name ".el") directory)))
+      (cond
+       ((file-exists-p org-file) (org-babel-load-file org-file))
+       ((file-exists-p lisp-file) (load lisp-file)))))
+  
+#+END_SRC
+
+* Custom Settings File
+
+Here I am specifying an alternate location for any custom settings.  This
+helps keep my ~init.el~ file cleaner.
+
+#+BEGIN_SRC emacs-lisp
+(setq custom-file (expand-file-name "custom.el" got/dotfiles-dir))
+#+END_SRC
 * Load Private settings
 
 These are things like email settings, etc.  I keep them in a file in my 
@@ -85,13 +111,23 @@ These are things like email settings, etc.  I keep them in a file in my
 (when (file-exists-p got/private-settings)
   (load-file got/private-settings))
 #+END_SRC
-* Custom Settings File
 
-Here I am specifying an alternate location for any custom settings.  This
-helps keep my ~init.el~ file cleaner.
+* Load OS-specific Settings File
+
+Path names, etc., will tend to vary from one operating system to
+another.  Here we use the =system-type= variable to look for
+initialization files named /<system-type>.org/ or /<system-type.el>/
+and load them.
+
+Note that on some systems there may be a ~/~ character in the value of
+=system-type=; e.g., on Ubuntu the value is ~gnu/linux~, so we convert ~/~ to ~-~
+and the file that we look for would be ~gnu-linux.org~ or ~gnu-linux.el~.
 
 #+BEGIN_SRC emacs-lisp
-(setq custom-file (expand-file-name "custom.el" got/dotfiles-dir))
+  (let* ((system-name (symbol-name system-type))
+         (base-name (replace-regexp-in-string "/" "-" system-name)))
+    (got/load-file-base-name got/dotfiles-dir base-name))
+                    
 #+END_SRC
 
 * Library Paths
