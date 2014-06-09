@@ -179,7 +179,6 @@ they create.
 #+END_SRC
 
 * General Emacs Configuration
-
 ** Bind-Key
 Require ~bind-key~ early so we can use it when configuring
 other packages.
@@ -309,4 +308,13 @@ Load my default theme.
 ;; specifying the t option to load-theme prevents being asked about
 ;; loading an unsafe theme.
 (load-theme 'gordy t)
+#+END_SRC
+* Language-Specific Configuration
+** Python
+
+Enable =flycheck-mode= when opening a Python buffer, if flycheck is available
+
+#+BEGIN_SRC emacs-lisp
+(when (package-installed-p 'flycheck)
+(add-hook 'python-mode-hook 'flycheck-mode))
 #+END_SRC
