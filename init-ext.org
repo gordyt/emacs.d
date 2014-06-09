@@ -204,6 +204,14 @@ function.  Since this is so handy I remap ~RET~ to do this.
 (bind-key "RET" 'newline-and-indent)
 #+END_SRC
 
+** Autorevert mode
+
+Automatically refert buffers when they change on disk.
+
+#+BEGIN_SRC emacs-lisp
+(setq global-auto-revert-mode 1)
+#+END_SRC
+
 ** Autosave Files
 
 Configure the behaviour of Emacs auto-save.  Here we tell Emacs
