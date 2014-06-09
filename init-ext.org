@@ -305,10 +305,10 @@ function.  Since this is so handy I remap ~RET~ to do this.
 
 ** Autorevert mode
 
-Automatically refert buffers when they change on disk.
+Automatically revert buffers when they change on disk.
 
 #+BEGIN_SRC emacs-lisp
-(setq global-auto-revert-mode 1)
+(global-auto-revert-mode)
 #+END_SRC
 
 ** Autosave Files
