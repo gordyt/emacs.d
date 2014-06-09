@@ -195,6 +195,15 @@ rather than make a sound (which I find annoying).
 (setq visible-bell t)
 #+END_SRC
 
+** Automatic indentation
+
+Using ~C-j~ instead of ~RET~ normally runs the =newline-and-indent=
+function.  Since this is so handy I remap ~RET~ to do this.
+
+#+BEGIN_SRC emacs-lisp
+(bind-key "RET" 'newline-and-indent)
+#+END_SRC
+
 ** Autosave Files
 
 Configure the behaviour of Emacs auto-save.  Here we tell Emacs
