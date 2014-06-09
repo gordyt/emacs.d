@@ -289,6 +289,20 @@ Enable ~ido-vertical-mode~ if it is available.
     (ido-vertical-mode 1))
 #+END_SRC
 
+** Smex
+
+[[http://www.emacswiki.org/emacs/Smex][Smex]] is a M-x enhancement for Emacs. Built on top of IDO, it provides
+a convenient interface to your recently and most frequently used
+commands. And to all the other commands, too.
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'smex)
+    (smex-initialize)
+    (global-set-key (kbd "M-x") 'smex)
+    (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+    )
+#+END_SRC
+
 ** Toolbar
 
 Hide the toolbar when running in a window-system on a mac.  Otherwise enable it.
