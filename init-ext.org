@@ -353,12 +353,19 @@ Load my default theme.
 ;; loading an unsafe theme.
 (load-theme 'gordy t)
 #+END_SRC
-* Language-Specific Configuration
-** Python
+* Mode-Specific Hooks and Configuration
+** python-mode
 
 Enable =flycheck-mode= when opening a Python buffer, if flycheck is available
 
 #+BEGIN_SRC emacs-lisp
 (when (package-installed-p 'flycheck)
 (add-hook 'python-mode-hook 'flycheck-mode))
+#+END_SRC
+** text-mode
+
+Automatically enable auto fill mode.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
 #+END_SRC
