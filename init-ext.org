@@ -161,6 +161,7 @@ they create.
 | got/auto-save-prefix | Location for autosave files                      |
 | got/themes-dir       | Location for my custom themes                    |
 | got/meta-ido         | file where id state is saved between invocations |
+| got/ac-comphist-file | path to the auto complete history file           |
 
 
 #+BEGIN_SRC emacs-lisp
@@ -194,6 +195,18 @@ rather than make a sound (which I find annoying).
 #+BEGIN_SRC emacs-lisp
 (setq visible-bell t)
 #+END_SRC
+
+** Autocomplete 
+
+#+BEGIN_SRC emacs-lisp
+  (when (require 'auto-complete-config nil 'noerror)
+    (ac-config-default)
+      (setq ac-comphist-file
+        (expand-file-name "ac-comphist.dat" got/metafiles-dir))
+      (define-key ac-mode-map (kbd "S-TAB") 'auto-complete))
+
+#+END_SRC
+
 
 ** Automatic indentation
 
