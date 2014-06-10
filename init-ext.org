@@ -207,7 +207,6 @@ rather than make a sound (which I find annoying).
 
 #+END_SRC
 
-
 ** Automatic indentation
 
 Using ~C-j~ instead of ~RET~ normally runs the =newline-and-indent=
@@ -317,6 +316,14 @@ Enable ~ido-vertical-mode~ if it is available.
 #+BEGIN_SRC emacs-lisp
   (when (package-installed-p 'ido-vertical-mode)
     (ido-vertical-mode 1))
+#+END_SRC
+
+** show-paren-mode
+
+Enable matching of parenthesis globally.
+
+#+BEGIN_SRC emacs-lisp
+(show-paren-mode 1)
 #+END_SRC
 
 ** Smex
