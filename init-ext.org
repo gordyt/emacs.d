@@ -38,11 +38,16 @@ to the prompt.
 
 #+RESULTS:
 | _Package Name_       | _Package Description_                                                              |
+| auto-complete        | Auto Completion for GNU Emacs                                                      |
 | bind-key             | A simple way to manage personal keybindings                                        |
 | cask                 | Cask: Project management for Emacs package development                             |
+| concurrent           | Concurrent utility functions for emacs lisp                                        |
+| ctable               | Table component for Emacs Lisp                                                     |
 | dash                 | A modern list library for Emacs                                                    |
+| deferred             | Simple asynchronous functions for emacs lisp                                       |
 | diminish             | Diminished modes are minor modes with no modeline display                          |
 | drag-stuff           | Drag stuff (lines, words, region, etc...) around                                   |
+| epc                  | A RPC stack for the Emacs Lisp                                                     |
 | epl                  | Emacs Package Library                                                              |
 | exec-path-from-shell | Get environment variables such as $PATH from the shell                             |
 | expand-region        | Increase selected region by semantic units.                                        |
@@ -58,15 +63,19 @@ to the prompt.
 | idle-highlight-mode  | highlight the word the point is on                                                 |
 | ido-ubiquitous       | Use ido (nearly) everywhere.                                                       |
 | ido-vertical-mode    | Makes ido-mode display vertically.                                                 |
+| jedi                 | Python auto-completion for Emacs                                                   |
 | magit                | control Git from Emacs                                                             |
 | multiple-cursors     | Multiple cursors for Emacs.                                                        |
 | nyan-mode            | Nyan Cat shows position in current buffer in mode-line.                            |
+| org                  | Outline-based notes management and organizer                                       |
 | package-build        | Tools for assembling a package archive                                             |
 | pallet               | A package management tool for Emacs, using Cask.                                   |
 | pkg-info             | Information about packages                                                         |
+| popup                | Visual Popup User Interface                                                        |
 | popwin               | Popup Window Manager.                                                              |
 | prodigy              | Manage external services from within Emacs                                         |
 | projectile           | Manage and navigate projects in Emacs easily                                       |
+| python-environment   | virtualenv API for Emacs Lisp                                                      |
 | s                    | The long lost Emacs string manipulation library.                                   |
 | shut-up              | Shut up would you!                                                                 |
 | smartparens          | Automatic insertion, wrapping and paredit-like navigation with user defined pairs. |
