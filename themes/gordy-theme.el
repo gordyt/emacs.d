@@ -14,7 +14,7 @@ are included.")
 (let ((class '((class color) (min-colors 89))))
   (custom-theme-set-faces
    'gordy
-   `(default ((,class (:background "#242424" :foreground "#f6f3e8"))))
+   `(default ((,class (:background "#242424" :foreground "#f6f3e8" :height 141))))
    `(cursor ((,class (:background "#656565"))))
    ;; Highlighting faces
    `(fringe ((,class (:background "#303030"))))
