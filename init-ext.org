@@ -374,6 +374,38 @@ Load my default theme.
 (load-theme 'gordy t)
 #+END_SRC
 * Mode-Specific Hooks and Configuration
+** org-mode
+*** Global Key Bindings
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+#+END_SRC
+
+
+*** Org babel language support.  By default only emacs-lisp is enabled
+
+#+BEGIN_SRC emacs-lisp
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (python . t)
+     (ditaa . t)
+     (plantuml . t)
+     (clojure . t)
+     (calc . t)
+     (js . t)
+     (lisp . t)
+     (dot . t)
+     (scheme . t)
+     (sh . t)))
+
+#+END_SRC
+
+
 ** python-mode
 *** flycheck-mode
 
