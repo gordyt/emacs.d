@@ -57,19 +57,6 @@ correct order) and are followed by the non-duplicate elements of SRC-LIST"
 ;;    "curl" method: ~/.cask/bin
 ;; 3. cd to your $HOME/.emacs.d directory and run the "cask install" command.
 ;;
-;; NOTE:
-;;
-;; Here is what to do if you get the following error (see also
-;; http://comments.gmane.org/gmane.emacs.orgmode/70880).
-;;
-;;  invalid function org-with-silent-modifications
-;;
-;; 1. Exit out Emacs
-;; 2. cd to $HOME/.emacs.d
-;; 3. rm -rf .cask
-;; 4. cask install
-;; 5. restart Emacs
-;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; This is the location for all my Emacs configuration
@@ -82,7 +69,6 @@ correct order) and are followed by the non-duplicate elements of SRC-LIST"
  ((file-exists-p "/usr/local/share/emacs/site-lisp/cask.el")
   (require 'cask "/usr/local/share/emacs/site-lisp/cask.el"))  ; location for homebrew install
  (t (error "Unable to location a cask installation")))
-
 (cask-initialize)
 
 ;; Pallet maintains the "Cask" file in your .emacs.d directory.
@@ -95,13 +81,28 @@ correct order) and are followed by the non-duplicate elements of SRC-LIST"
 (require 'ert nil t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Validate org installation
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(when (not (cl-remove-if-not
+            (lambda (p) (equal 'org (car p)))
+            package-alist))
+  (message "No org-mode package found; installing now...")
+  (package-install 'org))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Load in the rest of my configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (require 'org)
+
+(when (string-lessp (org-version) "8.2")
+  (warn "Org-mode is out of date.  Expected version >= 8.2, found %s" (org-version)))
+
 (let ((main-init-file (expand-file-name "init-ext.org" got/dotfiles-dir)))
   (when (file-exists-p main-init-file)
-    (org-babel-load-file main-init-file)))
-
+      (org-babel-load-file main-init-file)))
 
 
 
