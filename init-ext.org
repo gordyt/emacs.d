@@ -373,8 +373,10 @@ arguments and code location.
 
 #+BEGIN_SRC emacs-lisp
   (when (package-installed-p 'jedi)
-    (add-hook 'python-mode-hook 'jedi:setup)
-    (setq jedi:complete-on-dot t))
+    (setq jedi:setup-keys t)
+    (setq jedi:complete-on-dot t)
+    (add-hook 'python-mode-hook 'jedi:setup))
+  
 #+END_SRC
 
 ** text-mode
