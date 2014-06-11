@@ -384,7 +384,13 @@ Load my default theme.
 #+END_SRC
 * Mode-Specific Hooks and Configuration
 ** org-mode
-*** Global Key Bindings
+*** org-mode global key bindings
+
+| function         | description                                                               |
+| =org-store-link= | save an /org-link/ to the current location.  Insert later with ~C-c C-l~. |
+| =org-capture=    | select capture template and insert in target location                     |
+| =org-agenda=     | dispatch agenda command                                                   |
+| =org-iswitchb=   | switch between org buffers                                                |
 
 #+BEGIN_SRC emacs-lisp
 (global-set-key "\C-cl" 'org-store-link)
@@ -393,7 +399,9 @@ Load my default theme.
 (global-set-key "\C-cb" 'org-iswitchb)
 #+END_SRC
 
-*** Org babel language support.  By default only emacs-lisp is enabled
+*** org-babel language support.  
+
+By default only emacs-lisp is enabled.
 
 #+BEGIN_SRC emacs-lisp
 
