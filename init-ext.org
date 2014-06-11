@@ -384,6 +384,32 @@ Load my default theme.
 #+END_SRC
 * Mode-Specific Hooks and Configuration
 ** org-mode
+
+*** got/load-link-other-frame
+
+Handy function that will load any kind of hyperlink that org understands
+into a brand-new frame.
+
+#+BEGIN_SRC emacs-lisp
+(defun got/load-link-other-frame (hyperlink)
+  "Load the specified HYPERLINK in frame called hyper-frame.
+The function will create it if necessary and will re-use it if it already
+exists.
+
+EXAMPLE USAGE:
+
+\(got/load-link-other-frame \"info:eintr#Writing%20Defuns\")"
+  (interactive "sHyperlink: ")
+  (save-excursion
+    (let* ((newframe-name "hyper-frame")
+           (newframe (car (filtered-frame-list
+                          (lambda (f) (string= newframe-name (frame-parameter f 'name)))))))
+      (select-frame
+       (if newframe newframe (make-frame (list (cons 'name newframe-name)))))
+      (org-open-link-from-string hyperlink))))
+
+#+END_SRC
+
 *** org-mode global key bindings
 
 | function         | description                                                               |
