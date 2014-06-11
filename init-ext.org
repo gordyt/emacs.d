@@ -84,8 +84,7 @@ to the prompt.
 | web-mode             | major mode for editing html templates                                              |
 | yasnippet            | Yet another snippet extension for Emacs.                                           |
 * Utility Functions
-
-These are just miscellaneous functions that are used later on.
+** got/load-file-base-name
 
 #+BEGIN_SRC emacs-lisp
   (defun got/load-file-base-name (directory base-name)
@@ -99,6 +98,31 @@ These are just miscellaneous functions that are used later on.
        ((file-exists-p org-file) (org-babel-load-file org-file))
        ((file-exists-p lisp-file) (load lisp-file)))))
   
+#+END_SRC
+
+** uconv
+
+This is a great formula for working with spreadsheets.
+
+#+BEGIN_SRC emacs-lisp
+  (defmath uconv (expression new-units)
+    "Perform unit conversion on a calc expression.
+
+Example (calling from elisp - note having to prepend  'calcFunc-' 
+to the function name):
+
+    (calcFunc-uconv (calc-eval \"5.38 mi + 2500 m\" 'raw) \"mi\")
+
+Here is a more complicated example that sums a column of distances and converts
+the result to use miles (formatted to 2 decimal places):
+
+    '(calcFunc-uconv (calc-eval (mapconcat 'identity (list @III..@IIII) \" + \") 'raw) \"mi\");%.2f mi
+
+"
+    (calc-eval
+     (math-convert-units
+      (calc-eval expression 'raw)
+      (calc-eval new-units 'raw))))
 #+END_SRC
 
 * Custom Settings File
@@ -473,7 +497,6 @@ This minor mode is turned on in two situations:
    srv-src-tab-acts-natively t     ; effect of TAB in code block as if issued in language major mode buffer
    )
 #+END_SRC
-
 
 ** python-mode
 *** flycheck-mode
