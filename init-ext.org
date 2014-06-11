@@ -354,6 +354,14 @@ Enable ~ido-vertical-mode~ if it is available.
     (ido-vertical-mode 1))
 #+END_SRC
 
+** newlines
+
+Add a newline to the end of a file on save.
+
+#+BEGIN_SRC 
+(setq require-final-newline t)
+#+END_SRC
+
 ** powerline
 
 Powerline is a library for customizing the mode-line that is based on
