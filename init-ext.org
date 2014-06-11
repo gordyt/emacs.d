@@ -605,3 +605,36 @@ Automatically enable auto fill mode.
 #+BEGIN_SRC emacs-lisp
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 #+END_SRC
+** whitespace-mode
+
+Configure whitespace visualization.  Here is a breakdown of the
+settings that I use.
+
+These are the ~whitespace-style~ options.
+
+| Option           | Description                                                                        |
+|------------------+------------------------------------------------------------------------------------|
+| face             | enable all visualization via faces                                                 |
+| trailing         | trailing blanks are visualized via faces, if ~face~ present in ~whitespace-style~  |
+| lines-tail       | lines which have columns beyond ~whitespace-line-column~ are highlighted via faces |
+| space-before-tab | SPACEs before TAB visulized if ~indent-tabs-mode~ is non nil                       |
+| indentation      | 8 or more SPACESs at beginning of line visualized if ~indent-tabs-mode~ non nil    |
+| space-after-tab  | 8 or more SPACEs after TAB visualized if ~indent-tabs-mode~ is non nil             |
+
+The ~whitespace-line-column~ setting specifies the column beyond which
+the line is highlighted.  It is used only when ~whitespace-style~
+includes ~lines~ or ~lines-tail~.  I have it set for 80 columns.
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'whitespace)
+    (setq whitespace-style '(
+                             face
+                             trailing
+                             lines-tail
+                             space-before-tab
+                             indentation
+                             space-after-tab
+                             ))
+    (setq whitespace-line-column 80))
+
+#+END_SRC
