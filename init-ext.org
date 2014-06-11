@@ -422,6 +422,26 @@ Load my default theme.
 (load-theme 'gordy t)
 #+END_SRC
 * Mode-Specific Hooks and Configuration
+** cider-mode
+
+Really just a few notes here.  If you want to use /cider/ to connect
+to a running ~lein repl~ session, you must make sure to update the
+~project.clj~ file and add the following:
+
+#+BEGIN_EXAMPLE
+:plugins [[cider/cider-nrepl "0.7.0-SNAPSHOT"]]
+#+END_EXAMPLE
+
+If you do not you will get the following error:
+
+#+BEGIN_EXAMPLE
+Error: (error "Can't find nREPL middleware providing op \"stacktrace\".  
+Please, install cider-nrepl 0.7.0-snapshot and restart CIDER")
+#+END_EXAMPLE
+
+If this does happen, you will want to kill the ~lein repl~ session.
+This will allow Emacs to start accepting input again.
+
 ** org-mode
 
 *** got/load-link-other-frame
