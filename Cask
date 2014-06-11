@@ -6,6 +6,8 @@
 (depends-on "auto-complete")
 (depends-on "bind-key")
 (depends-on "cask")
+(depends-on "clojure-mode")
+(depends-on "clojure-mode-extra-font-locking")
 (depends-on "concurrent")
 (depends-on "ctable")
 (depends-on "dash")

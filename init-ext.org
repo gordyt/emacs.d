@@ -37,53 +37,55 @@ to the prompt.
 #+END_SRC
 
 #+RESULTS:
-| _Package Name_       | _Package Description_                                                              |
-| auto-complete        | Auto Completion for GNU Emacs                                                      |
-| bind-key             | A simple way to manage personal keybindings                                        |
-| cask                 | Cask: Project management for Emacs package development                             |
-| concurrent           | Concurrent utility functions for emacs lisp                                        |
-| ctable               | Table component for Emacs Lisp                                                     |
-| dash                 | A modern list library for Emacs                                                    |
-| deferred             | Simple asynchronous functions for emacs lisp                                       |
-| diminish             | Diminished modes are minor modes with no modeline display                          |
-| drag-stuff           | Drag stuff (lines, words, region, etc...) around                                   |
-| epc                  | A RPC stack for the Emacs Lisp                                                     |
-| epl                  | Emacs Package Library                                                              |
-| exec-path-from-shell | Get environment variables such as $PATH from the shell                             |
-| expand-region        | Increase selected region by semantic units.                                        |
-| f                    | Modern API for working with files and directories                                  |
-| flx                  | fuzzy matching with good sorting                                                   |
-| flx-ido              | flx integration for ido                                                            |
-| flycheck             | Modern on-the-fly syntax checking for GNU Emacs                                    |
-| flycheck-cask        | Cask support in Flycheck                                                           |
-| git-commit-mode      | Major mode for editing git commit messages                                         |
-| git-rebase-mode      | Major mode for editing git rebase files                                            |
-| helm                 | Helm is an Emacs incremental and narrowing framework                               |
-| htmlize              | Convert buffer text and decorations to HTML.                                       |
-| idle-highlight-mode  | highlight the word the point is on                                                 |
-| ido-ubiquitous       | Use ido (nearly) everywhere.                                                       |
-| ido-vertical-mode    | Makes ido-mode display vertically.                                                 |
-| jedi                 | Python auto-completion for Emacs                                                   |
-| magit                | control Git from Emacs                                                             |
-| multiple-cursors     | Multiple cursors for Emacs.                                                        |
-| nyan-mode            | Nyan Cat shows position in current buffer in mode-line.                            |
-| org                  | Outline-based notes management and organizer                                       |
-| package-build        | Tools for assembling a package archive                                             |
-| pallet               | A package management tool for Emacs, using Cask.                                   |
-| pkg-info             | Information about packages                                                         |
-| popup                | Visual Popup User Interface                                                        |
-| popwin               | Popup Window Manager.                                                              |
-| powerline            | Rewrite of Powerline                                                               |
-| prodigy              | Manage external services from within Emacs                                         |
-| projectile           | Manage and navigate projects in Emacs easily                                       |
-| python-environment   | virtualenv API for Emacs Lisp                                                      |
-| s                    | The long lost Emacs string manipulation library.                                   |
-| shut-up              | Shut up would you!                                                                 |
-| smartparens          | Automatic insertion, wrapping and paredit-like navigation with user defined pairs. |
-| smex                 | M-x interface with Ido-style fuzzy matching.                                       |
-| use-package          | A use-package declaration for simplifying your .emacs                              |
-| web-mode             | major mode for editing html templates                                              |
-| yasnippet            | Yet another snippet extension for Emacs.                                           |
+| _Package Name_                  | _Package Description_                                                              |
+| auto-complete                   | Auto Completion for GNU Emacs                                                      |
+| bind-key                        | A simple way to manage personal keybindings                                        |
+| cask                            | Cask: Project management for Emacs package development                             |
+| clojure-mode                    | Major mode for Clojure code                                                        |
+| clojure-mode-extra-font-locking | Extra font-locking for Clojure mode                                                |
+| concurrent                      | Concurrent utility functions for emacs lisp                                        |
+| ctable                          | Table component for Emacs Lisp                                                     |
+| dash                            | A modern list library for Emacs                                                    |
+| deferred                        | Simple asynchronous functions for emacs lisp                                       |
+| diminish                        | Diminished modes are minor modes with no modeline display                          |
+| drag-stuff                      | Drag stuff (lines, words, region, etc...) around                                   |
+| epc                             | A RPC stack for the Emacs Lisp                                                     |
+| epl                             | Emacs Package Library                                                              |
+| exec-path-from-shell            | Get environment variables such as $PATH from the shell                             |
+| expand-region                   | Increase selected region by semantic units.                                        |
+| f                               | Modern API for working with files and directories                                  |
+| flx                             | fuzzy matching with good sorting                                                   |
+| flx-ido                         | flx integration for ido                                                            |
+| flycheck                        | Modern on-the-fly syntax checking for GNU Emacs                                    |
+| flycheck-cask                   | Cask support in Flycheck                                                           |
+| git-commit-mode                 | Major mode for editing git commit messages                                         |
+| git-rebase-mode                 | Major mode for editing git rebase files                                            |
+| helm                            | Helm is an Emacs incremental and narrowing framework                               |
+| htmlize                         | Convert buffer text and decorations to HTML.                                       |
+| idle-highlight-mode             | highlight the word the point is on                                                 |
+| ido-ubiquitous                  | Use ido (nearly) everywhere.                                                       |
+| ido-vertical-mode               | Makes ido-mode display vertically.                                                 |
+| jedi                            | Python auto-completion for Emacs                                                   |
+| magit                           | control Git from Emacs                                                             |
+| multiple-cursors                | Multiple cursors for Emacs.                                                        |
+| nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
+| org                             | Outline-based notes management and organizer                                       |
+| package-build                   | Tools for assembling a package archive                                             |
+| pallet                          | A package management tool for Emacs, using Cask.                                   |
+| pkg-info                        | Information about packages                                                         |
+| popup                           | Visual Popup User Interface                                                        |
+| popwin                          | Popup Window Manager.                                                              |
+| powerline                       | Rewrite of Powerline                                                               |
+| prodigy                         | Manage external services from within Emacs                                         |
+| projectile                      | Manage and navigate projects in Emacs easily                                       |
+| python-environment              | virtualenv API for Emacs Lisp                                                      |
+| s                               | The long lost Emacs string manipulation library.                                   |
+| shut-up                         | Shut up would you!                                                                 |
+| smartparens                     | Automatic insertion, wrapping and paredit-like navigation with user defined pairs. |
+| smex                            | M-x interface with Ido-style fuzzy matching.                                       |
+| use-package                     | A use-package declaration for simplifying your .emacs                              |
+| web-mode                        | major mode for editing html templates                                              |
+| yasnippet                       | Yet another snippet extension for Emacs.                                           |
 * Utility Functions
 ** got/load-file-base-name
 
