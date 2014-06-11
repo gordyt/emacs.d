@@ -11,7 +11,7 @@
   ;;;
   ;;; Code:
   ;;;
-  
+
 #+END_SRC
 
 * Packages List
@@ -32,7 +32,7 @@ to the prompt.
         (list (car pkg-desc) (package-desc-doc (cdr pkg-desc))))
       package-alist)
      `(lambda (a b) (string-lessp (car a) (car b))))))
-  
+
   (got/gen-package-table)
 #+END_SRC
 
@@ -92,7 +92,7 @@ to the prompt.
 #+BEGIN_SRC emacs-lisp
   (defun got/load-file-base-name (directory base-name)
     "Look for files located in DIRECTORY whose base name is BASE-NAME.
-  
+
   If BASE-NAME.org exists, load it via org-babel-laod-file
   Else if BASE-NAME.el exists, load it via load"
     (let ((org-file (expand-file-name (concat base-name ".org") directory))
@@ -100,7 +100,7 @@ to the prompt.
       (cond
        ((file-exists-p org-file) (org-babel-load-file org-file))
        ((file-exists-p lisp-file) (load lisp-file)))))
-  
+
 #+END_SRC
 
 ** uconv
@@ -111,7 +111,7 @@ This is a great formula for working with spreadsheets.
   (defmath uconv (expression new-units)
     "Perform unit conversion on a calc expression.
 
-Example (calling from elisp - note having to prepend  'calcFunc-' 
+Example (calling from elisp - note having to prepend  'calcFunc-'
 to the function name):
 
     (calcFunc-uconv (calc-eval \"5.38 mi + 2500 m\" 'raw) \"mi\")
@@ -138,7 +138,7 @@ helps keep my ~init.el~ file cleaner.
 #+END_SRC
 * Load Private settings
 
-These are things like email settings, etc.  I keep them in a file in my 
+These are things like email settings, etc.  I keep them in a file in my
 ~emacs.d~ directory called ~.private.el~ and I do /not/ save this file in git.
 
 #+BEGIN_SRC emacs-lisp
@@ -163,12 +163,12 @@ and the file that we look for would be ~gnu-linux.org~ or ~gnu-linux.el~.
   (let* ((system-name (symbol-name system-type))
          (base-name (replace-regexp-in-string "/" "-" system-name)))
     (got/load-file-base-name got/dotfiles-dir base-name))
-                    
+
 #+END_SRC
 
 * Library Paths
 
-All configuration is stored under =got/dotfiles-dir= (=~/.emacs.d=).  
+All configuration is stored under =got/dotfiles-dir= (=~/.emacs.d=).
 Meta-information files (backups, etc.) are stored in =got/metafiles-dir=.
 
 #+BEGIN_SRC emacs-lisp
@@ -191,17 +191,18 @@ Add all top-level directories in =got/dotfiles-dir= to the load path.
 These variables are used to configure where other services store various files that
 they create.
 
-| Variable Name        | Description                                                                                               |
-|----------------------+-----------------------------------------------------------------------------------------------------------|
-| got/meta-backup      | Location for backup files                                                                                 |
-| got/auto-save-prefix | Location for autosave files                                                                               |
-| got/themes-dir       | Location for my custom themes                                                                             |
-| got/meta-ido         | file where id state is saved between invocations                                                          |
-| got/ac-comphist-file | path to the auto complete history file                                                                    |
+| Variable Name        | Description                                      |
+|----------------------+--------------------------------------------------|
+| got/meta-backup      | Location for backup files                        |
+| got/auto-save-prefix | Location for autosave files                      |
+| got/themes-dir       | Location for my custom themes                    |
+| got/meta-ido         | file where id state is saved between invocations |
+| got/ac-comphist-file | path to the auto complete history file           |
+| got/meta-recent      | where to store list of recently visited files    |
 
 
 #+BEGIN_SRC emacs-lisp
-  (defvar got/meta-backup 
+  (defvar got/meta-backup
     (expand-file-name "backups" got/metafiles-dir)
     "Location of backup files")
   (defvar got/auto-save-prefix
@@ -213,6 +214,9 @@ they create.
   (defvar got/meta-ido
     (expand-file-name "ido.last" got/metafiles-dir)
     "file where id state is saved between invocations")
+  (defvar got/meta-recent
+    (expand-file-name "recent" got/metafiles-dir)
+    "where to store list of recently visited files")
 
 #+END_SRC
 
@@ -233,7 +237,7 @@ rather than make a sound (which I find annoying).
 (setq visible-bell t)
 #+END_SRC
 
-** Autocomplete 
+** Autocomplete
 
 #+BEGIN_SRC emacs-lisp
   (when (require 'auto-complete-config nil 'noerror)
@@ -328,7 +332,7 @@ Enable ~ido-mode~ if it is available.
 #+BEGIN_SRC emacs-lisp
     (when (package-installed-p 'ido)
       (ido-mode t)
-      (setq 
+      (setq
        ido-save-directory-list-file got/meta-ido    ; file where id state is saved between invocations
        confirm-nonexistent-file-or-buffer nil       ; Turn off annoying confirmation
        ido-case-fold t                              ; be case-insensitive
@@ -342,10 +346,10 @@ Enable ~ido-mode~ if it is available.
        ido-create-new-buffer 'always                ; ido creates new buffer unconditionally
        ido-confirm-unique-completion t              ; even a unique confirmation must be confirmed
        )
-  
+
     ;; enable ido for all buffer/file reading
     (ido-everywhere))
-      
+
 #+END_SRC
 
 Enable ~ido-vertical-mode~ if it is available.
@@ -359,7 +363,7 @@ Enable ~ido-vertical-mode~ if it is available.
 
 Add a newline to the end of a file on save.
 
-#+BEGIN_SRC 
+#+BEGIN_SRC
 (setq require-final-newline t)
 #+END_SRC
 
@@ -468,7 +472,7 @@ to a running ~lein repl~ session, you must make sure to update the
 If you do not you will get the following error:
 
 #+BEGIN_EXAMPLE
-Error: (error "Can't find nREPL middleware providing op \"stacktrace\".  
+Error: (error "Can't find nREPL middleware providing op \"stacktrace\".
 Please, install cider-nrepl 0.7.0-snapshot and restart CIDER")
 #+END_EXAMPLE
 
@@ -517,7 +521,7 @@ EXAMPLE USAGE:
 (global-set-key "\C-cb" 'org-iswitchb)
 #+END_SRC
 
-*** org-babel language support.  
+*** org-babel language support.
 
 By default only emacs-lisp is enabled.
 
@@ -588,7 +592,7 @@ arguments and code location.
     (setq jedi:setup-keys t)
     (setq jedi:complete-on-dot t)
     (add-hook 'python-mode-hook 'jedi:setup))
-  
+
 #+END_SRC
 
 ** shift-select-mode
@@ -614,6 +618,21 @@ Automatically enable auto fill mode.
 #+BEGIN_SRC emacs-lisp
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 #+END_SRC
+** resentf-mode
+
+Enable ~recentf~ mode which will save a list of recent files visited.
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'recentf)
+    (setq recentf-mode 1
+          recentf-save-file got/meta-recent    ; where to store the file
+          recentf-max-saved-items 100          ; save 100 most recent files visited
+          recentf-max-menu-items 15            ; max 15 items in the menu
+          )
+    (recentf-mode t))
+
+#+END_SRC
+
 ** whitespace-mode
 
 Configure whitespace visualization.  Here is a breakdown of the
