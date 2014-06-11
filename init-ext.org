@@ -566,6 +566,22 @@ arguments and code location.
   
 #+END_SRC
 
+** shift-select-mode
+
+When non-nil, shifted motion keys activate the mark momentarily.
+
+While the mark is activated in this way, any shift-translated point
+motion key extends the region, and if Transient Mark mode was off, it
+is temporarily turned on.  Furthermore, the mark will be deactivated
+by any subsequent point motion key that was not shift-translated, or
+by any action that normally deactivates the mark in Transient Mark mode.
+
+The following setting disables the use of shift+arrows for mark.
+
+#+BEGIN_SRC emacs-lisp
+  (setq shift-select-mode nil)
+#+END_SRC
+
 ** text-mode
 
 Automatically enable auto fill mode.
