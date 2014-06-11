@@ -406,6 +406,14 @@ Hide the toolbar when running in a window-system on a mac.  Otherwise enable it.
     (tool-bar-mode 1))
 #+END_SRC
 
+** truncate lines
+
+Respect the value of =truncate-lines= with respect to line truncation.
+
+#+BEGIN_SRC emacs-lisp
+(setq truncate-partial-width-windows nil)
+#+END_SRC
+
 ** Uniquify
 
 The library [[http://www.emacswiki.org/emacs/uniquify][uniquify]] overrides Emacs’ default mechanism for making
