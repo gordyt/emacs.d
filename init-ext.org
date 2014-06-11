@@ -411,6 +411,14 @@ buffer names distinguishable.
   (setq uniquify-buffer-name-style 'forward))
 #+END_SRC
 
+** UTF-8 Settings
+
+#+BEGIN_SRC emacs-lisp
+(set-terminal-coding-system 'utf-8) ; set terminal output to utf-8
+(set-keyboard-coding-system 'utf-8) ; set terminal input to utf-8
+(prefer-coding-system 'utf-8)       ; set preferred coding to utf-8
+#+END_SRC
+
 * Theme Configuration
 
 Load my default theme.
