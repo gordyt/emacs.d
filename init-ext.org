@@ -73,6 +73,7 @@ to the prompt.
 | pkg-info             | Information about packages                                                         |
 | popup                | Visual Popup User Interface                                                        |
 | popwin               | Popup Window Manager.                                                              |
+| powerline            | Rewrite of Powerline                                                               |
 | prodigy              | Manage external services from within Emacs                                         |
 | projectile           | Manage and navigate projects in Emacs easily                                       |
 | python-environment   | virtualenv API for Emacs Lisp                                                      |
@@ -349,6 +350,18 @@ Enable ~ido-vertical-mode~ if it is available.
 #+BEGIN_SRC emacs-lisp
   (when (package-installed-p 'ido-vertical-mode)
     (ido-vertical-mode 1))
+#+END_SRC
+
+** powerline
+
+Powerline is a library for customizing the mode-line that is based on
+the Vim Powerline. A collection of predefined themes comes with the
+package.
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'powerline)
+    (powerline-default-theme)
+    (which-function-mode 0))
 #+END_SRC
 
 ** show-paren-mode
