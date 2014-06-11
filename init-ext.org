@@ -191,13 +191,13 @@ Add all top-level directories in =got/dotfiles-dir= to the load path.
 These variables are used to configure where other services store various files that
 they create.
 
-| Variable Name        | Description                                      |
-|----------------------+--------------------------------------------------|
-| got/meta-backup      | Location for backup files                        |
-| got/auto-save-prefix | Location for autosave files                      |
-| got/themes-dir       | Location for my custom themes                    |
-| got/meta-ido         | file where id state is saved between invocations |
-| got/ac-comphist-file | path to the auto complete history file           |
+| Variable Name        | Description                                                                                               |
+|----------------------+-----------------------------------------------------------------------------------------------------------|
+| got/meta-backup      | Location for backup files                                                                                 |
+| got/auto-save-prefix | Location for autosave files                                                                               |
+| got/themes-dir       | Location for my custom themes                                                                             |
+| got/meta-ido         | file where id state is saved between invocations                                                          |
+| got/ac-comphist-file | path to the auto complete history file                                                                    |
 
 
 #+BEGIN_SRC emacs-lisp
@@ -213,6 +213,7 @@ they create.
   (defvar got/meta-ido
     (expand-file-name "ido.last" got/metafiles-dir)
     "file where id state is saved between invocations")
+
 #+END_SRC
 
 * General Emacs Configuration
@@ -394,6 +395,14 @@ commands. And to all the other commands, too.
     (global-set-key (kbd "M-x") 'smex)
     (global-set-key (kbd "M-X") 'smex-major-mode-commands)
     )
+#+END_SRC
+
+** tab width
+
+Set the default tab with to 4 spaces.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default tab-width 4)
 #+END_SRC
 
 ** Toolbar
