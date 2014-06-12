@@ -26,6 +26,7 @@
 (depends-on "flycheck-cask")
 (depends-on "git-commit-mode")
 (depends-on "git-rebase-mode")
+(depends-on "haskell-mode")
 (depends-on "helm")
 (depends-on "htmlize")
 (depends-on "idle-highlight-mode")
