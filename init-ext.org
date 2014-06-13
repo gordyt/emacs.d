@@ -83,6 +83,7 @@ to the prompt.
 | python-environment              | virtualenv API for Emacs Lisp                                                      |
 | s                               | The long lost Emacs string manipulation library.                                   |
 | shut-up                         | Shut up would you!                                                                 |
+| slime                           | Superior Lisp Interaction Mode for Emacs                                           |
 | smartparens                     | Automatic insertion, wrapping and paredit-like navigation with user defined pairs. |
 | smex                            | M-x interface with Ido-style fuzzy matching.                                       |
 | undo-tree                       | Treat undo history as a tree                                                       |
@@ -496,6 +497,16 @@ Please, install cider-nrepl 0.7.0-snapshot and restart CIDER")
 If this does happen, you will want to kill the ~lein repl~ session.
 This will allow Emacs to start accepting input again.
 
+** lisp-mode
+
+Slime configuration for editing Lisp code.  Tell /slime/ what Lisp to
+run.  In this case we are configuring it to use [[http://sbcl.org/][Steel Bank Common Lisp]].
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'slime)
+    (setq inferior-lisp-program "sbcl"))
+#+END_SRC
+
 ** org-mode
 
 *** got/load-link-other-frame
@@ -663,7 +674,6 @@ active.
   (when (require 'undo-tree nil 'noerror)
     (global-undo-tree-mode))
 #+END_SRC
-
 
 ** whitespace-mode
 

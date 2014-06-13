@@ -48,6 +48,7 @@
 (depends-on "python-environment")
 (depends-on "s")
 (depends-on "shut-up")
+(depends-on "slime")
 (depends-on "smartparens")
 (depends-on "smex")
 (depends-on "undo-tree")
