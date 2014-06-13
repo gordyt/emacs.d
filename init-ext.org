@@ -41,6 +41,7 @@ to the prompt.
 | auto-complete                   | Auto Completion for GNU Emacs                                                      |
 | bind-key                        | A simple way to manage personal keybindings                                        |
 | cask                            | Cask: Project management for Emacs package development                             |
+| cider                           | Clojure Integrated Development Environment and REPL                                |
 | clojure-mode                    | Major mode for Clojure code                                                        |
 | clojure-mode-extra-font-locking | Extra font-locking for Clojure mode                                                |
 | concurrent                      | Concurrent utility functions for emacs lisp                                        |
@@ -60,6 +61,7 @@ to the prompt.
 | flycheck-cask                   | Cask support in Flycheck                                                           |
 | git-commit-mode                 | Major mode for editing git commit messages                                         |
 | git-rebase-mode                 | Major mode for editing git rebase files                                            |
+| haskell-mode                    | A Haskell editing mode                                                             |
 | helm                            | Helm is an Emacs incremental and narrowing framework                               |
 | htmlize                         | Convert buffer text and decorations to HTML.                                       |
 | idle-highlight-mode             | highlight the word the point is on                                                 |
@@ -83,6 +85,7 @@ to the prompt.
 | shut-up                         | Shut up would you!                                                                 |
 | smartparens                     | Automatic insertion, wrapping and paredit-like navigation with user defined pairs. |
 | smex                            | M-x interface with Ido-style fuzzy matching.                                       |
+| undo-tree                       | Treat undo history as a tree                                                       |
 | use-package                     | A use-package declaration for simplifying your .emacs                              |
 | web-mode                        | major mode for editing html templates                                              |
 | yasnippet                       | Yet another snippet extension for Emacs.                                           |
@@ -245,7 +248,6 @@ rather than make a sound (which I find annoying).
       (setq ac-comphist-file
         (expand-file-name "ac-comphist.dat" got/metafiles-dir))
       (define-key ac-mode-map (kbd "S-TAB") 'auto-complete))
-
 #+END_SRC
 
 ** Automatic indentation
@@ -647,6 +649,21 @@ Enable ~recentf~ mode which will save a list of recent files visited.
     (recentf-mode t))
 
 #+END_SRC
+
+** undo-tree-mode
+Undo-tree-mode replaces Emacs' standard undo feature with a more
+powerful yet easier to use version, that treats the undo history
+as what it is: a tree.
+
+Enable global undo tree mode if the package is available.  Trigger
+visualiztion via ~C-x u~.  Exit by hitting "q" with desired node
+active.
+
+#+BEGIN_SRC emacs-lisp
+  (when (require 'undo-tree nil 'noerror)
+    (global-undo-tree-mode))
+#+END_SRC
+
 
 ** whitespace-mode
 

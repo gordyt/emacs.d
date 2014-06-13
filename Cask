@@ -50,6 +50,7 @@
 (depends-on "shut-up")
 (depends-on "smartparens")
 (depends-on "smex")
+(depends-on "undo-tree")
 (depends-on "use-package")
 (depends-on "web-mode")
 (depends-on "yasnippet")
