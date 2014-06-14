@@ -3,6 +3,7 @@
 (source melpa)
 (source org)
 
+(depends-on "ac-slime")
 (depends-on "auto-complete")
 (depends-on "bind-key")
 (depends-on "cask")
