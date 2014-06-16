@@ -542,6 +542,17 @@ run.  In this case we are configuring it to use [[http://sbcl.org/][Steel Bank C
       '(add-to-list 'ac-modes 'slime-repl-mode)))
 #+END_SRC
 
+*** Common Lisp Hyperspec
+
+If we have a local cached copy of the [[http://www.lispworks.com/documentation/HyperSpec/Front/][Common Lisp HyperSpec]], we will
+look here for documentation.
+
+#+BEGIN_SRC emacs-lisp
+  (when (boundp 'got/common-lisp-hyperspec-root)
+    (setq common-lisp-hyperspec-root got/common-lisp-hyperspec-root))
+
+#+END_SRC
+
 ** org-mode
 
 *** got/load-link-other-frame

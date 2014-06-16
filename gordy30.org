@@ -1,0 +1,15 @@
+* gordy30
+
+Configuration that is specific to /gordy30/.
+
+** Common Lisp
+
+This is used to configure an alternate lookup for Common Lisp
+documentation.  For example ~C-c C-d h~ will lookup the symbol
+at /point/.
+
+#+BEGIN_SRC emacs-lisp
+  (defvar got/common-lisp-hyperspec-root
+    "file:/Users/gordy/Documents/HyperSpec-7-0/HyperSpec/"
+    "My local copy of the Common Lisp Hyperspec")
+#+END_SRC
