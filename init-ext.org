@@ -172,6 +172,17 @@ and the file that we look for would be ~gnu-linux.org~ or ~gnu-linux.el~.
 
 #+END_SRC
 
+* Load Hostname-specific Settings File
+
+This is yet another more specify place where settings can
+go. Here we look for files named <hostname>.org, or <hostname>.el
+and load them.
+
+#+BEGIN_SRC emacs-lisp
+  (let ((host-name-base (car (split-string (system-name) "\\."))))
+    (got/load-file-base-name got/dotfiles-dir host-name-base))
+#+END_SRC
+
 * Library Paths
 
 All configuration is stored under =got/dotfiles-dir= (=~/.emacs.d=).
