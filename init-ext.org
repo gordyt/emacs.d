@@ -70,6 +70,8 @@ to the prompt.
 | ido-vertical-mode               | Makes ido-mode display vertically.                                                 |
 | jedi                            | Python auto-completion for Emacs                                                   |
 | magit                           | control Git from Emacs                                                             |
+| markdown-mode                   | Emacs Major mode for Markdown-formatted text files                                 |
+| markdown-mode+                  | extra functions for markdown-mode                                                  |
 | multiple-cursors                | Multiple cursors for Emacs.                                                        |
 | nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
 | org                             | Outline-based notes management and organizer                                       |

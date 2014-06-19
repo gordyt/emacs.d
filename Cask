@@ -35,6 +35,8 @@
 (depends-on "ido-vertical-mode")
 (depends-on "jedi")
 (depends-on "magit")
+(depends-on "markdown-mode")
+(depends-on "markdown-mode+")
 (depends-on "multiple-cursors")
 (depends-on "nyan-mode")
 (depends-on "org")
