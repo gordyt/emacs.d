@@ -497,6 +497,28 @@ enable our configuration based on two things:
     (warn "w3m not available"))
 #+END_SRC
 
+** wrap-region
+
+This is a small function that implements a small bit of functionality
+that I didn't get from the fantastic /smartparens/ package.  Basically
+you mark any region and invoke this function.  It will prompt you to
+enter a bit of text and hit RET.  The text you enter will be inserted
+around the region.  I have this function bound to =C-c C-g w=.
+
+#+BEGIN_SRC emacs-lisp
+(defun got/wrap-region (start end  text)
+  "Wrap the region delineated by START and END with TEXT"
+  (interactive "r\nstext: ")
+  (save-excursion
+	(goto-char end)
+	(insert text)
+	(goto-char start)
+	(insert text)))
+	
+
+(bind-key "C-c C-g w" 'got/wrap-region)
+#+END_SRC
+
 * Theme Configuration
 
 Load my default theme.
