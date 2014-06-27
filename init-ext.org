@@ -442,6 +442,18 @@ Set the default tab with to 4 spaces.
 (setq-default tab-width 4)
 #+END_SRC
 
+** tangle buffer
+
+Quick way to tell org to tangle the current buffer.
+
+#+BEGIN_SRC emacs-lisp
+(bind-key "C-c C-g t"
+		  '(lambda ()
+			 "Tangle the current buffer"
+			 (interactive)
+			 (org-babel-tangle-file buffer-file-name)))
+#+END_SRC
+
 ** Toolbar
 
 Hide the toolbar when running in a window-system on a mac.  Otherwise enable it.
