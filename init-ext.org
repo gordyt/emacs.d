@@ -600,6 +600,17 @@ look here for documentation.
 #+END_SRC
 
 ** org-mode
+*** handle x-devonthink-item links
+
+I got this tip from [[https://github.com/jwiegley/dot-emacs/blob/master/lisp/org-devonthink.el][John Wiegley's org-devonthink.el]] file:
+
+#+BEGIN_SRC emacs-lisp
+  (org-add-link-type "x-devonthink-item" 'got/org-dtp-open)
+
+  (defun got/org-dtp-open (record-location)
+    "Visit the DEVONthink Pro message with the given Message Identifier"
+    (shell-command (concat "open x-devonthink-item:" record-location)))
+#+END_SRC
 
 *** got/load-link-other-frame
 
