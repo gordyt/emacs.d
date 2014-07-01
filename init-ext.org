@@ -674,6 +674,18 @@ By default only emacs-lisp is enabled.
 
 #+END_SRC
 
+*** org-bullet (experimental)
+
+This is some experimental code.
+
+Load my /org-bullet/ stuff if it is available.
+
+#+BEGIN_SRC emacs-lisp
+  (let* ((org-bullet-code (concat got/dotfiles-dir "org-bullet.org"))
+         (org-bullet-exists (file-exists-p org-bullet-code)))
+    (and org-bullet-exists (org-babel-load-file org-bullet-code)))
+#+END_SRC
+
 *** org-capture
 
 Define basic /org-capture/ templates.  I currently have just one.
