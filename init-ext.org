@@ -111,6 +111,17 @@ to the prompt.
 
 #+END_SRC
 
+** got/send-region-to-jrnl
+
+Got the idea from [[http://ericjmritz.name/2014/06/30/send-emacs-buffer-to-jrnl/][here]].
+
+#+BEGIN_SRC emacs-lisp
+  (defun got/send-region-to-jrnl (start end)
+    "Send contents of region delineated by START and END to jrnl."
+    (interactive "r")
+    (call-process-region start end "jrnl"))
+#+END_SRC
+
 ** uconv
 
 This is a great formula for working with spreadsheets.
