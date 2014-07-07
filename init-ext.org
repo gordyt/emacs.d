@@ -324,6 +324,17 @@ Configure the behaviour of Emacs file backups.
   )
 #+END_SRC
 
+** Ediff
+
+You can invoke /ediff/ from within /magit/ by typing ~e~ with the
+point on any file in the list of changes.  By default it positions the
+two ediff windows on top of each other.  I prefer them to be
+side-by-side.
+
+#+BEGIN_SRC emacs-lisp
+  (setq ediff-split-window-function 'split-window-horizontally)
+#+END_SRC
+
 ** expand-region
 
 Create ~C-=~ keybinding to invoce the =er/expand-region=
