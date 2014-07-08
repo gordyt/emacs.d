@@ -13,3 +13,23 @@ at /point/.
     "file:/Users/gordy/Documents/HyperSpec-7-0/HyperSpec/"
     "My local copy of the Common Lisp Hyperspec")
 #+END_SRC
+** Font Customization
+
+I recently installed a couple of cool Adobe open source fonts:
+
+- [[http://store1.adobe.com/cfusion/store/html/index.cfm?event%3DdisplayFontPackage&code%3D1960][Source Code Pro]]
+- [[https://store1.adobe.com/cfusion/store/html/index.cfm?event%3DdisplayFontPackage&code%3D1959][Source Sans Pro]]
+
+The following updates the default font and size when running on my
+laptop.
+
+#+BEGIN_SRC emacs-lisp
+  (let* ((font-family "Source Code Pro")
+         (font-description (concat font-family "-16")))
+    (when (find-font (font-spec :name font-family))
+      (set-frame-font font-description nil t)))
+#+END_SRC
+
+*** References
+
+- [[http://www.emacswiki.org/emacs/SetFonts][Emacs Wiki - Set Fonts]]

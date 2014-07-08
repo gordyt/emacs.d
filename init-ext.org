@@ -573,14 +573,25 @@ around the region.  I have this function bound to =C-c C-g w=.
 
 * Theme Configuration
 
-Load my default theme.
+Make my custom themes directory available to Emacs.  
+
+- Do ~M-x customize-themes~ to see a list of all your available themes.
+- Do ~M-x load-theme~ to load a new theme.
 
 #+BEGIN_SRC emacs-lisp
 (setq custom-theme-directory got/themes-dir)
+;; EXAMPLE: Loading a new theme
 ;; specifying the t option to load-theme prevents being asked about
 ;; loading an unsafe theme.
-(load-theme 'gordy t)
+;; (load-theme 'gordy t)
 #+END_SRC
+
+Now let's load a new theme I found.
+
+#+BEGIN_SRC emacs-lisp
+  (load-theme 'sanityinc-tomorrow-bright t)
+#+END_SRC
+
 * Mode-Specific Hooks and Configuration
 ** cider-mode
 
