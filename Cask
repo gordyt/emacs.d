@@ -34,6 +34,7 @@
 (depends-on "idle-highlight-mode")
 (depends-on "ido-ubiquitous")
 (depends-on "ido-vertical-mode")
+(depends-on "jabber")
 (depends-on "jedi")
 (depends-on "magit")
 (depends-on "markdown-mode")
