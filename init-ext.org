@@ -416,6 +416,12 @@ Enable ~ido-vertical-mode~ if it is available.
 
 ** Jabber
 
+Jabber enables =fsm-debug= by default.  This should be disabled.
+
+#+BEGIN_SRC emacs-lisp
+(setq fsm-debug nil)
+#+END_SRC
+
 I store my jabber configuration in my ~.private.el~ file.  Here is a
 sample bit of config.  Notice the =--no-ca-verification= argument.
 I am including it just as a way to demonstrate how to handle
