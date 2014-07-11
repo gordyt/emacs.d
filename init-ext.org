@@ -641,7 +641,7 @@ Now let's load a new theme I found.
   (load-theme 'sanityinc-tomorrow-bright t)
 #+END_SRC
 
-* Mode-Specific Hooks and Configuration
+* Mode-Specific Hooks, Notes, and Configuration
 ** cider-mode
 
 Really just a few notes here.  If you want to use /cider/ to connect
