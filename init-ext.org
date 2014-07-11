@@ -414,6 +414,52 @@ Enable ~ido-vertical-mode~ if it is available.
     (ido-vertical-mode 1))
 #+END_SRC
 
+** Jabber
+
+I store my jabber configuration in my ~.private.el~ file.  Here is a
+sample bit of config.  Notice the =--no-ca-verification= argument.
+I am including it just as a way to demonstrate how to handle
+configuration for a jabber server that may be using a self-signed
+certificate, or a signed certificate that ~gnutls-cli~ doesn't know
+about.
+
+
+#+BEGIN_SRC emacs-lisp :tangle no
+(when (package-installed-p 'jabber)
+  (setq starttls-use-gnutls t
+		starttls-gnutls-program "gnutls-cli"
+		starttls-extra-arguments '("--starttls" "--insecure" "--no-ca-verification"))
+
+  (setq jabber-account-list
+		'(("<my-account-name>@<jabber-server-address>"
+		   (:network-server . "<jabber-server-address>")
+		   (:password . "<my-account-password>")
+		   (:connection-type . ssl)))))
+#+END_SRC
+
+A couple of useful jabber commands:
+
+- =M-x jabber-connect-all= will connect you to all jabber accounts in
+  your =jabber-account-list=.
+- =M-x jabber-vcard-edit= will pull down your vcard entry from the
+  jabber server and let you edit your information.  From here you can
+  also attach a photo of yourself.  There is an 8K file size limit if
+  you use this interface.  You /can/ get around this rather easily.
+  Before executing the =jabber-vcard-edit= command, just open the file
+  ~jabber-vcard.el~, goto the function =jabber-vcard-reassemble=, bump
+  up the value used for size comparison (8192) to something bigger,
+  and evaluate the function.  After uploading your vcard changes you
+  can return the value back to 8192.
+- =M-x jabber-groupchat-join= is used to join in with a particular
+  discussion group.  If you want to have that happen automatically
+  when you connect to a particular jabber server, take a look at the
+  next command.
+- =M-x jabber-edit-bookmarks= will pull down your current bookmarks on
+  a given jabber server.  You can add a bookmark for a particular
+  groupchat and check the box to automatically connect to it when
+  log-in to that jabber server.
+
+
 ** [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]
 
 To get out of multiple-cursors-mode, press ~RET~ or ~C-g~. The latter
