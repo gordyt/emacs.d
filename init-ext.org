@@ -459,6 +459,9 @@ A couple of useful jabber commands:
   groupchat and check the box to automatically connect to it when
   log-in to that jabber server.
 
+*** Jabber Notifications
+
+See the file ~darwin.org~ for some notifications customization.
 
 ** [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]
 
