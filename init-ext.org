@@ -229,6 +229,7 @@ they create.
 | got/meta-ido         | file where id state is saved between invocations |
 | got/ac-comphist-file | path to the auto complete history file           |
 | got/meta-recent      | where to store list of recently visited files    |
+| got/jabber-history   | Where jabber stores it message history           |
 
 
 #+BEGIN_SRC emacs-lisp
@@ -247,6 +248,9 @@ they create.
   (defvar got/meta-recent
     (expand-file-name "recent" got/metafiles-dir)
     "where to store list of recently visited files")
+  (defvar got/jabber-history
+    (expand-file-name "jabber-history" got/metafiles-dir)
+    "where jabber should store its history files")
 
 #+END_SRC
 
@@ -416,11 +420,15 @@ Enable ~ido-vertical-mode~ if it is available.
 
 ** Jabber
 
+*** fsm-debug
+
 Jabber enables =fsm-debug= by default.  This should be disabled.
 
 #+BEGIN_SRC emacs-lisp
 (setq fsm-debug nil)
 #+END_SRC
+
+*** OS-Specific Configuration Notes
 
 I store my jabber configuration in my ~.private.el~ file.  Here is a
 sample bit of config.  Notice the =--no-ca-verification= argument.
@@ -442,6 +450,8 @@ about.
 		   (:password . "<my-account-password>")
 		   (:connection-type . ssl)))))
 #+END_SRC
+
+*** Miscellaneous Commands
 
 A couple of useful jabber commands:
 
@@ -465,9 +475,36 @@ A couple of useful jabber commands:
   groupchat and check the box to automatically connect to it when
   log-in to that jabber server.
 
+*** Jabber History
+
+The following configures Jabber message history.
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'jabber)
+    (unless (file-exists-p got/jabber-history)
+      (make-directory got/jabber-history))
+    (setq jabber-history-enable t                  ; enable history
+          jabber-history-dir got/jabber-history    ; located here
+          jabber-history-size-limit 1024           ; when files get this big
+          jabber-history-enable-rotation t         ; then rotate them
+          jabber-use-global-history nil))          ; disable global history file
+          
+#+END_SRC
+
 *** Jabber Notifications
 
 See the file ~darwin.org~ for some notifications customization.
+
+*** Jabber Reconnecting
+
+The following instructs jabber to reconnect automatically when you
+network configuration changes.
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'jabber)
+    (setq jabber-auto-reconnect t))
+
+#+END_SRC
 
 ** [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]
 
