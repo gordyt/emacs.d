@@ -25,7 +25,7 @@ laptop.
 
 #+BEGIN_SRC emacs-lisp
   (let* ((font-family "Source Code Pro")
-         (font-description (concat font-family "-16")))
+         (font-description (concat font-family "-14")))
     (when (find-font (font-spec :name font-family))
       (set-frame-font font-description nil t)))
 #+END_SRC
