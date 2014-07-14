@@ -19,6 +19,7 @@
 (depends-on "drag-stuff")
 (depends-on "epc")
 (depends-on "epl")
+(depends-on "erlang")
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")
 (depends-on "f")
