@@ -24,8 +24,9 @@ This function will let you post messages to the Mac notifications
 center via a small AppleScript.
 
 #+BEGIN_SRC emacs-lisp
-  (defun got/message-notify (title text)
+  (cl-defun got/message-notify (title text &key speak-it)
     "Post a message with the given TITLE and TEXT to the notifications center.
+  If SPEAK-IT is not NIL, will also say the message.
 
   This is a Mac OS X specific function.  Note that double-quotes that occur
   in the TITLE and the TEXT are replaced with single quotes."
@@ -37,7 +38,15 @@ center via a small AppleScript.
                          text
                          "\" with title \""
                          title
-                         "\""))))
+                         "\""))
+        (when speak-it
+          (do-applescript (concat
+                           "say \""
+                           text
+                           "\" using \""
+                           "Tessa"
+                           "\"")))))
+
 #+END_SRC
 
 * Jabber Notifications
@@ -55,12 +64,11 @@ notifications center.
 #+BEGIN_SRC emacs-lisp
   (defun got/jabber-message-notify (from buffer text title)
     "Post a jabber message notification using the Mac OS X notifications center"
-    (got/message-notify title text))
+    (got/message-notify title text :speak-it t))
 
     (when (package-installed-p 'jabber)
       (remove-hook 'jabber-alert-message-hooks 'jabber-message-echo)
       (add-hook 'jabber-alert-message-hooks 'got/jabber-message-notify))
-
 
 #+END_SRC
 
@@ -70,7 +78,7 @@ notifications center.
 #+BEGIN_SRC emacs-lisp
   (defun got/jabber-muc-notify (nick group buffer text title)
     "Post a jabber MUC message using Mac OS X notification center"
-    (got/message-notify title text))
+    (got/message-notify title text :speak-it t))
 
   (when (package-installed-p 'jabber)
     (remove-hook 'jabber-alert-muc-hooks 'jabber-muc-echo)
@@ -83,10 +91,22 @@ notifications center.
 #+BEGIN_SRC emacs-lisp
   (defun got/jabber-presence-notify (who oldstatus newstatus statustext proposed-alert)
     "Post a jabber presence message using Mac OS X notification center"
-    (got/message-notify who statustext))
+    (got/message-notify who statustext :speak-it t))
 
   (when (package-installed-p 'jabber)
     (remove-hook 'jabber-alert-presence-hooks 'jabber-presence-echo)
     (add-hook 'jabber-alert-presence-hooks 'got/jabber-presence-notify))
 #+END_SRC
 
+This function is used to post alert-info message notifications to the
+Mac notifications center.
+
+#+BEGIN_SRC emacs-lisp
+  (defun got/jabber-info-notify (what buffer proposed-alert)
+    "Post a jabber alert-info message using Mac OS X notification center"
+    (got/message-notify (symbol-name what) proposed-alert :speak-it t))
+
+  (when (package-installed-p 'jabber)
+    (remove-hook 'jabber-alert-presence-hooks 'jabber-info-echo)
+    (add-hook 'jabber-alert-presence-hooks 'got/jabber-info-notify))
+#+END_SRC
