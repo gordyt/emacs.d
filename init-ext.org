@@ -281,7 +281,9 @@ rather than make a sound (which I find annoying).
     (ac-config-default)
       (setq ac-comphist-file
         (expand-file-name "ac-comphist.dat" got/metafiles-dir))
-      (define-key ac-mode-map (kbd "S-TAB") 'auto-complete))
+      (setq ac-auto-start nil)
+      (ac-set-trigger-key "<backtab>"))
+
 #+END_SRC
 
 ** Automatic indentation
