@@ -971,3 +971,9 @@ includes ~lines~ or ~lines-tail~.  I have it set for 80 columns.
     (setq whitespace-line-column 80))
 
 #+END_SRC
+** yasnippet-mode
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'yasnippet)
+    (yas-global-mode))
+#+END_SRC
