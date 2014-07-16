@@ -45,6 +45,7 @@ to the prompt.
 | cider                           | Clojure Integrated Development Environment and REPL                                |
 | clojure-mode                    | Major mode for Clojure code                                                        |
 | clojure-mode-extra-font-locking | Extra font-locking for Clojure mode                                                |
+| color-theme-sanityinc-tomorrow  | A version of Chris Kempson's various Tomorrow themes                               |
 | concurrent                      | Concurrent utility functions for emacs lisp                                        |
 | ctable                          | Table component for Emacs Lisp                                                     |
 | dash                            | A modern list library for Emacs                                                    |
@@ -53,6 +54,7 @@ to the prompt.
 | drag-stuff                      | Drag stuff (lines, words, region, etc...) around                                   |
 | epc                             | A RPC stack for the Emacs Lisp                                                     |
 | epl                             | Emacs Package Library                                                              |
+| erlang                          | Erlang major mode                                                                  |
 | exec-path-from-shell            | Get environment variables such as $PATH from the shell                             |
 | expand-region                   | Increase selected region by semantic units.                                        |
 | f                               | Modern API for working with files and directories                                  |
@@ -68,6 +70,7 @@ to the prompt.
 | idle-highlight-mode             | highlight the word the point is on                                                 |
 | ido-ubiquitous                  | Use ido (nearly) everywhere.                                                       |
 | ido-vertical-mode               | Makes ido-mode display vertically.                                                 |
+| jabber                          | A Jabber client for Emacs.                                                         |
 | jedi                            | Python auto-completion for Emacs                                                   |
 | magit                           | control Git from Emacs                                                             |
 | markdown-mode                   | Emacs Major mode for Markdown-formatted text files                                 |
