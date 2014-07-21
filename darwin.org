@@ -20,42 +20,62 @@ to mac os x.
 
 * Notification Messages
 
+** Configuration
+
+#+BEGIN_SRC emacs-lisp
+  (defvar got/notifications-enabled t
+    "If true, enable additional notifications processing.
+  If NIL, do no additional notifications processing.")
+
+  (defvar got/enable-speech nil
+    "If true, enable speech notifications.  If NIL, disable speech.")
+
+
+  (defvar got/enable-mac-nofification t
+    "If true, enable mac notifications center notifications")
+
+  (defvar got/max-notification-text-len 64
+    "Any notification text longer than this will be truncated")
+
+#+END_SRC
+
+
+
 This function will let you post messages to the Mac notifications
 center via a small AppleScript.
 
 #+BEGIN_SRC emacs-lisp
-    (cl-defun got/message-notify (title text &key speak-it (max-text-len 64))
-      "Post a message with the given TITLE and TEXT to the notifications center.
-    If SPEAK-IT is not NIL, will also say the message.  Any text over MAX-TEXT-LEN
-    will be truncated.
+  (cl-defun got/message-notify (title text)
+    "Post a message with the given TITLE and TEXT to the notifications center.
 
-    If the ~deferred~ package is available, the notification is processed
-    asynchronously.
+  If the ~deferred~ package is available, the notification is processed
+  asynchronously.
 
-    This is a Mac OS X specific function.  Note that double-quotes that occur
-    in the TITLE and the TEXT are replaced with single quotes."
+  This is a Mac OS X specific function.  Note that double-quotes that occur
+  in the TITLE and the TEXT are replaced with single quotes."
+    (when got/notifications-enabled
       (let ((title (replace-regexp-in-string "\"" "'" title))
-            (text (replace-regexp-in-string "\"" "'" (if (> (length text) max-text-len)
-                                                         (substring text 0 max-text-len)
+            (text (replace-regexp-in-string "\"" "'" (if (> (length text) got/max-notification-text-len)
+                                                         (substring text 0 got/max-notification-text-len)
                                                        text)))
-            (fn (lambda (title text speak-it) (do-applescript (concat
-                                            "display notification \""
-                                            text
-                                            "\" with title \""
-                                            title
-                                            "\""))
-                  (when speak-it
-                    (do-applescript (concat
-                                     "say \""
-                                     text
-                                     "\" using \""
-                                     "Tessa"
-                                     "\""))))))
-        (if (require 'deferred nil 'noerror)
-            (deferred:call fn title text speak-it)
-          (funcall fn title text speak-it))))
-        
-
+            (fn (lambda (title text)
+                  (do-applescript (concat
+                                   "say \""
+                                   text
+                                   "\" using \""
+                                   "Tessa"
+                                   "\"")))))
+        (when got/enable-mac-nofification
+          (do-applescript (concat
+                           "display notification \""
+                           text
+                           "\" with title \""
+                           title
+                           "\"")))
+        (when got/enable-speech       
+          (if (require 'deferred nil 'noerror)
+              (deferred:call fn title text)
+            (funcall fn title text))))))
 #+END_SRC
 
 * Jabber Notifications
@@ -73,7 +93,7 @@ notifications center.
 #+BEGIN_SRC emacs-lisp
   (defun got/jabber-message-notify (from buffer text title)
     "Post a jabber message notification using the Mac OS X notifications center"
-    (got/message-notify title text :speak-it t))
+    (got/message-notify title text))
 
     (when (package-installed-p 'jabber)
       (remove-hook 'jabber-alert-message-hooks 'jabber-message-echo)
@@ -87,7 +107,7 @@ notifications center.
 #+BEGIN_SRC emacs-lisp
   (defun got/jabber-muc-notify (nick group buffer text title)
     "Post a jabber MUC message using Mac OS X notification center"
-    (got/message-notify title text :speak-it t))
+    (got/message-notify title text))
 
   (when (package-installed-p 'jabber)
     (remove-hook 'jabber-alert-muc-hooks 'jabber-muc-echo)
@@ -100,7 +120,7 @@ notifications center.
 #+BEGIN_SRC emacs-lisp
   (defun got/jabber-presence-notify (who oldstatus newstatus statustext proposed-alert)
     "Post a jabber presence message using Mac OS X notification center"
-    (got/message-notify who statustext :speak-it t))
+    (got/message-notify who statustext))
 
   (when (package-installed-p 'jabber)
     (remove-hook 'jabber-alert-presence-hooks 'jabber-presence-echo)
@@ -113,7 +133,7 @@ Mac notifications center.
 #+BEGIN_SRC emacs-lisp
   (defun got/jabber-info-notify (what buffer proposed-alert)
     "Post a jabber alert-info message using Mac OS X notification center"
-    (got/message-notify (symbol-name what) proposed-alert :speak-it t))
+    (got/message-notify (symbol-name what) proposed-alert))
 
   (when (package-installed-p 'jabber)
     (remove-hook 'jabber-alert-presence-hooks 'jabber-info-echo)
