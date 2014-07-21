@@ -224,15 +224,16 @@ Add all top-level directories in =got/dotfiles-dir= to the load path.
 These variables are used to configure where other services store various files that
 they create.
 
-| Variable Name        | Description                                      |
-|----------------------+--------------------------------------------------|
-| got/meta-backup      | Location for backup files                        |
-| got/auto-save-prefix | Location for autosave files                      |
-| got/themes-dir       | Location for my custom themes                    |
-| got/meta-ido         | file where id state is saved between invocations |
-| got/ac-comphist-file | path to the auto complete history file           |
-| got/meta-recent      | where to store list of recently visited files    |
-| got/jabber-history   | Where jabber stores it message history           |
+| Variable Name           | Description                                      |
+|-------------------------+--------------------------------------------------|
+| got/meta-backup         | Location for backup files                        |
+| got/auto-save-prefix    | Location for autosave files                      |
+| got/themes-dir          | Location for my custom themes                    |
+| got/meta-ido            | file where id state is saved between invocations |
+| got/ac-comphist-file    | path to the auto complete history file           |
+| got/meta-recent         | where to store list of recently visited files    |
+| got/jabber-history      | Where jabber stores its message history          |
+| got/jabber-avatar-cache | where jabber caches its avatar images            |
 
 
 #+BEGIN_SRC emacs-lisp
@@ -254,6 +255,9 @@ they create.
   (defvar got/jabber-history
     (expand-file-name "jabber-history" got/metafiles-dir)
     "where jabber should store its history files")
+  (defvar got/jabber-avatar-cache
+    (expand-file-name "jabber-avatar-cache" got/metafiles-dir)
+    "where jabber should store its avatar cache files")
 
 #+END_SRC
 
@@ -479,6 +483,16 @@ A couple of useful jabber commands:
   a given jabber server.  You can add a bookmark for a particular
   groupchat and check the box to automatically connect to it when
   log-in to that jabber server.
+
+*** Jabber Avatar Cache Settings
+
+Jabber will cache avatar image files.  This controls where those are
+stored.
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'jabber)
+    (setq jabber-avatar-cache-directory got/jabber-avatar-cache))
+#+END_SRC
 
 *** Jabber History
 
