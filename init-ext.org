@@ -234,6 +234,7 @@ they create.
 | got/meta-recent         | where to store list of recently visited files    |
 | got/jabber-history      | Where jabber stores its message history          |
 | got/jabber-avatar-cache | where jabber caches its avatar images            |
+| got/mc-list-file        | where multiple-cursors tracks preferences        |
 
 
 #+BEGIN_SRC emacs-lisp
@@ -258,6 +259,9 @@ they create.
   (defvar got/jabber-avatar-cache
     (expand-file-name "jabber-avatar-cache" got/metafiles-dir)
     "where jabber should store its avatar cache files")
+  (defvar got/mc-list-file
+    (expand-file-name "mc-lists.el" got/metafiles-dir)
+    "where multiple-cursors tracks preferences")
 
 #+END_SRC
 
@@ -348,7 +352,7 @@ side-by-side.
   (setq ediff-split-window-function 'split-window-horizontally)
 #+END_SRC
 
-** expand-region
+** expand-regiocn
 
 Create ~C-=~ keybinding to invoce the =er/expand-region=
 function. This increases selected region by semantic units.
@@ -541,6 +545,14 @@ cursors. If you want to insert a newline in multiple-cursors-mode, use
     (global-set-key (kbd "C->") 'mc/mark-next-like-this)
     (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
     (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
+#+END_SRC
+
+The following controls where ~multiple-cursors~ stores preferences
+that the user has set for running commands with multiple cursors.
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'multiple-cursors)
+    (setq mc/list-file got/mc-list-file))
 #+END_SRC
 
 ** newlines
