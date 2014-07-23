@@ -224,17 +224,18 @@ Add all top-level directories in =got/dotfiles-dir= to the load path.
 These variables are used to configure where other services store various files that
 they create.
 
-| Variable Name           | Description                                      |
-|-------------------------+--------------------------------------------------|
-| got/meta-backup         | Location for backup files                        |
-| got/auto-save-prefix    | Location for autosave files                      |
-| got/themes-dir          | Location for my custom themes                    |
-| got/meta-ido            | file where id state is saved between invocations |
-| got/ac-comphist-file    | path to the auto complete history file           |
-| got/meta-recent         | where to store list of recently visited files    |
-| got/jabber-history      | Where jabber stores its message history          |
-| got/jabber-avatar-cache | where jabber caches its avatar images            |
-| got/mc-list-file        | where multiple-cursors tracks preferences        |
+| Variable Name             | Description                                      |
+|---------------------------+--------------------------------------------------|
+| got/meta-backup           | Location for backup files                        |
+| got/auto-save-prefix      | Location for autosave files                      |
+| got/themes-dir            | Location for my custom themes                    |
+| got/meta-ido              | file where id state is saved between invocations |
+| got/ac-comphist-file      | path to the auto complete history file           |
+| got/meta-recent           | where to store list of recently visited files    |
+| got/jabber-history        | Where jabber stores its message history          |
+| got/jabber-avatar-cache   | where jabber caches its avatar images            |
+| got/mc-list-file          | where multiple-cursors tracks preferences        |
+| got/bookmark-default-file | where Emacs Booksmarks are stored                |
 
 
 #+BEGIN_SRC emacs-lisp
@@ -262,6 +263,9 @@ they create.
   (defvar got/mc-list-file
     (expand-file-name "mc-lists.el" got/metafiles-dir)
     "where multiple-cursors tracks preferences")
+  (defvar got/bookmark-default-file
+    (expand-file-name "bookmarks" got/metafiles-dir)
+    "where Emacs stores its bookmarks file")
 
 #+END_SRC
 
@@ -339,6 +343,14 @@ Configure the behaviour of Emacs file backups.
         auto-save-timeout 30          ; number of seconds idle time before auto-save
         auto-save-interval 300        ; number of input events between auto-saves
   )
+#+END_SRC
+
+** Bookmarks
+
+Customize where Emacs stores its bookmarks file
+
+#+BEGIN_SRC emacs-lisp
+  (setq bookmark-default-file got/bookmark-default-file)
 #+END_SRC
 
 ** Ediff
