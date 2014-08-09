@@ -52,6 +52,7 @@ to the prompt.
 | deferred                        | Simple asynchronous functions for emacs lisp                                       |
 | diminish                        | Diminished modes are minor modes with no modeline display                          |
 | drag-stuff                      | Drag stuff (lines, words, region, etc...) around                                   |
+| edit-server                     | server that responds to edit requests from Chrome                                  |
 | epc                             | A RPC stack for the Emacs Lisp                                                     |
 | epl                             | Emacs Package Library                                                              |
 | erlang                          | Erlang major mode                                                                  |
@@ -64,8 +65,11 @@ to the prompt.
 | flycheck-cask                   | Cask support in Flycheck                                                           |
 | git-commit-mode                 | Major mode for editing git commit messages                                         |
 | git-rebase-mode                 | Major mode for editing git rebase files                                            |
+| gmail-message-mode              | A major-mode for editing gmail messages using markdown syntax.                     |
+| ham-mode                        | Html As Markdown. Transparently edit an html file using markdown.                  |
 | haskell-mode                    | A Haskell editing mode                                                             |
 | helm                            | Helm is an Emacs incremental and narrowing framework                               |
+| html-to-markdown                | HTML to Markdown converter written in Emacs-lisp.                                  |
 | htmlize                         | Convert buffer text and decorations to HTML.                                       |
 | idle-highlight-mode             | highlight the word the point is on                                                 |
 | ido-ubiquitous                  | Use ido (nearly) everywhere.                                                       |
@@ -756,6 +760,25 @@ whether or not you are in a project, just do the following instead:
   #+BEGIN_EXAMPLE
   {:user {:plugins [[cider/cider-nrepl "0.7.0-SNAPSHOT"]]}}  
   #+END_EXAMPLE
+
+** gmail-message-mode
+
+I learned about this mode [[http://endlessparentheses.com/write-gmail-in-emacs-the-easy-way-gmail-message-mode.html?source%3Drss][here.]]  It allows you to compose
+browser-based input that accepts HTML using markdown.  Some set-up
+notes:
+
+- In Chrome, install the [[http://www.emacswiki.org/emacs/Edit_with_Emacs][Edit with Emacs]] browser extension
+- You should also have the [[http://daringfireball.net/projects/markdown/][markdown]] or [[http://johnmacfarlane.net/pandoc/][pandoc]] package installed.  I
+  installed markdown via Homebrew.
+
+The following snippet starts the ~edit-server~ so that the browser can
+communicate with Emacs.  /Note:/ use ~C-x #~ to complete editing and
+send the results back to the browser.
+
+#+BEGIN_SRC emacs-lisp
+(when (require 'edit-server nil :noerror)
+  (edit-server-start))
+#+END_SRC
 
 ** lisp-mode
 
