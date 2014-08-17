@@ -33,3 +33,335 @@ laptop.
 *** References
 
 - [[http://www.emacswiki.org/emacs/SetFonts][Emacs Wiki - Set Fonts]]
+** mu4e configuration
+
+- [[http://www.djcbsoftware.nl/code/mu/mu4e/index.html][mu4e 0.9.9.6 user manual]]
+
+*** Marks
+
+| mark for/as | keybinding  | description                   |
+|-------------+-------------+-------------------------------|
+| 'something' | <insert>    | mark now, decide later        |
+| delete      | D, <delete> | delete                        |
+| flag        | +           | mark as 'flagged' ('starred') |
+| move        | m           | move to some maildir          |
+| read        | !           | mark as read                  |
+| refile      | r           | mark for refiling             |
+| trash       | d           | move to the trash folder      |
+| untrash     | =           | remove 'trash' flag           |
+| unflag      | -           | remove 'flagged' mark         |
+| unmark      | u           | remove mark at point          |
+| unmark all  | U           | remove all marks              |
+| unread      | ?           | marks as unread               |
+
+
+*** TODO Document installation and setup for fetchmail, procmail, and offlineimap
+*** Load mu4e
+
+#+BEGIN_SRC emacs-lisp
+  (unless (require 'mu4e nil 'noerror)
+    (warn "Package mu4e not found.  Will skip mu4e configuration"))
+     
+#+END_SRC
+*** View message in Browser
+
+#+BEGIN_SRC emacs-lisp
+  ;;; message view action
+  (defun mu4e-msgv-action-view-in-browser (msg)
+    "View the body of the message in a web browser."
+    (interactive)
+    (let ((html (mu4e-msg-field (mu4e-message-at-point t) :body-html))
+          (tmpfile (format "%s/%d.html" temporary-file-directory (random))))
+      (unless html (error "No html part for this message"))
+      (with-temp-file tmpfile
+        (insert
+         "<html>"
+         "<head><meta http-equiv=\"content-type\""
+         "content=\"text/html;charset=UTF-8\">"
+         html))
+      (browse-url (concat "file://" (file-truename tmpfile)))))
+  (when (boundp 'mu4e-view-actions)
+    (add-to-list 'mu4e-view-actions
+                 '("View in browser" . mu4e-msgv-action-view-in-browser) t))
+#+END_SRC
+
+*** Basic Settings
+
+#+BEGIN_SRC emacs-lisp
+  (setq
+   mu4e-maildir "~/Maildir"                        ;; top-level Maildir
+   mu4e-attachment-dir "/Users/gordy/Downloads"    ;; folder for attachments
+   mu4e-view-prefer-html t                         ;; set t to use html if available
+   mu4e-use-fancy-chars t                          ;; use nicer thread markers
+   mu4e-view-show-images t                         ;; show images inline
+   mu4e-view-image-max-width 800                   ;; limit max image sizE
+   mu4e-html2text-command "w3m -dump -T text/html" ;; command to convert html to test
+   message-send-mail-function 'smtpmail-send-it    ;; command to sent mail
+   smtpmail-debug-info nil                         ;; set t to enable smtp debug info
+   message-kill-buffer-on-exit t                   ;; kill old buffers
+   mu4e-view-show-addresses t                      ;; show email addresses with names
+   )
+  (when (fboundp 'imagemagick-render-type)
+    (imagemagick-register-types))
+
+#+END_SRC
+
+*** Settings to use when moving or refiling messages
+**** Dynamic Folders
+
+Here we supply a function that analyzes the message context to determine
+the proper folders for the following actions:
+
+| =mu4e-sent-folder=   | where sent messages are stored    |
+| =mu4e-drafts-folder= | where drafts are stored           |
+| =mu4e-trash-folder=  | where trashed messages are stored |
+
+#+BEGIN_SRC emacs-lisp
+    ;; NOTE: in all that follow, msg will be nil if you are composing a message
+
+  (setq mu4e-drafts-folder
+       (lambda (msg)
+         (cond
+          ((eq msg nil) "/drafts")
+          ((string-match "/Gmail" (mu4e-message-field msg :maildir))
+           "/Gmail/[Gmail].Drafts")
+          ((string-match "/Zimbra" (mu4e-message-field msg :maildir))
+           "/Zimbra/Drafts")
+          (t "/drafts"))))
+
+
+  (setq mu4e-sent-folder
+       (lambda (msg)
+         (cond
+          ((eq msg nil) "/sent")
+          ((string-match "/Gmail" (mu4e-message-field msg :maildir))
+           "/Gmail/[Gmail].Sent Mail")
+          ((string-match "/Zimbra" (mu4e-message-field msg :maildir))
+           "/Zimbra/Sent")
+          (t "/sent"))))
+
+
+  (setq mu4e-trash-folder
+       (lambda (msg)
+         (cond
+          ((eq msg nil) "/trash")
+          ((string-match "/Gmail" (mu4e-message-field msg :maildir))
+           "/Gmail/[Gmail].Trash")
+          ((string-match "/Zimbra" (mu4e-message-field msg :maildir))
+           "/Zimbra/Trash")
+          (t "/trash"))))
+
+
+#+END_SRC
+**** Deleting
+
+Here we have to do one of the following when deleting a message:
+
+- If it is in an account that is managed via Gmail, we just remove the
+  "\textbackslash{}Inbox" tag and add the "\textbackslash{}Trash" tag.
+- If it is in the Zimbra account, we must move it to the Trash folder.
+
+#+BEGIN_SRC emacs-lisp
+  (defun got/mu4e-delete-message (msg)
+   (when msg
+     (cond
+      ((string-match "/Gmail" (mu4e-message-field msg :maildir))
+       (mu4e-action-retag-message msg "-\\Inbox +\\Trash"))
+      ((string-match "/Zimbra" (mu4e-message-field msg :maildir))
+       (let ((mu4e-refile-folder "/Zimbra/Trash"))
+         (mu4e-view-mark-for-refile)))
+      (t nil))))
+
+  (when (boundp 'mu4e-view-actions)
+    (add-to-list 'mu4e-view-actions
+                 '("delete-message" . got/mu4e-delete-message) t))
+
+#+END_SRC
+
+**** Archiving
+
+Here we have to do one of the following when archiving a message:
+
+- If it is in an account that is managed via Gmail, we just remove the
+  "\textbackslash{}Inbox" tag.
+- If it is in the Zimbra account, we must move it to the Archive folder.
+
+#+BEGIN_SRC emacs-lisp
+  (defun got/mu4e-archive-message (msg)
+   (when msg
+     (cond
+      ((string-match "/Gmail" (mu4e-message-field msg :maildir))
+       (mu4e-action-retag-message msg "-\\Inbox"))
+      ((string-match "/Zimbra" (mu4e-message-field msg :maildir))
+       (let ((mu4e-refile-folder "/Zimbra/Archive"))
+         (mu4e-view-mark-for-refile)))
+      (t nil))))
+
+  (when (boundp 'mu4e-view-actions)
+    (add-to-list 'mu4e-view-actions
+                 '("archive-message" . got/mu4e-archive-message) t))
+
+#+END_SRC
+
+*** Settings to use when composing mail
+
+I define the variable =got/mu4e-account-alist= in my ~.private.el~ file.
+
+
+**** Define function to select an account
+
+#+BEGIN_SRC emacs-lisp
+  (defun got/mu4e-set-account ()
+    "Set the account for composing a message."
+    (let* ((account
+            (if mu4e-compose-parent-message
+                (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
+                  (string-match "/\\(.*?\\)/" maildir)
+                  (match-string 1 maildir))
+              (completing-read (format "Compose with account: (%s) "
+                                       (mapconcat #'(lambda (var) (car var)) got/mu4e-account-alist "/"))
+                               (mapcar #'(lambda (var) (car var)) got/mu4e-account-alist)
+                               nil t nil nil (caar got/mu4e-account-alist))))
+           (account-vars (cdr (assoc account got/mu4e-account-alist))))
+      (if account-vars
+          (mapc #'(lambda (var)
+                    (set (car var) (cadr var)))
+                account-vars)
+        (error "No email account found"))))
+  (when (boundp 'mu4e-compose-pre-hook)
+    (add-hook 'mu4e-compose-pre-hook 'got/mu4e-set-account))
+#+END_SRC
+
+*** Window Handling
+
+Got this from John. Have this disabled for now.
+
+#+BEGIN_EXAMPLE
+;; Window handling (https://github.com/magnars/.emacs.d/blob/master/setup-mu4e.el)
+;; Start mu4e in fullscreen, immediately ping for new mail
+(defun mu4e-up-to-date-status ()
+  (interactive)
+  (window-configuration-to-register :mu4e-fullscreen)
+  (mu4e)
+  (mu4e-update-mail-and-index t)
+  (delete-other-windows))
+
+;; Restore previous window configuration
+(defun mu4e-quit-session ()
+  "Restores the previous window configuration and kills the magit buffer"
+  (interactive)
+  (kill-buffer)
+  (jump-to-register :mu4e-fullscreen))
+
+(define-key mu4e-main-mode-map (kbd "q") 'mu4e-quit-session)
+(define-key mu4e-headers-mode-map (kbd "M-u") 'mu4e-update-mail-show-window)
+(bind-key "C-c m" 'mu4e-up-to-date-status)
+
+#+END_EXAMPLE
+
+*** Actions
+
+#+BEGIN_SRC emacs-lisp
+  ;; Support for labels
+  (setq mu4e-action-tags-header "X-Keywords")
+  (when (boundp 'mu4e-view-actions)
+    (add-to-list 'mu4e-view-actions
+                 '("retag-message" . mu4e-action-retag-message) t))
+  (when (boundp 'mu4e-headers-actions)
+    (add-to-list 'mu4e-headers-actions
+                 '("retag-message" . mu4e-action-retag-message) t))
+#+END_SRC
+*** Autoupdate Index
+
+Auto-update the Zapien index every 2 minutes.
+
+#+BEGIN_SRC emacs-lisp
+  (setq
+   ;; Choices here are to set this to "offlineimap" or "true"
+   ;; If you are using launchd to run offlinemap, set to "true"
+   ;; If you want mu4e to run offlineimap, set to "offlineimap"
+   mu4e-get-mail-command "true"
+   mu4e-update-interval 120)
+#+END_SRC
+
+*** Compose Email with Org-Mode
+
+#+BEGIN_SRC emacs-lisp
+  (when (and (require 'mu4e nil :noerror)
+               (require 'org-mu4e nil :noerror))
+
+    (defun got/org~mu4e-mime-replace-images (str current-file)
+        "Replace images in html files with cid links.  STR is the buffer
+  to parse.  CURRENT-FILE is the temporary file name.  We just use it
+  to help resolve relative paths.
+  "
+  (let (html-images)
+    (cons
+     (replace-regexp-in-string
+	  "src=\"\\(/[^\"]+\\)\"\\|src=\"\\(file:\\/\\/[^\"]+\\)\"\\|src=\"\\([^:]+$\\)"
+      (lambda (text)
+        (let* ((url (and (string-match "src=\"\\([^\"]+\\)\"" text)
+                         (match-string 1 text)))
+               (mime-type (concat "image/" (file-name-extension url)))
+               (cur-dir (file-name-directory current-file))
+			   (path (cond
+					  ;; /a/b/c.jpg
+					  ((string-match "^/\\(.+\\)$" url)
+					   (match-string 1 url))
+					  ;; file:///a/b/c.jpg
+					  ((string-match "^file:\\/\\/\\(.+\\)$" url)
+					   (match-string 1 url))
+					  ;; ../a/b/c.jpg or a/b/c.jpg or whatever
+					  (t
+					   (expand-file-name url cur-dir))))
+			   (id (replace-regexp-in-string "[\/\\\\]" "_" path)))
+		  (add-to-list 'html-images (org~mu4e-mime-file
+									 mime-type path id))
+		  (format "src=\"cid:%s\"" id)))
+      str)
+     html-images)))
+
+      (defun jme/mu4e-mime-convert-to-html ()
+        "A rewrite of mu4e function to convert the current body to html."
+        (unless (executable-find "dvipng")
+          (mu4e-error "Required program dvipng not found"))
+        (let* ((begin
+                (save-excursion
+                  (goto-char (point-min))
+                  (search-forward mail-header-separator)))
+               (end (point-max))
+               (raw-body (buffer-substring begin end))
+               (tmp-file (make-temp-name (expand-file-name "mail"
+                                                           temporary-file-directory)))
+               (body (org-export-string-as (concat
+                                            "#+TITLE:\n"
+                                            "#+OPTIONS: num:nil toc:nil author:nil H:0\n"
+                                            raw-body) 'ascii)) ;;(org-export-string-as raw-body 'org))
+               ;; because we probably don't want to skip part of our mail
+               (org-export-skip-text-before-1st-heading nil)
+               ;; because we probably don't want to export a huge style file
+               (org-export-htmlize-output-type 'inline-css)
+               ;; makes the replies with ">"s look nicer
+               (org-export-preserve-breaks t)
+               ;; dvipng for inline latex because MathJax doesn't work in mail
+               (org-export-with-LaTeX-fragments 'dvipng)
+               ;; to hold attachments for inline html images
+               (html-and-images
+                (got/org~mu4e-mime-replace-images
+                 (org-export-string-as (concat
+                                        "#+TITLE:\n"
+                                        "#+OPTIONS: num:nil toc:nil author:nil html-postamble:nil\n"
+                                        raw-body) 'html)
+                 tmp-file))
+               (html-images (cdr html-and-images))
+               (html (car html-and-images)))
+          (delete-region begin end)
+          (save-excursion
+            (goto-char begin)
+            (newline)
+            (insert (org~mu4e-mime-multipart
+                     body html (mapconcat 'identity html-images "\n"))))))
+
+      (add-hook 'message-send-hook 'jme/mu4e-mime-convert-to-html))
+
+#+END_SRC
