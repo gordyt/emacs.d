@@ -142,6 +142,11 @@ to the function name):
 
     (calcFunc-uconv (calc-eval \"5.38 mi + 2500 m\" 'raw) \"mi\")
 
+    or
+
+    (calcFunc-uconv (calc-eval \"44 degF\" 'raw) \"degC\")
+
+
 Here is a more complicated example that sums a column of distances and converts
 the result to use miles (formatted to 2 decimal places):
 
