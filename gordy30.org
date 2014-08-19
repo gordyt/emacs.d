@@ -236,7 +236,6 @@ message came from.
 
 #+END_SRC
 
-
 *** Settings to use when composing mail
 
 I define the variable =got/mu4e-account-alist= in my ~.private.el~ file.
@@ -265,6 +264,19 @@ I define the variable =got/mu4e-account-alist= in my ~.private.el~ file.
   (when (boundp 'mu4e-compose-pre-hook)
     (add-hook 'mu4e-compose-pre-hook 'got/mu4e-set-account))
 #+END_SRC
+
+**** Enable Org Mode Message Composition
+
+This lets you enter the body of the message using org-mode syntax.
+/Remember/, when in this mode be sure and type ~M-m~ before typing
+~C-c C-c~ to send your message!
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'mu4e-compose-mode-hook
+            (lambda ()
+              (org-mu4e-compose-org-mode)))
+#+END_SRC
+
 
 *** Window Handling
 
