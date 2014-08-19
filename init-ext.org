@@ -785,6 +785,23 @@ send the results back to the browser.
   (edit-server-start))
 #+END_SRC
 
+** Javascript mode
+*** flycheck-mode
+
+Enable =flycheck-mode= when opening a Javascript buffer, if flycheck
+is available.
+
+/Note:/ For this to work, you should install [[http://www.jshint.com/][jshint]] as follows:
+
+#+BEGIN_SRC sh
+npm install -g jshint
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'flycheck)
+    (add-hook 'js-mode-hook 'flycheck-mode))
+#+END_SRC
+
 ** lisp-mode
 
 Slime configuration for editing Lisp code.  Tell /slime/ what Lisp to
