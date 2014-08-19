@@ -203,6 +203,34 @@ Here we have to do one of the following when archiving a message:
 
 #+END_SRC
 
+**** Spam Handling
+
+This is to do the proper spam handling based on the account the
+message came from.
+
+- If it is in an account that is managed via Gmail, we just remove the
+  "\textbackslash{}Inbox" tag and add a "\textbackslash{}Spam" tag
+- If it is in the Zimbra account, we must move it to the Junk folder.
+
+
+#+BEGIN_SRC emacs-lisp
+  (defun got/mu4e-spam-message (msg)
+   (when msg
+     (cond
+      ((string-match "/Gmail" (mu4e-message-field msg :maildir))
+       (mu4e-action-retag-message msg "-\\Inbox +\\Spam"))
+      ((string-match "/Zimbra" (mu4e-message-field msg :maildir))
+       (let ((mu4e-refile-folder "/Zimbra/Junk"))
+         (mu4e-view-mark-for-refile)))
+      (t nil))))
+
+  (when (boundp 'mu4e-view-actions)
+    (add-to-list 'mu4e-view-actions
+                 '("spam-message" . got/mu4e-spam-message) t))
+
+#+END_SRC
+
+
 *** Settings to use when composing mail
 
 I define the variable =got/mu4e-account-alist= in my ~.private.el~ file.
