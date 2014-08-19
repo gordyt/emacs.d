@@ -799,7 +799,9 @@ npm install -g jshint
 
 #+BEGIN_SRC emacs-lisp
   (when (package-installed-p 'flycheck)
-    (add-hook 'js-mode-hook 'flycheck-mode))
+    (if (= (length (shell-command-to-string "which jshint")) 0)
+        (warn "flycheck-mode not enabled for Javascript.  Please install jshint")    
+      (add-hook 'js-mode-hook 'flycheck-mode)))
 #+END_SRC
 
 ** lisp-mode
