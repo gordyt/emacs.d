@@ -96,6 +96,7 @@ to the prompt.
 | slime                           | Superior Lisp Interaction Mode for Emacs                                           |
 | smartparens                     | Automatic insertion, wrapping and paredit-like navigation with user defined pairs. |
 | smex                            | M-x interface with Ido-style fuzzy matching.                                       |
+| twittering-mode                 | Major mode for Twitter                                                             |
 | undo-tree                       | Treat undo history as a tree                                                       |
 | use-package                     | A use-package declaration for simplifying your .emacs                              |
 | w3m                             | an Emacs interface to w3m                                                          |
@@ -986,14 +987,6 @@ The following setting disables the use of shift+arrows for mark.
 #+BEGIN_SRC emacs-lisp
   (setq shift-select-mode nil)
 #+END_SRC
-
-** text-mode
-
-Automatically enable auto fill mode.
-
-#+BEGIN_SRC emacs-lisp
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
-#+END_SRC
 ** resentf-mode
 
 Enable ~recentf~ mode which will save a list of recent files visited.
@@ -1007,6 +1000,124 @@ Enable ~recentf~ mode which will save a list of recent files visited.
           )
     (recentf-mode t))
 
+#+END_SRC
+
+** text-mode
+
+Automatically enable auto fill mode.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+#+END_SRC
+
+** twittering-mode
+
+Configuration for [[http://www.emacswiki.org/emacs/TwitteringMode][twittering-mode.]]  Basic usage:
+
+- ~M-x twit~ to run =twittering-mode= and put you in view mode
+- move cursor on current timeline
+  - ~j~ goto next tweet
+  - ~k~ goto previous tweet
+  - ~n~ goto next tweet whose author is same as current tweet
+  - ~p~ goto previous tweet whose author is same as current tweet
+  - ~l~ goto next character
+  - ~h~ goto previous character
+  - ~0~ goto beginning of line
+  - ~^~ goto beginning of text on current line
+  - ~$~ goto end of line
+  - ~C-i~ goto next username, URI, or timeline symbol
+  - ~M-C-i~ goto previous username, URI, or timeline symbol
+  - ~<backspace>~ or ~M-v~ scroll down
+  - ~<space>~ or ~C-v~ scroll up
+  - ~H~ goto beginning of current buffer
+  - ~G~ goto end of current buffer
+- apply some operation to curent timeline
+  - ~g~ retrieve new tweets of current timeline
+  - ~r~ display replied tweets related to current tweet
+  - ~C-C D~ delete the current tweet (if it is yours)
+  - ~q~ kill current timeline buffer
+- open another timeline
+  - ~v~ open timelime at point
+  - ~V~ open a various timeline by spec:
+	- ~:home~
+	- ~:mentions~
+	- ~:public~
+	- user
+	- user/listname
+	- ~:direct_messages~
+	- ~:direct_messages_sent~
+	- ~:favorites~
+	- ~:favorites/~ user
+	- #hashtag
+	- ~:retweeted_by_me~
+	- ~:retweeted_by_user/~ user
+	- ~:retweeted_to_me~
+	- ~:retweeted_to_user/~ user
+	- ~:retweets_of_me~
+	- ~:search/~ query-string ~/~  (inside query-string must escape
+      slash and back-slash)
+  - ~f~ switch to next timeline buffer
+  - ~b~ switch to previous timeline buffer
+- post a tweet
+  - ~u~ or ~C-c C-s~ post a tweet
+  - ~C-m~ post a reply to tweet at point
+  - ~C-c C-m~ or ~C-c ENTER~ post non-official (organic) retweet of
+	tweet at point
+  - ~C-u C-c C-m~ or ~C-u C-c ENTER~ post official (native) retweet of
+	tweet at point
+  - ~d~ send a direct message
+- invoke external browser
+  - ~C-c C-v~ open user's page at point
+- change display mode
+  - ~a~ toggle automatic retrieval of current timeline
+  - ~i~ toggle displaying icons of curent timeline
+  - ~s~ toggle scroll mode for current timeline
+  - ~t~ toggle proxy
+- others
+  - ~C-c C-t~ set current hashtag
+  - ~C-c C-l~ post the message "Lambda is cute, lambda"
+  - ~U~ push URL of current tweet to kill-ring
+- key-bindings on edit mode
+  - ~M-p~ replace tweet being edited with previous tweet on history
+  - ~M-n~ replace tweet being edited with next tweet on history
+  - ~<F4>~ shorten URL at point
+  - ~C-c C-k~ cancel tweet being edited
+  - ~C-c C-c~ post current tweet
+
+#+BEGIN_SRC emacs-lisp
+  (if (and
+       (require 'twittering-mode nil :noerror)
+       (shell-command "which gpg"))
+      (setq got/twittering-mode-available t)
+    (do
+        (warn "not configuring twittering mode - need gnupg installed")
+        (setq got/twittering-mode-available nil)))
+      
+#+END_SRC
+
+*** Use master password
+
+#+BEGIN_SRC emacs-lisp
+  (when got/twittering-mode-available
+    (setq twittering-use-master-password t))
+#+END_SRC
+
+*** Establish initial timelines that are loaded
+
+#+BEGIN_SRC emacs-lisp
+  (when got/twittering-mode-available
+    (setq twittering-initial-timeline-spec-string
+          '(":home"
+            ":replies"
+            ":favorites"
+            ":direct_messages")))
+#+END_SRC
+
+*** Use bitly for URL-shortening
+
+#+BEGIN_SRC emacs-lisp
+  (when got/twittering-mode-available
+    (setq twittering-tinyurl-service 'bit.ly))
 #+END_SRC
 
 ** undo-tree-mode

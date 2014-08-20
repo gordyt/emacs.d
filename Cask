@@ -61,6 +61,7 @@
 (depends-on "slime")
 (depends-on "smartparens")
 (depends-on "smex")
+(depends-on "twittering-mode")
 (depends-on "undo-tree")
 (depends-on "use-package")
 (depends-on "w3m")
