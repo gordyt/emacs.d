@@ -277,7 +277,6 @@ This lets you enter the body of the message using org-mode syntax.
               (org-mu4e-compose-org-mode)))
 #+END_SRC
 
-
 *** Window Handling
 
 Got this from John. Have this disabled for now.
@@ -322,12 +321,13 @@ Got this from John. Have this disabled for now.
 Auto-update the Zapien index every 2 minutes.
 
 #+BEGIN_SRC emacs-lisp
-  (setq
-   ;; Choices here are to set this to "offlineimap" or "true"
-   ;; If you are using launchd to run offlinemap, set to "true"
-   ;; If you want mu4e to run offlineimap, set to "offlineimap"
-   mu4e-get-mail-command "true"
-   mu4e-update-interval 120)
+  ;; Disable this for now while testing an alternate method
+  ;; (setq
+  ;;  ;; Choices here are to set this to "offlineimap" or "true"
+  ;;  ;; If you are using launchd to run offlinemap, set to "true"
+  ;;  ;; If you want mu4e to run offlineimap, set to "offlineimap"
+  ;;  mu4e-get-mail-command "true"
+  ;;  mu4e-update-interval 120)
 #+END_SRC
 
 *** Compose Email with Org-Mode
