@@ -1108,8 +1108,6 @@ Configuration for [[http://www.emacswiki.org/emacs/TwitteringMode][twittering-mo
   (when got/twittering-mode-available
     (setq twittering-initial-timeline-spec-string
           '(":home"
-            ":replies"
-            ":favorites"
             ":direct_messages")))
 #+END_SRC
 
@@ -1119,6 +1117,7 @@ Configuration for [[http://www.emacswiki.org/emacs/TwitteringMode][twittering-mo
   (when got/twittering-mode-available
     (setq twittering-tinyurl-service 'bit.ly))
 #+END_SRC
+
 
 ** undo-tree-mode
 Undo-tree-mode replaces Emacs' standard undo feature with a more
