@@ -32,6 +32,7 @@
 (depends-on "git-rebase-mode")
 (depends-on "gmail-message-mode")
 (depends-on "ham-mode")
+(depends-on "handlebars-mode")
 (depends-on "haskell-mode")
 (depends-on "helm")
 (depends-on "html-to-markdown")

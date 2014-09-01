@@ -67,6 +67,7 @@ to the prompt.
 | git-rebase-mode                 | Major mode for editing git rebase files                                            |
 | gmail-message-mode              | A major-mode for editing gmail messages using markdown syntax.                     |
 | ham-mode                        | Html As Markdown. Transparently edit an html file using markdown.                  |
+| handlebars-mode                 | A major mode for editing Handlebars files.                                         |
 | haskell-mode                    | A Haskell editing mode                                                             |
 | helm                            | Helm is an Emacs incremental and narrowing framework                               |
 | html-to-markdown                | HTML to Markdown converter written in Emacs-lisp.                                  |
