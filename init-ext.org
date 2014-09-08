@@ -788,7 +788,7 @@ send the results back to the browser.
 #+END_SRC
 
 ** Javascript mode
-*** flycheck-mode
+** flycheck-mode
 
 Enable =flycheck-mode= when opening a Javascript buffer, if flycheck
 is available.
