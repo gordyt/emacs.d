@@ -813,9 +813,14 @@ Slime configuration for editing Lisp code.  Tell /slime/ what Lisp to
 run.  In this case we are configuring it to use [[http://sbcl.org/][Steel Bank Common Lisp]].
 
 #+BEGIN_SRC emacs-lisp
-  (when (package-installed-p 'slime)
-    (setq inferior-lisp-program "sbcl")
-    (slime-setup '(slime-fancy slime-asdf)))
+  (let* ((slime-software (expand-file-name "quicklisp/dists/quicklisp/software" (getenv "HOME")))
+         (slime-pkg (car(reverse (directory-files slime-software t "slime-[0-9]")))))
+    (when slime-pkg
+      (progn
+        (add-to-list 'load-path slime-pkg)
+        (require 'slime-autoloads)
+        (setq inferior-lisp-program "sbcl")
+        (slime-setup '(slime-fancy slime-asdf)))))
 
   (when (package-installed-p 'ac-slime)
     (add-hook 'slime-mode-hook 'set-up-slime-ac)
