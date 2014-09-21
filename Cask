@@ -4,6 +4,7 @@
 (source org)
 
 (depends-on "ac-slime")
+(depends-on "async")
 (depends-on "auto-complete")
 (depends-on "bind-key")
 (depends-on "cask")
@@ -57,9 +58,9 @@
 (depends-on "prodigy")
 (depends-on "projectile")
 (depends-on "python-environment")
+(depends-on "queue")
 (depends-on "s")
 (depends-on "shut-up")
-(depends-on "slime")
 (depends-on "smartparens")
 (depends-on "smex")
 (depends-on "twittering-mode")
