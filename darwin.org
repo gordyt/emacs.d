@@ -79,3 +79,13 @@ center via a small AppleScript.
 #+END_SRC
 
 
+** Darwin-Specific Helm Settings
+
+Tell Helm to search spotlight indices when you execute
+~helm-for-files~ (=M-s F=).
+
+#+BEGIN_SRC emacs-lisp
+  (when (require 'helm-aliases nil :noerror)
+    (when (require 'helm-files nil :noerror)
+      (add-to-list 'helm-for-files-preferred-list helm-source-mac-spotlight)))
+#+END_SRC

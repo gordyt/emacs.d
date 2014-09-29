@@ -396,14 +396,15 @@ This is a handy key-binding to use when you are in some detail help from a
 helm session.  This will bring you back into the helm session.
 
 #+BEGIN_SRC emacs-lisp
-  (when (package-installed-p 'helm)
-    (bind-key "C-c h" 'helm-resume)
-    (require 'helm-misc)
-    (bind-key "C-c M-x" 'helm-M-x)
-    (bind-key "C-h a" 'helm-apropos)
-    (bind-key "M-s a" 'helm-do-grep)
-    (bind-key "M-s b" 'helm-occur)
-    (bind-key "M-s F" 'helm-for-files))
+    (when (package-installed-p 'helm)
+      (bind-key "C-c h" 'helm-resume)
+      (require 'helm-misc)
+      (bind-key "C-c M-x" 'helm-M-x)
+      (bind-key "C-h a" 'helm-apropos)
+      (bind-key "M-s a" 'helm-do-grep)
+      (bind-key "M-s b" 'helm-occur)
+      (bind-key "M-s F" 'helm-for-files
+  ))
 #+END_SRC
 
 ** Ido
@@ -1124,7 +1125,6 @@ Configuration for [[http://www.emacswiki.org/emacs/TwitteringMode][twittering-mo
   (when got/twittering-mode-available
     (setq twittering-tinyurl-service 'bit.ly))
 #+END_SRC
-
 
 ** undo-tree-mode
 Undo-tree-mode replaces Emacs' standard undo feature with a more
