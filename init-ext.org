@@ -96,6 +96,7 @@ to the prompt.
 | queue                           | Queue data structure                                                               |
 | s                               | The long lost Emacs string manipulation library.                                   |
 | shut-up                         | Shut up would you!                                                                 |
+| slime                           | Superior Lisp Interaction Mode for Emacs                                           |
 | smartparens                     | Automatic insertion, wrapping and paredit-like navigation with user defined pairs. |
 | smex                            | M-x interface with Ido-style fuzzy matching.                                       |
 | twittering-mode                 | Major mode for Twitter                                                             |
