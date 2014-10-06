@@ -37,6 +37,23 @@ laptop.
 
 - [[http://www.djcbsoftware.nl/code/mu/mu4e/index.html][mu4e 0.9.9.6 user manual]]
 
+*** Set Defaults
+
+I define some /mu4e/ settings in my ~.private.el~ file.  If you have
+just checked out this repo, you will not have this file.  Here I
+define variables that are introduced in the file and, if necessary,
+give them defaults that won't cause any code to break.
+
+#+BEGIN_SRC emacs-lisp
+  (unless (boundp 'got/mu4e-account-alist)
+    (defvar got/mu4e-account-alist nil))
+#+END_SRC
+
+*** Bookmarks
+
+Change default or add new bookmarks by updating the variable
+~mu4e-bookmarks~. I do this in my ~.private.el~ file.
+
 *** Marks
 
 | mark for/as | keybinding  | description                   |
@@ -53,7 +70,6 @@ laptop.
 | unmark      | u           | remove mark at point          |
 | unmark all  | U           | remove all marks              |
 | unread      | ?           | marks as unread               |
-
 
 *** TODO Document installation and setup for fetchmail, procmail, and offlineimap
 *** Load mu4e
@@ -239,7 +255,6 @@ message came from.
 *** Settings to use when composing mail
 
 I define the variable =got/mu4e-account-alist= in my ~.private.el~ file.
-
 
 **** Define function to select an account
 
