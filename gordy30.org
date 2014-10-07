@@ -2,6 +2,19 @@
 
 Configuration that is specific to /gordy30/.
 
+** Beamer Presentations
+
+#+BEGIN_SRC emacs-lisp
+  (when (require 'ox-latex nil :no-error)
+    (add-to-list 'org-latex-classes
+                 '("beamer"
+                   "\\documentclass\[presentation\]\{beamer\}"
+                   ("\\section\{%s\}" . "\\section*\{%s\}")
+                   ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+                   ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}"))))
+
+#+END_SRC
+
 ** Common Lisp
 
 This is used to configure an alternate lookup for Common Lisp
