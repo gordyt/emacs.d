@@ -956,6 +956,14 @@ This minor mode is turned on in two situations:
    )
 #+END_SRC
 
+** org-reveal
+
+#+BEGIN_SRC emacs-lisp
+  (when  (require 'ox-reveal nil :no-error)
+    (setq org-reveal-slide-number nil))
+      
+#+END_SRC
+
 ** python-mode
 *** flycheck-mode
 
