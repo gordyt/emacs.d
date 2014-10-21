@@ -138,7 +138,7 @@ Change default or add new bookmarks by updating the variable
    mu4e-use-fancy-chars t                          ;; use nicer thread markers
    mu4e-view-show-images t                         ;; show images inline
    mu4e-view-image-max-width 800                   ;; limit max image sizE
-   mu4e-html2text-command "w3m -dump -T text/html" ;; command to convert html to test
+   ;; mu4e-html2text-command "w3m -dump -T text/html" ;; command to convert html to test
    message-send-mail-function 'smtpmail-send-it    ;; command to sent mail
    smtpmail-debug-info nil                         ;; set t to enable smtp debug info
    message-kill-buffer-on-exit t                   ;; kill old buffers

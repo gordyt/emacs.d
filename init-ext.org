@@ -29,7 +29,7 @@ to the prompt.
     (sort
      (mapcar
       (lambda (pkg-desc)
-        (list (car pkg-desc) (package-desc-doc (cdr pkg-desc))))
+        (list (car pkg-desc) (package-desc-summary (cadr pkg-desc))))
       package-alist)
      `(lambda (a b) (string-lessp (car a) (car b))))))
 
@@ -83,7 +83,6 @@ to the prompt.
 | markdown-mode+                  | extra functions for markdown-mode                                                  |
 | multiple-cursors                | Multiple cursors for Emacs.                                                        |
 | nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
-| org                             | Outline-based notes management and organizer                                       |
 | package-build                   | Tools for assembling a package archive                                             |
 | pallet                          | A package management tool for Emacs, using Cask.                                   |
 | pkg-info                        | Information about packages                                                         |
@@ -102,7 +101,6 @@ to the prompt.
 | twittering-mode                 | Major mode for Twitter                                                             |
 | undo-tree                       | Treat undo history as a tree                                                       |
 | use-package                     | A use-package declaration for simplifying your .emacs                              |
-| w3m                             | an Emacs interface to w3m                                                          |
 | web-mode                        | major mode for editing html templates                                              |
 | yasnippet                       | Yet another snippet extension for Emacs.                                           |
 * Utility Functions
@@ -680,22 +678,6 @@ buffer names distinguishable.
 (set-terminal-coding-system 'utf-8) ; set terminal output to utf-8
 (set-keyboard-coding-system 'utf-8) ; set terminal input to utf-8
 (prefer-coding-system 'utf-8)       ; set preferred coding to utf-8
-#+END_SRC
-
-** w3m
-
-The ~w3m~ package is an Emacs inteface to the ~w3m~ program.  We
-enable our configuration based on two things:
-
-1. Presence of the ~w3m~ command, and
-2. Presence of the ~w3m~ emacs package
-
-#+BEGIN_SRC emacs-lisp
-  (if (and
-       (= 0 (shell-command "which w3m"))
-       (package-installed-p 'w3m))
-      (setq w3m-use-cookies t)
-    (warn "w3m not available"))
 #+END_SRC
 
 ** wrap-region
