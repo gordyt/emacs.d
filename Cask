@@ -53,7 +53,6 @@
 (depends-on "pkg-info")
 (depends-on "popup")
 (depends-on "popwin")
-(depends-on "powerline")
 (depends-on "prodigy")
 (depends-on "projectile")
 (depends-on "python-environment")
