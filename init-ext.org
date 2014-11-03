@@ -246,6 +246,8 @@ they create.
 | got/jabber-avatar-cache   | where jabber caches its avatar images            |
 | got/mc-list-file          | where multiple-cursors tracks preferences        |
 | got/bookmark-default-file | where Emacs Booksmarks are stored                |
+| got/eshell-directory-name | Where eshell stores control files                |
+
 
 
 #+BEGIN_SRC emacs-lisp
@@ -275,6 +277,9 @@ they create.
     "where multiple-cursors tracks preferences")
   (defvar got/bookmark-default-file
     (expand-file-name "bookmarks" got/metafiles-dir)
+    "where Emacs stores its bookmarks file")
+  (defvar got/eshell-directory-name
+    (expand-file-name "eshell/" got/metafiles-dir)
     "where Emacs stores its bookmarks file")
 
 #+END_SRC
@@ -372,6 +377,14 @@ side-by-side.
 
 #+BEGIN_SRC emacs-lisp
   (setq ediff-split-window-function 'split-window-horizontally)
+#+END_SRC
+
+** eshell
+
+Override the default location for /eshell/ control files.
+
+#+BEGIN_SRC emacs-lisp
+  (setq eshell-directory-name got/eshell-directory-name)
 #+END_SRC
 
 ** expand-regiocn
