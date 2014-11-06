@@ -67,6 +67,7 @@ to the prompt.
 | git-commit-mode                 | Major mode for editing git commit messages                                         |
 | git-rebase-mode                 | Major mode for editing git rebase files                                            |
 | gmail-message-mode              | A major-mode for editing gmail messages using markdown syntax.                     |
+| guru-mode                       | Become an Emacs guru                                                               |
 | ham-mode                        | Html As Markdown. Transparently edit an html file using markdown.                  |
 | handlebars-mode                 | A major mode for editing Handlebars files.                                         |
 | haskell-mode                    | A Haskell editing mode                                                             |
@@ -401,6 +402,15 @@ before calling `er/expand-region' for the first time.
   (when (package-installed-p 'expand-region)
       (bind-key "C-=" 'er/expand-region))
 #+END_SRC
+
+** Guru Mode
+
+Enable =guru-mode= everywhere.
+
+#+BEGIN_SRC emacs-lisp
+  (guru-global-mode t)
+#+END_SRC
+
 
 ** Helm
 This is a handy key-binding to use when you are in some detail help from a
