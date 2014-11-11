@@ -55,6 +55,7 @@ to the prompt.
 | drag-stuff                      | Drag stuff (lines, words, region, etc...) around                                   |
 | edit-server                     | server that responds to edit requests from Chrome                                  |
 | epc                             | A RPC stack for the Emacs Lisp                                                     |
+| epic                            | Evernote Picker                                                                    |
 | epl                             | Emacs Package Library                                                              |
 | erlang                          | Erlang major mode                                                                  |
 | exec-path-from-shell            | Get environment variables such as $PATH from the shell                             |
@@ -67,6 +68,7 @@ to the prompt.
 | git-commit-mode                 | Major mode for editing git commit messages                                         |
 | git-rebase-mode                 | Major mode for editing git rebase files                                            |
 | gmail-message-mode              | A major-mode for editing gmail messages using markdown syntax.                     |
+| graphviz-dot-mode               | Mode for the dot-language used by graphviz (att).                                  |
 | guru-mode                       | Become an Emacs guru                                                               |
 | ham-mode                        | Html As Markdown. Transparently edit an html file using markdown.                  |
 | handlebars-mode                 | A major mode for editing Handlebars files.                                         |
@@ -84,6 +86,10 @@ to the prompt.
 | markdown-mode+                  | extra functions for markdown-mode                                                  |
 | multiple-cursors                | Multiple cursors for Emacs.                                                        |
 | nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
+| org                             | Outline-based notes management and organizer                                       |
+| org-mac-link                    | Insert org-mode links to items selected in various Mac apps                        |
+| org-octopress                   | Compose octopress articles using org-mode.                                         |
+| orglue                          | more functionality to org-mode.                                                    |
 | package-build                   | Tools for assembling a package archive                                             |
 | pallet                          | A package management tool for Emacs, using Cask.                                   |
 | pkg-info                        | Information about packages                                                         |
