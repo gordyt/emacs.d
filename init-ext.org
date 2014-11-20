@@ -211,8 +211,14 @@ This is yet another more specify place where settings can
 go. Here we look for files named <hostname>.org, or <hostname>.el
 and load them.
 
+*Note:* With some kind of change in Yosemite, I was getting strange
+hostname values; e.g. =gordy30-7....= instead of =gordy30...=.  So I
+have updated the regular expression used to generate the /base/
+hostname.
+
+
 #+BEGIN_SRC emacs-lisp
-  (let ((host-name-base (car (split-string (system-name) "\\."))))
+  (let ((host-name-base (car (split-string (system-name) "[-\\.]"))))
     (got/load-file-base-name got/dotfiles-dir host-name-base))
 #+END_SRC
 

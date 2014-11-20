@@ -32,7 +32,14 @@ at /point/.
 - Make note of the location of the ~ditaa*.jar~ file.
 
 #+BEGIN_SRC emacs-lisp
-(setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.9/libexec/ditaa0_9.jar")
+  (let ((ditaa-jar-path "/usr/local/Cellar/ditaa/0.9/libexec/ditaa0_9.jar"))
+    (if (file-exists-p ditaa-jar-path)
+        (progn
+          (message "Setting org-ditaa-jar-path to '%s'" ditaa-jar-path)
+          (setq org-ditaa-jar-path ditaa-jar-path))
+      (message (concat "Unable to location ditaa jar file at path: "
+                       ditaa-jar-path))))
+
 #+END_SRC
 
 - Then just create a SRC block with the following attributes: =ditaa :file <FILENAME>=
