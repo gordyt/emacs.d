@@ -81,6 +81,7 @@ to the prompt.
 | ido-vertical-mode               | Makes ido-mode display vertically.                                                 |
 | jabber                          | A Jabber client for Emacs.                                                         |
 | jedi                            | Python auto-completion for Emacs                                                   |
+| json-reformat                   | Reformatting tool for JSON                                                         |
 | magit                           | control Git from Emacs                                                             |
 | markdown-mode                   | Emacs Major mode for Markdown-formatted text files                                 |
 | markdown-mode+                  | extra functions for markdown-mode                                                  |
@@ -99,6 +100,7 @@ to the prompt.
 | projectile                      | Manage and navigate projects in Emacs easily                                       |
 | python-environment              | virtualenv API for Emacs Lisp                                                      |
 | queue                           | Queue data structure                                                               |
+| restclient                      | An interactive HTTP client for Emacs                                               |
 | s                               | The long lost Emacs string manipulation library.                                   |
 | shut-up                         | Shut up would you!                                                                 |
 | slime                           | Superior Lisp Interaction Mode for Emacs                                           |
