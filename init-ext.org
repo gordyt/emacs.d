@@ -915,6 +915,7 @@ By default only emacs-lisp is enabled.
      (plantuml . t)
      (clojure . t)
      (calc . t)
+     (ruby . t)
      (js . t)
      (lisp . t)
      (dot . t)
