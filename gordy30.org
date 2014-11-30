@@ -481,5 +481,6 @@ Basic directory configation.  See [[http://www.railsonmaui.com/blog/2014/03/05/o
           org-octopress-directory-posts (concat org-octopress-directory-top "/_posts")
           org-octopress-directory-org-top org-octopress-directory-top
           org-octopress-directory-org-posts (concat org-octopress-directory-org-top "/blog")
+          org-octopress-setup-file (concat org-octopress-directory-top "/setupfile.org")
           ))
 #+END_SRC
