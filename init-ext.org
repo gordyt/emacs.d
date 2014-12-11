@@ -797,7 +797,7 @@ send the results back to the browser.
 #+END_SRC
 
 ** Javascript mode
-** flycheck-mode
+*** flycheck-mode for Javascript
 
 Enable =flycheck-mode= when opening a Javascript buffer, if flycheck
 is available.
@@ -972,7 +972,7 @@ This minor mode is turned on in two situations:
 #+END_SRC
 
 ** python-mode
-*** flycheck-mode
+*** flycheck-mode for python
 
 Enable =flycheck-mode= when opening a Python buffer, if flycheck is available
 
