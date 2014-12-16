@@ -1,5 +1,6 @@
 .cask/
 *~
+\#*
 init-ext.el
 .DS_Store
 /darwin.el
