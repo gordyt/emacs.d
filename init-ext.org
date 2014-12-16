@@ -965,6 +965,16 @@ This minor mode is turned on in two situations:
    )
 #+END_SRC
 
+*** org-id-locations
+
+Modify the default place where globally-defined ID's are stored.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-id-locations-file
+        (expand-file-name "org-id-locations" got/metafiles-dir))
+
+#+END_SRC
+
 ** org-reveal
 
 #+BEGIN_SRC emacs-lisp
