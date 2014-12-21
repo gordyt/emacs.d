@@ -828,7 +828,7 @@ run.  In this case we are configuring it to use [[http://sbcl.org/][Steel Bank C
           (progn
             (add-to-list 'load-path slime-pkg)
             (require 'slime-autoloads)
-            (setq inferior-lisp-program "sbcl")
+            (setq inferior-lisp-program "sbcl --noinform --no-linedit")
             (slime-setup '(slime-fancy slime-asdf)))))))
 
 
