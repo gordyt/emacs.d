@@ -818,7 +818,9 @@ npm install -g jshint
 ** lisp-mode
 
 Slime configuration for editing Lisp code.  Tell /slime/ what Lisp to
-run.  In this case we are configuring it to use [[http://sbcl.org/][Steel Bank Common Lisp]].
+run.  In this case we are configuring it to use [[http://sbcl.org/][Steel Bank Common Lisp]]
+by default.  If you invoke ~M-x slime~ with a prefix argument, you
+will get to choose between SBCL and CLISP.
 
 #+BEGIN_SRC emacs-lisp
   (let ((slime-software (expand-file-name "quicklisp/dists/quicklisp/software" (getenv "HOME"))))
@@ -828,7 +830,10 @@ run.  In this case we are configuring it to use [[http://sbcl.org/][Steel Bank C
           (progn
             (add-to-list 'load-path slime-pkg)
             (require 'slime-autoloads)
-            (setq inferior-lisp-program "sbcl --noinform --no-linedit")
+            (setq slime-lisp-implementations
+                  '((sbcl ("sbcl" "--noinform" "--no-linedit"))
+                    (clisp ("clisp" "--quiet"))))
+            (setq slime-default-lisp 'sbcl)
             (slime-setup '(slime-fancy slime-asdf)))))))
 
 
