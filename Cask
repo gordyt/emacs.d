@@ -47,6 +47,7 @@
 (depends-on "jabber")
 (depends-on "jedi")
 (depends-on "json-reformat")
+(depends-on "let-alist")
 (depends-on "magit")
 (depends-on "markdown-mode")
 (depends-on "markdown-mode+")

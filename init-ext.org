@@ -82,6 +82,7 @@ to the prompt.
 | jabber                          | A Jabber client for Emacs.                                                         |
 | jedi                            | Python auto-completion for Emacs                                                   |
 | json-reformat                   | Reformatting tool for JSON                                                         |
+| let-alist                       | Easily let-bind values of an assoc-list by their names                             |
 | magit                           | control Git from Emacs                                                             |
 | markdown-mode                   | Emacs Major mode for Markdown-formatted text files                                 |
 | markdown-mode+                  | extra functions for markdown-mode                                                  |
