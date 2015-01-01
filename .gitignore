@@ -8,3 +8,4 @@ init-ext.el
 /org-bullet.el
 /.private.el
 /elpa
+/eww-bookmarks
