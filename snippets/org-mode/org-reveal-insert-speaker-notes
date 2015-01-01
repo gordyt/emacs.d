@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: org-reveal-insert-speaker-notes
+# key: <n
+# binding: direct-keybinding
+# uuid: 0BBD3150-E9E9-490A-A05F-9FC44CA3F108
+# --
+#+BEGIN_NOTES
+$0
+#+END_NOTES
