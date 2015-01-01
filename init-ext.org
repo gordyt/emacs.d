@@ -823,6 +823,14 @@ run.  In this case we are configuring it to use [[http://sbcl.org/][Steel Bank C
 by default.  If you invoke ~M-x slime~ with a prefix argument, you
 will get to choose between SBCL and CLISP.
 
+/Note:/  I like to use the version of slime that is installed via
+quicklisp.  To install it just do the following from inside a lisp
+REPL:
+
+#+BEGIN_EXAMPLE
+(ql:quickload "quicklisp-slime-helper")
+#+END_EXAMPLE
+
 #+BEGIN_SRC emacs-lisp
   (let ((slime-software (expand-file-name "quicklisp/dists/quicklisp/software" (getenv "HOME"))))
     (when (file-exists-p slime-software)
