@@ -171,14 +171,6 @@ the result to use miles (formatted to 2 decimal places):
       (calc-eval new-units 'raw))))
 #+END_SRC
 
-* Custom Settings File
-
-Here I am specifying an alternate location for any custom settings.  This
-helps keep my ~init.el~ file cleaner.
-
-#+BEGIN_SRC emacs-lisp
-(setq custom-file (expand-file-name "custom.el" got/dotfiles-dir))
-#+END_SRC
 * Load Private settings
 
 These are things like email settings, etc.  I keep them in a file in my
@@ -235,6 +227,14 @@ Meta-information files (backups, etc.) are stored in =got/metafiles-dir=.
 (setq got/metafiles-dir "~/.emacs-meta")
 (unless (file-exists-p got/metafiles-dir)
        (make-directory got/metafiles-dir))
+#+END_SRC
+* Custom Settings File
+
+Here I am specifying an alternate location for any custom settings.  This
+helps keep my ~init.el~ file cleaner.
+
+#+BEGIN_SRC emacs-lisp
+(setq custom-file (expand-file-name "custom.el" got/metafiles-dir))
 #+END_SRC
 
 * Additional Paths
