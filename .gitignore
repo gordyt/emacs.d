@@ -9,3 +9,4 @@ init-ext.el
 /.private.el
 /elpa
 /eww-bookmarks
+/tramp
