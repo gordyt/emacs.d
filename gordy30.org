@@ -473,7 +473,32 @@ Auto-update the Zapien index every 2 minutes.
 #+END_SRC
 ** Octopress Setup (gordy.github.io)
 
-Basic directory configation.  See [[http://www.railsonmaui.com/blog/2014/03/05/octopress-setup-with-github-and-org-mode-v2/][this post]] for detailed notes.
+Basic directory configation.  See [[http://www.railsonmaui.com/blog/2014/03/05/octopress-setup-with-github-and-org-mode-v2/][this post]] for detailed notes.  Also
+see the [[http://octopress.org][main octopress website]] and the [[https://github.com/yoshinari-nomura/org-octopress][org-octopress]] site.
+
+Basic usage:
+
+- ~M-x org-octopress~
+- Type ~w~ to create a new post
+- In the new org-mode buffer that was created be sure and add your
+  /#+JEKYLL_CATEGORIES/ (tags).  If there are more than one, separate
+  them with a space.  Example:
+  #+BEGIN_EXAMPLE
+  #+JEKYLL_CATEGORIES: ubuntu emacs
+  #+END_EXAMPLE
+- When you are through, need to export the Org mode file to HTML as
+  follows: ~C-c C-e (org-export-dispatch) and type “P” “x” “octopress”~
+- Everything else that follows is done from a terminal or eshell from
+  the top-level of the blog:
+  - ~rake preview~ - lets you open a browser to ~localhost:4000~ to
+    see the new post.
+  - ~rake deploy~ - to deploy the updates to github.
+- Be sure and commit your changes in your local git repo (in the
+  /source/ branch).
+- Branches
+  - /source/ - this is where you compose everything
+  - /master/ - this is what is served to the public from GitHub pages.
+
 
 #+BEGIN_SRC emacs-lisp
   (when (require 'org-octopress nil :noerror)
