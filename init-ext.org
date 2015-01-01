@@ -52,6 +52,7 @@ to the prompt.
 | dash                            | A modern list library for Emacs                                                    |
 | deferred                        | Simple asynchronous functions for emacs lisp                                       |
 | diminish                        | Diminished modes are minor modes with no modeline display                          |
+| dired+                          | Extensions to Dired.                                                               |
 | drag-stuff                      | Drag stuff (lines, words, region, etc...) around                                   |
 | edit-server                     | server that responds to edit requests from Chrome                                  |
 | epc                             | A RPC stack for the Emacs Lisp                                                     |
@@ -384,6 +385,17 @@ Customize where Emacs stores its bookmarks file
   (setq bookmark-default-file got/bookmark-default-file)
 #+END_SRC
 
+** Dired+
+
+Configure ~dired+~ to reuse the directory buffer when navigating about
+rather than creating a new buffer for every new directory that is
+visited.
+
+#+BEGIN_SRC emacs-lisp
+(when (require 'dired+ nil :no-error)
+  (diredp-toggle-find-file-reuse-dir 1))
+#+END_SRC
+
 ** Ediff
 
 You can invoke /ediff/ from within /magit/ by typing ~e~ with the
@@ -425,7 +437,6 @@ Enable =guru-mode= everywhere.
 #+BEGIN_SRC emacs-lisp
   (guru-global-mode t)
 #+END_SRC
-
 
 ** Helm
 This is a handy key-binding to use when you are in some detail help from a
