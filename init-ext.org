@@ -52,7 +52,6 @@ to the prompt.
 | dash                            | A modern list library for Emacs                                                    |
 | deferred                        | Simple asynchronous functions for emacs lisp                                       |
 | diminish                        | Diminished modes are minor modes with no modeline display                          |
-| dired+                          | Extensions to Dired.                                                               |
 | drag-stuff                      | Drag stuff (lines, words, region, etc...) around                                   |
 | edit-server                     | server that responds to edit requests from Chrome                                  |
 | epc                             | A RPC stack for the Emacs Lisp                                                     |

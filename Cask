@@ -17,7 +17,6 @@
 (depends-on "dash")
 (depends-on "deferred")
 (depends-on "diminish")
-(depends-on "dired+")
 (depends-on "drag-stuff")
 (depends-on "edit-server")
 (depends-on "epc")
