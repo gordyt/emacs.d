@@ -1024,6 +1024,22 @@ your Python coding in a non-destructive way. It also helps you to find
 information about Python objects, such as docstring, function
 arguments and code location.
 
+You need to install two Python modules outside of Emacs to make this
+work:
+
+- [[http://jedi.jedidjah.ch/en/latest/][Jedi]]
+- [[http://python-epc.readthedocs.org/en/latest/][EPC]]
+
+#+BEGIN_SRC sh
+sudo pip install jedi
+sudo pip install epc
+#+END_SRC
+
+If the /pip/ command is not available you can install it as follows:
+
+- /Ubuntu:/ ~sudo apt-get install python-pip~
+- /Mac OS X:/ ~sudo easy_install pip~
+
 #+BEGIN_SRC emacs-lisp
   (when (package-installed-p 'jedi)
     (setq jedi:setup-keys t)
