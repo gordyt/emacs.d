@@ -200,6 +200,16 @@ and the file that we look for would be ~gnu-linux.org~ or ~gnu-linux.el~.
 
 #+END_SRC
 
+* Library Paths
+
+All configuration is stored under =got/dotfiles-dir= (=~/.emacs.d=).
+Meta-information files (backups, etc.) are stored in =got/metafiles-dir=.
+
+#+BEGIN_SRC emacs-lisp
+(setq got/metafiles-dir "~/.emacs-meta")
+(unless (file-exists-p got/metafiles-dir)
+       (make-directory got/metafiles-dir))
+#+END_SRC
 * Load Hostname-specific Settings File
 
 This is yet another more specify place where settings can
@@ -217,16 +227,6 @@ hostname.
     (got/load-file-base-name got/dotfiles-dir host-name-base))
 #+END_SRC
 
-* Library Paths
-
-All configuration is stored under =got/dotfiles-dir= (=~/.emacs.d=).
-Meta-information files (backups, etc.) are stored in =got/metafiles-dir=.
-
-#+BEGIN_SRC emacs-lisp
-(setq got/metafiles-dir "~/.emacs-meta")
-(unless (file-exists-p got/metafiles-dir)
-       (make-directory got/metafiles-dir))
-#+END_SRC
 * Custom Settings File
 
 Here I am specifying an alternate location for any custom settings.  This
