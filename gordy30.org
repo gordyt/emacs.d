@@ -506,6 +506,6 @@ Basic usage:
           org-octopress-directory-posts (concat org-octopress-directory-top "/_posts")
           org-octopress-directory-org-top org-octopress-directory-top
           org-octopress-directory-org-posts (concat org-octopress-directory-org-top "/blog")
-          org-octopress-setup-file (concat org-octopress-directory-top "/setupfile.org")
+          org-octopress-setup-file "~/.emacs.d/octopress-setupfile.txt"
           ))
 #+END_SRC
