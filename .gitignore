@@ -5,6 +5,7 @@ init-ext.el
 .DS_Store
 /darwin.el
 /gordy30.el
+/gordychrome.el
 /org-bullet.el
 /.private.el
 /elpa
