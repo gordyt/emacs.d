@@ -3,7 +3,6 @@
 Configuration that is specific to /gordychrome/.  This is my Asus C200
 Chromebook.
  
-
 ** Octopress Setup (gordy.github.io)
 
 Basic directory configation.  See [[http://www.railsonmaui.com/blog/2014/03/05/octopress-setup-with-github-and-org-mode-v2/][this post]] for detailed notes.  Also
@@ -24,4 +23,11 @@ See /gordy30.org/ for more info.
           ))
 
 
+#+END_SRC
+** GUI Tweaks
+
+Disable /tool-bar-mode/ to save space on this tiny Chromebook display.
+
+#+BEGIN_SRC emacs-lisp
+(tool-bar-mode -1)
 #+END_SRC
