@@ -1,0 +1,1284 @@
+* org-bullet
+  :PROPERTIES:
+  :ID:       3A637AB0-DA7B-43F7-B970-59E09E97F19B
+  :END:
+** introduction
+   :PROPERTIES:
+   :ID:       1EB5E218-0B4A-4815-80B9-A52A5167A828
+   :END:
+/org-bullet/ is an implementation of [[http://bulletjournal.com/][Bullet Journal]] in [[http://www.gnu.org/software/emacs/][Emacs]] [[http://orgmode.org/][org-mode]].  It
+is comprised of the following assumptions and use-cases.
+
+- The user will configure some basic /org-mode/ settings in a way that is
+  compatible with /org-bullet/.  These will be defined later.
+- The user will follow certain conventions when editing /org-bullet/
+  documents in Emacs.
+- /org-bullet/ will provide an HTTP server that serves /both/ a
+  mobile-friendly HTML5 application and expose a REST interface for
+  interacting with the source documents on the user's computer.
+
+** org-mode conventions for org-bullet
+   :PROPERTIES:
+   :ID:       136C462B-BC0B-4B4F-B526-D6656183E264
+   :END:
+
+*** Categories
+    :PROPERTIES:
+    :ID:       56E28999-90B8-4CED-9E43-0D89D4428F5F
+    :END:
+
+/Bullet Journal/ defines the following categories for entries:
+
+- Tasks
+- Notes
+- Events
+
+You are free to use as many categories as you wish.  For example, I have
+added the following category:
+
+- Journal Entries
+
+The convention that will be used in /org-bullet/ is as follows:
+
+1. Each /org-mode/ headline is a bullet entry.
+2. If it starts with one of the defined TODO markers, then it is a task
+3. If it contains a =:CATEGORY:= property then the value of that property
+   defines the type of the bullet entry.
+4. If neither item 2 or 3 apply, it is the /default/ category.
+
+You should define the default bullet category at the top of each of your
+/org-bullet/ files as follows:
+
+#+BEGIN_EXAMPLE
+#+CATEGORY: Note
+#+END_EXAMPLE
+
+**** Category Examples
+     :PROPERTIES:
+     :ID:       A03CD74E-0FB6-468C-90AA-C6BF49316386
+     :END:
+
+***** TODO Sample task entry
+      :PROPERTIES:
+      :ID:       EE2D4388-0E85-484D-A456-93B16FC4E64A
+      :END:
+***** Sample event entry
+      :PROPERTIES:
+      :CATEGORY: Event
+      :ID:       6CA59D7C-2202-4E6C-8498-C2ACE6417DED
+      :END:
+***** Sample journal entry
+      :PROPERTIES:
+      :CATEGORY: Journal
+      :ID:       288A7ED5-3C84-4505-AB45-E182F7AE8389
+      :END:
+***** Sample default entry 
+      :PROPERTIES:
+      :ID:       AC253EC2-310B-4120-8879-AC8EA72E194B
+      :END:
+
+*** Directory Structure
+    :PROPERTIES:
+    :ID:       14D12381-62CF-4BAF-9BFD-8A45E44C190B
+    :END:
+
+/org-bullet/ will maintain the following structure under =org-bullet-root=.
+
+- ~projects/~ directory for long running project files that you wish expose
+  via /org-bullet/.
+  - ~active/~ directory where active project files will reside
+  - ~archive/~ directory where archived project files will reside
+- ~journals/~ directory where /org-bullet/ will place your journal files.
+  - ~active/~ directory where active /org-bullet/ files will reside
+  - ~archive/~ directory where archived /org-bullet/ files will reside
+
+/org-bullet/ will automatically create a new journal file for each month.
+The monthly jounal file will follow this naming convention:
+~yyyy-mm-Month.org~.  For example, ~2014-04-April.org~.
+
+By default the HTTP server will serve files from only the following two
+directories:
+
+- ~projects/active/~
+- ~journals/active/~
+
+
+#+BEGIN_SRC emacs-lisp
+(require 'elnode nil 'noerror)
+(require 'json nil 'noerror)
+#+END_SRC
+
+* configuration
+  :PROPERTIES:
+  :ID:       746CC126-2EEC-4643-AB6F-22A65866C699
+  :END:
+** org-mode settings for org-bullet
+   :PROPERTIES:
+   :ID:       6F6C4D2A-AFB1-449F-AC47-E72565830CE6
+   :END:
+
+The following are suggested /org-mode/ settings.  They are not manditory,
+but are helpful.  If you wish to also use /org-agenda/ then be sure and
+customize the =org-agenda-files= variable.
+
+*** Wrap clocking data in LOGBOOK drawer
+    :PROPERTIES:
+    :ID:       AFB2ED5F-FE38-4BE0-8FBB-0D2F78E6710B
+    :END:
+
+#+BEGIN_SRC emacs-lisp
+(setq org-clock-into-drawer t)
+#+END_SRC
+
+*** Wrap notes made via C-c C-z into LOGBOOK drawer
+    :PROPERTIES:
+    :ID:       ED3692DA-FB37-4741-B054-EBB7841A6CA6
+    :END:
+
+#+BEGIN_SRC emacs-lisp
+(setq org-log-into-drawer t)
+#+END_SRC
+
+*** Insert timestamp when marking a task as DONE
+    :PROPERTIES:
+    :ID:       233B7BC8-01C1-4880-B3AE-020E41F05D5E
+    :END:
+
+#+BEGIN_SRC emacs-lisp
+(setq org-log-done 'time)
+#+END_SRC
+
+*** Provide reasonable effort estimates
+    :PROPERTIES:
+    :ID:       4B5B03CB-6FE0-448C-8495-C7DADB456798
+    :END:
+
+#+BEGIN_SRC emacs-lisp
+(setq org-global-properties
+      '(("Effort_ALL". "0:05 0:10 0:30 1:00 2:00 3:00 4:00 8:00")))
+#+END_SRC
+
+*** Customize TODO states
+    :PROPERTIES:
+    :ID:       9BCB3FEA-FD4F-40DB-8198-20D9D0C7EDAA
+    :END:
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-todo-keywords
+        '((sequence "TODO" "INPROGRESS" "|" "DONE" "DELEGATED" "CANCELLED" "SOMEDAY")))
+#+END_SRC
+
+*** Tags we want to have readily avialable
+    :PROPERTIES:
+    :ID:       A0861EDC-DD89-4A44-9471-DD1767EE1B6D
+    :END:
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-tag-persistent-alist '(
+                                   ; contexts
+                                   (:startgroup . nil)
+                                   ("@M" . ?m)              ; Meeting (agenda)
+                                   ("@A" . ?a)              ; Anywhere
+                                   ("@P" . ?p)              ; Phone (call)
+                                   ("@C" . ?c)              ; Computer
+                                   ("@E" . ?e)              ; Errand
+                                   ("@H" . ?h)              ; Home
+                                   ("@O" . ?o)              ; Office
+                                   ("@W" . ?w)              ; Waiting For
+                                   ("@J" . ?j)              ; Journal
+                                   ("@D" . ?d)              ; Driving
+                                   (:endgroup . nil)))
+#+END_SRC
+
+** org-bullet settings
+   :PROPERTIES:
+   :ID:       630A881B-14A3-405C-82F9-E0FC5C8E308B
+   :END:
+
+*** org-bullet-root
+    :PROPERTIES:
+    :ID:       8A8910C0-F54A-432C-BE9D-D47BA0D1F9B6
+    :END:
+
+This should be set to the top-level directory where you want /org-bullet/
+to maintain its files.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-bullet/root "~/Google Drive/Reference/o/org-bullet")
+#+END_SRC
+
+* implementation
+  :PROPERTIES:
+  :ID:       E80CD081-37FE-4C94-9E6E-392F28E9B937
+  :END:
+** variables
+   :PROPERTIES:
+   :ID:       94963CB5-A547-4E90-A7FD-DB404A3A5DEE
+   :END:
+*** org-bullet/months
+    :PROPERTIES:
+    :ID:       968D4D65-ECDB-4C6C-BAE9-3368E14BEF9E
+    :END:
+#+BEGIN_SRC emacs-lisp
+(defvar org-bullet/months
+      '(("January" . 1)
+        ("Febrary" . 2)
+        ("March" . 3)
+        ("April" . 4)
+        ("May" . 5)
+        ("June" . 6)
+        ("July" . 7)
+        ("August" . 8)
+        ("September" . 9)
+        ("October" . 10)
+        ("November" . 11)
+        ("December" . 12))
+      "alias of month names and numerical values")
+#+END_SRC
+** pathing
+   :PROPERTIES:
+   :ID:       2633A0B3-B533-4741-AD69-4E3AE36303F2
+   :END:
+*** org-bullet/ensure-directory
+    :PROPERTIES:
+    :ID:       03AAB651-E9A6-4AF1-8014-D6FE44111578
+    :END:
+#+BEGIN_SRC emacs-lisp
+  (cl-defun org-bullet/ensure-directory (&key status type)
+      "Ensure the required directory exists and return the path to it.
+
+  Accepts the following keyword arguments:
+
+  :status - :archive | :active (the default)
+  :type   - :project | :journal (the default)
+
+  Also see:
+
+  - org-bullet/root"
+
+      (let* ((type-dir (if (equalp type :project) "projects" "journals"))
+             (status-dir (if (equalp status :archive) "archive" "active"))
+             (path (mapconcat 'identity (list org-bullet/root type-dir status-dir) "/")))
+        (mkdir path t)
+        path))
+                       
+
+                                    
+#+END_SRC
+*** org-bullet/projects-active-dir
+    :PROPERTIES:
+    :ID:       8537027E-1906-40E9-92C7-B641238F191A
+    :END:
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/projects-active-dir ()
+    "Return the path to the directory where active projects are stored"
+    (org-bullet/ensure-directory :status :active :type :project))
+#+END_SRC
+*** org-bullet/projects-archive-dir
+    :PROPERTIES:
+    :ID:       4F7409F6-F2F4-4C47-ACD0-789B2B16687C
+    :END:
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/projects-archive-dir ()
+    "Return the path to the directory where archived projects are stored"
+    (org-bullet/ensure-directory :status :archive :type :project))
+#+END_SRC
+
+*** org-bullet/journals-active-dir
+    :PROPERTIES:
+    :ID:       A4AA3389-6DC8-48AB-9814-B2B275C94AD8
+    :END:
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/journals-active-dir ()
+    "Return the path to the directory where active journals are stored"
+    (org-bullet/ensure-directory :status :active :type :journal))
+#+END_SRC
+
+*** org-bullet/journals-archive-dir
+    :PROPERTIES:
+    :ID:       011C5D3A-EC80-4B50-9E77-282B62800A77
+    :END:
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/journals-archive-dir ()
+    "Return the path to the directory where archived journals are stored"
+    (org-bullet/ensure-directory :status :archive :type :journal))
+#+END_SRC
+
+** lookup
+   :PROPERTIES:
+   :ID:       5DF60C13-4051-4E6E-90BF-9ECCF67EEDDF
+   :END:
+*** org-bullet/projects-active-files
+    :PROPERTIES:
+    :ID:       D106961C-77E1-4B61-A2B0-EFB12D852B35
+    :END:
+*** org-bullet/projects-archive-files
+    :PROPERTIES:
+    :ID:       6C7415D7-02C0-4091-938F-CC0307686D1A
+    :END:
+*** org-bullet/journals-active-files
+    :PROPERTIES:
+    :ID:       CBC7AB59-D4F5-4477-8C9E-C67D2934F35F
+    :END:
+*** org-bullet/journals-archive-files
+    :PROPERTIES:
+    :ID:       34890414-8FE5-4B49-BE9B-C6408F00ABE5
+    :END:
+** archiving
+   :PROPERTIES:
+   :ID:       81BACB62-8ECF-41D5-869D-BC8CFF7B8F67
+   :END:
+*** org-bullet/archive-project
+    :PROPERTIES:
+    :ID:       1AA9F7E9-A6A7-4F58-B07C-B03A480CF2E7
+    :END:
+*** org-bullet/archive-month
+    :PROPERTIES:
+    :ID:       E2EEF7A5-2C87-4B6E-8721-B343ED0766DE
+    :END:
+** decoding
+   :PROPERTIES:
+   :ID:       594E3BED-15C7-4D63-B268-3C645386BE4D
+   :END:
+*** org-bullet/decode-month
+    :PROPERTIES:
+    :ID:       80449C88-AB7A-4201-A3F9-13615E6A647F
+    :END:
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/decode-month (&optional mon)
+    "Return a cons-cell of the form (MONTH-NAME . MONTH-NUMBER) corresponding to MON.
+
+  If MON is nil, use current month.
+  Also, MON can be a number from 1-12 or any substring of a month name"
+
+    (destructuring-bind
+        (SECONDS MINUTES HOUR DAY MONTH YEAR DOW DST ZONE)
+        (decode-time)
+      (let* ((m (or mon MONTH))
+             (mf (if (numberp m)
+                     (lambda (x) (equal m (cdr x)))
+                   (lambda (x) (string-prefix-p (capitalize m) (car x)))))
+             (mcand (remove-if-not mf org-bullet/months)))
+        (if (equal (length mcand) 1)
+            (car mcand)
+          (car (remove-if-not (lambda (x) (equal MONTH (cdr x))) org-bullet/months))))))
+#+END_SRC
+
+*** org-bullet/decode-headline-id
+
+#+BEGIN_SRC emacs-lisp
+    (defun org-bullet/decode-headline-id (h)
+      "Tries to extract the :ID property of headline H.
+
+  If there isn't one, creates it and returns it. If H is nil or not a
+  headline returns nil.
+
+  IMPORTANT NOTE: If this function must call org-id-get to create
+  an :ID this will mutate the buffer and potentially invalidate
+  any parse may you may be working with.  Therefore, it is adviseable
+  to call org-bullet/ensure-headline-ids on any buffer you are working
+  with /before/ using this function!"
+
+
+      (let ((etype (org-element-type h))
+            (eid (org-element-property :ID h)))
+        (and
+         (equal etype 'headline)
+         (or
+          eid
+          (org-id-get (org-element-property :begin h) t)))))
+
+#+END_SRC
+
+*** org-bullet/decode-parent-headline-id
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/decode-parent-headline-id (elem)
+    "Given a headline ELEM, find the ID of it's parent.  This will be
+  NIL if it is a top-level headline in a file or the ID of its
+  parent headline."
+    (let* ((parent (org-element-property :parent elem)))
+      (org-bullet/decode-headline-id parent)))
+
+#+END_SRC
+
+*** org-bullet/export-headline
+    :PROPERTIES:
+    :ID:       9027D4EE-ED29-4DE9-BC79-E22C21F4761E
+    :END:
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/export-headline (headline parent)
+    "Exports HEADLINE with parent PARENT in a format that will
+  encode to JSON nicely."
+
+    (list `("id" . ,(org-element-property :ID headline))
+          `("links" . (("parent" . ,parent)))
+          `("level" . ,(org-element-property :level headline))
+          `("priority" . ,(org-element-property :priority headline))
+          `("tags" . ,(org-element-property :tags headline))
+          `("todo-keyword" . ,(org-element-property :todo-keyword headline))
+          `("todo-type" . ,(org-element-property :todo-type headline))
+          `("category" . ,(org-element-property :CATEGORY headline))
+          `("title" . ,(org-element-property :title headline))))
+
+#+END_SRC
+
+*** org-bullet/parse-code
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/parse-code (c)
+    "Parse the code element C"
+    `(code
+      (text ,(org-element-property :value c))))
+
+    
+#+END_SRC
+
+*** org-bullet/parse-child-healines
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/parse-child-headline-ids (ph)
+    "Extract the IDs of any headlines that are \"under\"
+  the parent headline PH.  Returns a list of their IDs"
+    (let ((ph-id (org-element-property :ID ph)))
+      (remove-if
+       (lambda (id) (equal id ph-id))
+       (org-element-map
+           ph
+           'headline
+         (lambda (h)
+           (org-bullet/decode-headline-id h))))))
+
+#+END_SRC
+*** org-bullet/parse-elements
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/parse-elements (elements)
+    "parse a list of ELEMENTS"
+    (remove-if
+     'null
+     (mapcar
+      (lambda (e)
+        (let ((etype (org-element-type e)))
+          (cond
+           ((equal etype 'code) (org-bullet/parse-code e))
+           ((equal etype 'link) (org-bullet/parse-link e))
+           ((equal etype 'paragraph) (org-bullet/parse-paragraph e))
+           ((equal etype 'plain-list) (org-bullet/parse-plain-list e))
+           ((equal etype 'plain-text) (org-bullet/parse-plain-text e))
+           ((equal etype 'timestamp) (org-bullet/parse-timestamp e))
+           (t nil))))
+      elements)))
+
+#+END_SRC
+
+*** org-bullet/parse-item
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/parse-item (i)
+    (let ((children (org-element-map
+                        i
+                        '(paragraph plain-list)
+                      (lambda (e)
+                        (let ((et (org-element-type e)))
+                          (cond
+                           ((equal et 'plain-list) (org-bullet/parse-plain-list e))
+                           ((equal et 'paragraph) (org-bullet/parse-paragraph e))
+                           (t nil))))
+                      nil
+                      nil
+                      '(paragraph plain-list)))
+          (bullet (org-element-property :bullet i))
+          (checkbox (org-element-property :checkbox i))
+          (counter (org-element-property :counter i))
+          (tag (org-element-property :tag i)))
+    `(item
+      (children ,children)
+      (bullet ,bullet)
+      (checkbox ,checkbox)
+      (counter ,counter)
+      (tag ,tag))))
+#+END_SRC
+
+*** org-bullet/parse-headline
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/parse-headline (h)
+    "Parse the current headline H and its children"
+      (let ((hid (org-bullet/decode-headline-id h))
+            (pid (org-bullet/decode-parent-headline-id h))
+            (contents (org-bullet/parse-sections h))
+            (headlines (org-bullet/parse-child-headline-ids h)))
+      `(headline
+        (id ,hid)
+        (links (
+                (parent ,pid)
+                (headlines ,headlines)))
+        (level ,(org-element-property :level h))
+        (priority ,(org-element-property :priority h))
+        (tags ,(org-element-property :tags h))
+        (todo-keyword ,(org-element-property :todo-keyword h))
+        (todo-type ,(org-element-property :todo-type h))
+        (category ,(substring-no-properties (org-element-property :CATEGORY h)))
+        (title ,(org-bullet/parse-elements (org-element-property :title h)))
+        (contents ,contents))))
+
+#+END_SRC
+*** org-bullet/parse-headlines
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/parse-headlines (tree)
+    "Parse out all headline elements in TREE"
+    (org-element-map
+        tree
+        'headline
+      'org-bullet/parse-headline))
+
+#+END_SRC
+
+*** org-bullet/parse-paragraph
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/parse-paragraph (p)
+    "Parse paragraph P and returns its contents"
+    `(paragraph
+      (contents ,(mapcar
+                  (lambda (e) 
+                    (let ((etype (org-element-type e)))
+                      (cond
+                       ((equal etype 'plain-text) (org-bullet/parse-plain-text e))
+                       ((equal etype 'timestamp) (org-bullet/parse-timestamp e))
+                       ((equal etype 'code) (org-bullet/parse-code e))
+                       (t ""))))
+                  (org-element-contents p)))))
+
+#+END_SRC
+
+*** org-bullet/parse-plain-list
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/parse-plain-list (l)
+    (let ((lt (org-element-property :type l))
+          (children (org-element-map
+                        l
+                        'item
+                      'org-bullet/parse-item
+                      nil
+                      nil
+                      'item)))                    
+    `(plain-list
+      (type ,lt)
+      (children ,children))))
+
+#+END_SRC
+
+*** org-bullet/parse-plain-text
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/parse-plain-text (pt)
+    "Parse the plain-text elment PT"
+    `(plain-text
+      (text ,(substring-no-properties pt))))
+#+END_SRC
+
+*** org-bullet/parse-link
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/parse-link (link)
+    "Parse link LINK"
+    (let ((raw-link (org-element-property :raw-link link))
+          (contents (mapcar
+                     (lambda (e)
+                       (let ((etype (org-element-type e)))
+                         (cond
+                          ((equal etype 'plain-text) (org-bullet/parse-plain-text e))
+                          (t ""))))
+                     (org-element-contents link))))
+
+      `(link
+        (href ,raw-link)
+        (contents ,contents))))
+      
+
+#+END_SRC
+
+*** org-bullet/parse-section
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/parse-section (s)
+    "Parse section S and its children"
+    (let ((contents (org-bullet/parse-elements (org-element-map
+                                                   s
+                                                   '(plain-list paragraph)
+                                                 'identity
+                                                 nil
+                                                 nil
+                                                 '(plain-list paragraph)))))
+      `(section
+        (contents ,contents))))
+
+#+END_SRC
+
+*** org-bullet/parse-sections
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/parse-sections (h)
+    "Parse section H and its children"
+    (remove-if
+     (lambda (s)
+       ;; remove any sections with no children
+       (null (cdadr s)))
+     (org-element-map
+         h
+         'section
+       'org-bullet/parse-section
+       nil
+       nil
+       'section)))
+
+#+END_SRC
+
+*** org-bullet/parse-timestamp
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/parse-timestamp (ts)
+    "Parse the timestamp and return as a string"
+    `(timestamp
+      (value ,(org-timestamp-format 
+               ts
+               "%Y-%m-%dT%T%z"))))
+
+#+END_SRC
+
+** maintaining structure
+   :PROPERTIES:
+   :ID:       A188FC7B-098A-40FD-8E7C-1A543FB56052
+   :END:
+*** org-bullet/init-month
+    :PROPERTIES:
+    :ID:       9179EDAF-479F-44A0-B912-ED775D99A80C
+    :END:
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/init-month (year month path)
+    "Initizalize and open a new month journal for YEAR and MONTH at PATH"
+    (let* (
+           (mon-str (format-time-string "%Y-%m (%B)" (encode-time 0 0 0 1 month year)))
+           (days-in-month (remove-if-not
+                           (lambda (x)
+                             (equal
+                              (nth 4 (decode-time x))
+                              month))
+                           (cl-loop for day from 1 to 31
+                                    collect (encode-time 0 0 0 day month year)))))
+      (generate-new-buffer mon-str)
+      (switch-to-buffer mon-str)
+      (insert (concat "#+COLUMNS: %PRIORITY %CATEGORY %TODO %Effort %50ITEM %TAGS" "\n"))
+      (insert (concat "#+CATEGORY: Note" "\n"))
+      (insert (concat "* " mon-str "\n"))
+      (insert "** Tasks\n")
+      (insert "** Days\n")
+      (cl-loop for d in days-in-month
+               do (insert (concat "*** " (format-time-string "%Y-%m-%d (%A)" d) "\n")))
+      (write-file path)))
+        
+#+END_SRC
+*** org-bullet/goto-month
+    :PROPERTIES:
+    :ID:       8CC9A6F0-3470-45B5-86A0-55A59E2202E2
+    :END:
+
+#+BEGIN_SRC emacs-lisp
+  (cl-defun org-bullet/goto-month
+      (&key year month)
+    "If necessary, initialize the specified month journal and open it.
+
+  Accepts the following keyword arguments:
+
+  - :year the year (default is current)
+  - :month the month, specified as a number (1-12)
+           or enough letters of the month to be unique.
+           (default is current month)"
+    (interactive)
+    (destructuring-bind
+      (SECONDS MINUTES HOUR DAY MONTH YEAR DOW DST ZONE)
+      (decode-time)
+      (let* ((year-val (or year YEAR))
+            (month-val (org-bullet/decode-month month))
+            (f-name (format "%4d-%02d-%s.org" year-val (cdr month-val) (car month-val)))
+            (active-path (concat (org-bullet/journals-active-dir) "/" f-name))
+            (archive-path (concat (org-bullet/journals-archive-dir) "/" f-name)))
+        (cond
+         ((file-exists-p archive-path) (find-file archive-path))
+         ((file-exists-p active-path) (find-file active-path))
+         (t (org-bullet/init-month year-val (cdr month-val) active-path))))))
+            
+        
+#+END_SRC
+
+*** org-bullet/set-org-agenda-files
+    :PROPERTIES:
+    :ID:       F172FA29-09A2-4CF5-81C0-96845D2E06C0
+    :END:
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/set-org-agenda-files ()
+    "Set the value of org-agenda-files to all active directories and journals"
+    (interactive)
+    (setq org-agenda-files (list
+                            (org-bullet/projects-active-dir)
+                            (org-bullet/journals-active-dir))))
+
+
+#+END_SRC
+** marshallers
+*** org-bullet/marshall-code
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/marshall-code (c)
+    "Marshall the code block C"
+    "CODE")
+#+END_SRC
+
+*** org-bullet/marshall-item
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/marshall-item (path item)
+    "Convert ITEM to a format that is compatible with json-encode
+  using PATH to construct the hrefs."
+
+    (let* ((info (cdr item))
+           (children (cadr (assoc 'children info))))
+      `((item
+         (href . ,path)
+         (bullet . ,(cadr (assoc 'bullet info)))
+         (checkbox . ,(cadr (assoc 'checkbox info)))
+         (counter . ,(cadr (assoc 'counter info)))
+         (tag . ,(cadr (assoc 'tag info)))
+         (children . ,(apply 'vector
+                             (mapcar*
+                              (lambda (i e)
+                                (let ((path (format "%s/%d" path i))
+                                      (type (car e)))
+                                  (cond
+                                   ((equal type 'paragraph) (org-bullet/marshall-paragraph path e))
+                                   ((equal type 'plain-list) (org-bullet/marshall-plain-list path e))
+                                   (t nil))))
+                              (number-sequence 0 (length children))
+                              children)))))))
+
+#+END_SRC
+
+*** org-bullet/marshall-headline
+
+#+BEGIN_SRC emacs-lisp
+    (defun org-bullet/marshall-headline (path headline)
+      "Convert HEADLINE to a format that is compatible with json-encode
+    using PATH info to construct hrefs."
+      (let* ((info (cdr headline))
+             (id (cadr (assoc 'id info)))
+             (href (concat path "/" id)))
+        `((id . ,id)
+          (href .  ,href)
+          (links (parent . ,(cadr (assoc 'parent (cadr (assoc 'links info)))))
+                 (headlines . ,(cadr (assoc 'headlines (cadr (assoc 'links info)))))) 
+          (level . ,(cadr (assoc 'level info)))
+          (priority . ,(cadr (assoc 'priority info)))
+          (tags . ,(apply 'vector (cadr (assoc 'tags info))))
+          (todo-keyword . ,(cadr (assoc 'todo-keyword info)))
+          (todo-type . ,(cadr (assoc 'todo-type info)))
+          (category . ,(cadr (assoc 'category info)))
+          (title .  ,(apply 'vector (org-bullet/marshall-headline-title href (cadr (assoc 'title info)))))
+          (contents . ,(apply 'vector (org-bullet/marshall-sections
+                                       href
+                                       (cadr (assoc 'contents info))))))))
+      
+#+END_SRC
+*** org-bullet/marshall-headlines
+
+#+BEGIN_SRC emacs-lisp
+    (defun org-bullet/marshall-headlines (httpcon headlines)
+      "Marshall HEADLINES in a format that is compatible with json-encode,
+    using HTTPCON to extract path information as necessary.
+
+  You can pass in a nil for HTTPCON (as for testing) and it will use a path
+  of '/headlines'"
+
+      (let ((path (if httpcon (elnode-http-pathinfo httpcon) "/headlines")))
+        `((headlines .
+          ,(apply 'vector
+                 (mapcar
+                  (apply-partially 'org-bullet/marshall-headline path)
+                  headlines))))))
+
+
+#+END_SRC
+
+*** org-bullet/marshall-headline-title
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/marshall-headline-title (path title-parts)
+    "Marshall the various parts of the headline title TITLE-PARTS to a format
+  that is compatible with json-encode using PATH to construct hrefs."
+
+    (remove-if
+     'null
+     (mapcar*
+      (lambda (i tp)
+        (let ((type (car tp))
+              (href (format "%s/%d" path i)))
+          (cond
+           ((equal type 'plain-text) (org-bullet/marshall-plain-text href tp))
+           ((equal type 'link) (org-bullet/marshall-link href tp))
+           (t nil))))
+      (number-sequence 0 (length title-parts))
+      title-parts)))
+#+END_SRC
+
+*** org-bullet/marshall-link
+
+#+BEGIN_SRC emacs-lisp
+    (defun org-bullet/marshall-link (path l)
+      "Marshall the link L to a format that is compatible with json-encode
+  using PATH to construct hrefs."
+      (let* ((info (cdr l))
+             (link-href (cadr (assoc 'href info)))
+             (contents (cadr (assoc 'contents info))))
+        `((link
+           (href . ,path)
+           (link-href . ,link-href)
+           (contents . ,(apply 'vector (remove-if
+                                      'null
+                                      (mapcar*
+                                       (lambda (i e)
+                                         (let ((etype (org-element-type e))
+                                               (href (format "%s/%d" path i)))
+                                           (cond
+                                            ((equal etype 'plain-text) (org-bullet/marshall-plain-text path e))
+                                            (t nil))))
+                                       (number-sequence 0 (length contents))
+                                       contents))))))))
+
+
+#+END_SRC
+
+*** org-bullet/marshall-paragraph
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/marshall-paragraph (path p)
+    (let ((info (cdr p)))
+      `((paragraph
+         (href . ,path)
+         (text . ,(cadr (assoc 'text info)))))))
+#+END_SRC
+
+*** org-bullet/marshall-plain-list
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/marshall-plain-list (path l)
+    (let* ((info (cdr l))
+          (children (cadr (assoc 'children info))))
+      `((plain-list
+         (type . ,(cadr (assoc 'type info)))
+         (href . ,path)
+         (children . ,(apply 'vector
+                             (mapcar*
+                              (lambda (i e)
+                                (let ((path (format "%s/%d" path i)))
+                                  (org-bullet/marshall-item path e)))
+                              (number-sequence 0 (length children))
+                              children)))))))
+        
+#+END_SRC
+
+*** org-bullet/marshall-plain-text
+
+#+BEGIN_SRC emacs-lisp
+    (defun org-bullet/marshall-plain-text  (path pt)
+      "Marshall plain-text PT to format that is compatible with json-encode
+  using PATH to construct hrefs."
+      (let* ((info (cdr pt))
+             (text (cadr (assoc 'text info))))
+        `((plain-text 
+           (href . ,path)
+           (text . ,text)))))
+        
+#+END_SRC
+
+*** org-bullet/marshall-section
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/marshall-section (path section)
+    (let* ((info (cdr section))
+          (contents (cadr (assoc 'contents info))))
+     `((section
+         (href . ,path)
+         (contents . ,(apply 'vector
+                            (mapcar*
+                             (lambda (i e)
+                               (let ((path (format "%s/%d" path i))
+                                     (etype (car e)))
+                                 (cond
+                                  ((equal etype 'paragraph) (org-bullet/marshall-paragraph path e))
+                                  ((equal etype 'plain-list) (org-bullet/marshall-plain-list path e))
+                                  (t nil))))
+                             (number-sequence 0 (length contents))
+                             contents)))))))
+
+#+END_SRC
+
+*** org-bullet/marshall-sections
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/marshall-sections (path sections)
+    "Marshal SECTIONS in a format that is compatible with json-encode
+  using PATH as the root-path upon which to build hrefs for each section."
+    (mapcar*
+     (lambda (i s)
+       (org-bullet/marshall-section
+        (format "%s/%d" path i)
+        s))
+     (number-sequence 0 (length sections))
+     sections))
+#+END_SRC
+
+** HTTP handler helper functions
+*** org-bullet/ensure-headline-ids
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/ensure-headline-ids (buffer)
+    "Ensures all headlines in BUFFER have :ID's assigned to them.
+
+  NOTE: This mutates the buffer so call this BEFORE trying
+  to parse the buffer!"
+
+    (with-current-buffer buffer
+      (mapcar
+       (lambda (pt)
+         (org-id-get pt t))
+       (reverse
+        (org-element-map
+            (org-element-parse-buffer)
+            'headline
+          (lambda (h)
+            (org-element-property :begin h)))))))
+#+END_SRC
+
+*** org-bullet/find-element-by-id
+#+BEGIN_SRC emacs-lisp
+(defun org-bullet/find-element-by-id (eid)
+  "Find and return the element whose id is EID.  It searches in all
+org-agenda-files.  Returns nil if not found."
+  (car (remove-if-not
+        'identity
+          (mapcar
+           (lambda (b)
+             (with-current-buffer b
+               (let ((eloc (org-find-entry-with-id eid)))
+                 (if eloc (progn (goto-char eloc) (org-element-at-point)) nil ))))
+           (mapcar
+            'find-file-noselect
+            (org-agenda-files))))))
+
+#+END_SRC
+
+*** org-bullet/LT,EQ,GT
+
+These are little comparison function that will work correctly with integer
+or string arguments.  Also, if the second argument is a sequence, will
+apply the appropriate comparison to the car of it.
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/EQ (a b)
+    (let ((aa (if (listp a) (car a) a))
+          (bb (if (listp b) (car b) b)))
+      (if (integerp aa)
+          (= aa bb)
+        (string= aa bb))))
+
+  (defun org-bullet/LT (a b)
+    (let ((aa (if (listp a) (car a) a))
+          (bb (if (listp b) (car b) b)))
+      (if (integerp aa)
+          (< aa bb)
+        (string< aa bb))))
+
+  (defun org-bullet/GT (a b)
+    (org-bullet/LT b a))
+#+END_SRC
+
+*** org-bullet/EQUALS
+
+This function is mapped to the "~" operator.  It performs an
+regex comparison to the two arguments.
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/EQUALS (a b)
+    ; TODO - implement
+    nil)
+#+END_SRC
+
+*** org-bullet/find-all-headlines
+    :PROPERTIES:
+    :ID:       1C1D5A6F-A13D-44C9-AB71-096495C7CE95
+    :END:
+
+#+BEGIN_SRC emacs-lisp
+      (defun org-bullet/find-all-headlines (
+                                            agenda-files
+                                            &optional
+                                            match-fun)
+        "Returns a list of all headlines in the list of AGENDA-FILES.  
+  You may supply an optional MATCH-FUN which should be a function that takes 
+  a single argument (which will be one headline) and returns t or nil.
+
+  If you wish to convert this to a nice JSON output you would do 
+  something like this:
+
+    (apply 'vector (org-bullet/find-all-headlines (org-agenda-files)))"
+
+         ;; (apply 'append (mapcar
+         ;;                 (lambda (x) (org-bullet/find-all-headlines-in-buffer
+         ;;                              x))
+         ;;                 (mapcar
+         ;;                  'find-file-noselect
+         ;;                  agenda-files))))
+
+        (remove-if-not
+         (or match-fun 'identity)
+         (apply 'append (mapcar
+                         (lambda (x) (org-bullet/find-all-headlines-in-buffer
+                                      x))
+                         (mapcar
+                          'find-file-noselect
+                          agenda-files)))))
+#+END_SRC
+
+*** org-bullet/find-all-headlines-in-buffer
+    :PROPERTIES:
+    :ID:       73C7AEB4-9ECF-44CB-836B-91C357FAABF1
+    :END:
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/find-all-headlines-in-buffer (buffer)
+    "Return a list of all headlines in BUFFER."
+    ;; first pass to ensure all headlines have an :ID attribute
+    ;; must do this before other operations as can mutate the buffer
+    ;; and throw off element boundaries
+    (org-bullet/ensure-headline-ids buffer)
+    (with-current-buffer buffer
+      (let* ((tree (org-element-parse-buffer))
+             (headlines (org-bullet/parse-headlines tree)))
+        headlines)))
+
+
+  (defadvice
+      org-bullet/find-all-headlines-in-buffer
+      (around
+       org-bullet/find-all-headlines-in-buffer-memo)
+      "Memoize the org-bullet/find-all-headlines-in-buffer function by checking
+  two things:
+
+  1. If we have cached the return value for this function and
+  2. If it has been modified since we last cached it."
+      (let* ((fn 'org-bullet/find-all-headlines-in-buffer)
+             (buf (ad-get-arg 0))
+             (buf-name (buffer-name buf))
+             (buf-ticks-key (concat buf-name "-ticks"))
+             (buf-headlines-key (concat buf-name "-headlines"))
+             (cache (or
+                     (get fn 'cache)
+                     (put fn 'cache (make-hash-table :test 'equal))))
+             (buf-ticks (gethash buf-ticks-key cache))
+             (buf-ticks-cur (buffer-chars-modified-tick buf))
+             (buf-headlines (gethash buf-headlines-key cache)))
+        (if (and
+             (equal buf-ticks buf-ticks-cur)
+             buf-headlines)
+            (setq ad-return-value buf-headlines)
+          (progn
+            ad-do-it
+            (puthash buf-ticks-key buf-ticks-cur cache)
+            (puthash buf-headlines-key ad-return-value cache)))))
+
+
+  (ad-activate 'org-bullet/find-all-headlines-in-buffer)
+
+#+END_SRC
+
+*** org-bullet/parse-filter
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/parse-filter (filter)
+    "Returns a list of filter triplets parsed from FILTER or NIL"
+    (remove-if-not 'identity
+                   (mapcar
+                    (lambda (f)
+                      (and (string-match "\\(.+?\\)\\([<=>~]\\)\\(.+\\)" f)
+                           (mapcar (lambda (i) (match-string-no-properties i f)) '(1 2 3))))
+                    (split-string (or filter "") "," t))))
+
+#+END_SRC
+
+*** org-bullet/decode-query-filter
+
+#+BEGIN_SRC emacs-lisp
+    (defun org-bullet/decode-query-filter (filter)
+      "Parses the FILTER query-parameter value, if there is one and
+  returns a function that may be used for filtering decoded elements.
+
+  Returns nil if missing or invalid query parameter.
+
+  TODO - implement dotted-field lookup support.
+  TODO - make (read field) safe!
+  "
+      (let* ((fterms (org-bullet/parse-filter filter))
+             (tests (mapcar
+                     (lambda (ft)
+                       (let* ((field (car ft))
+                              (ffn (cdr (assoc
+                                    (cadr ft)
+                                    '(("=" . org-bullet/EQ)
+                                      ("<" . org-bullet/LT)
+                                      (">" . org-bullet/GT)
+                                      ("~" . org-bullet/EQUALS)))))
+                              (vraw (caddr ft))
+                              (val (if (string-match "^[[:digit:]]+$" vraw)
+                                       (string-to-int vraw)
+                                     vraw)))
+                         `(,ffn ,(read field) ,val)))
+                     fterms)))
+        `(lambda (x)
+           (let ((info (cdr x)))
+             (every 'nlistp (mapcar
+                             (lambda (te)
+                               (funcall (car te)
+                                        (cdr (assoc (cadr te) info))
+                                        (caddr te)))
+                             ',tests))))))
+#+END_SRC
+*** org-bullet/get-field
+
+#+BEGIN_SRC emacs-lisp
+(defun org-bullet/get-field (elem field &optional def)
+  "Get value of field FIELD from element ELEM, returning DEF if not found.
+Typically returns a (FIELD . VALUE).
+
+FIELD may be nested; e.g., \"links.children.href\""
+
+(or
+   (reduce
+    (lambda (a b) (assoc b a))
+    (split-string field "\\.")
+    :initial-value elem)
+   def))
+#+END_SRC
+
+*** org-bullet/set-field
+
+#+BEGIN_SRC emacs-lisp
+(defun org-bullet/set-field (elem field value)
+  "Set value of field FIELD from element ELEM to VALUE.
+
+FIELD may be nested; e.g., \"links.children.href\""
+
+(let ((f (org-bullet/get-field elem field)))
+  (and f (setf (cdr f) value))))
+
+#+END_SRC
+
+** HTTP resources
+*** org-bullet/headlines-handler
+
+This resource handles all ~headlines~ requests.
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/headlines-handler (httpcon)
+    "Handle all headlines requests.  Supports the following methods:
+
+  GET /headlines
+  - returns a list of all of the headlines
+  - query parameters:
+    - filter=<encoded-filters> - restricts results to headlines that meet
+      desired parameters; e.g., 'level<3,category=foo' would return only
+      those headlines whose level is 1 or 2 and whose category is \"foo\".
+      These must be properly encoded, so the above would actually look like
+      this: level%3C3%2Ccategory%3Dfoo
+
+Returns: t
+  "
+    (elnode-send-json
+     httpcon
+     (org-bullet/marshall-headlines
+      httpcon
+      (org-bullet/find-all-headlines
+       (org-agenda-files)
+       (org-bullet/decode-query-filter
+        (elnode-http-param httpcon "filter")))))
+t)
+
+    ;; (elnode-send-json
+    ;;  httpcon
+    ;;  (apply 'vector
+    ;;          (org-bullet/find-all-headlines
+    ;;           (org-agenda-files)
+    ;;           (org-bullet/decode-query-filter
+    ;;            (elnode-http-param httpcon "filter"))))))
+
+
+#+END_SRC
+
+** HTTP server
+   :PROPERTIES:
+   :ID:       C7C38ABA-C2B5-4D78-8FA7-2BAF04B67396
+   :END:
+
+#+BEGIN_SRC emacs-lisp
+  (defvar org-bullet/doc-root "~/Documents/Personal/org-bullet")
+  (setq elnode-webserver-docroot org-bullet/doc-root)
+  (defun my-elnode-org-handler (httpcon)
+      (elnode-docroot-for org-bullet/doc-root
+          with org-file
+          on httpcon
+          do (with-current-buffer (find-file-noselect org-file)
+               (org-html-export-as-html)
+                 (with-current-buffer "*Org HTML Export*"
+                   (let ((org-html
+                      ;; This might throw errors so you could condition-case it
+                        (buffer-string)))
+                     (elnode-send-html httpcon org-html))))))
+
+     
+
+  (defvar org-bullet/app-routes
+    '(
+      ("[^/]+//headlines" . org-bullet/headlines-handler)
+      ("[^/]+//\\(.*?org\\)$" . my-elnode-org-handler)
+      ("[^/]+//\\(.*\\)" . elnode-webserver)))
+
+
+  (defun org-bullet/root-handler (httpcon)
+    (elnode-error "org-bullet/root-handler\n")
+    (elnode-hostpath-dispatcher httpcon org-bullet/app-routes))
+
+  ;; start with this:
+  ;;   (elnode-start 'org-bullet/root-handler :port 8002)
+  ;; stop with this:
+  ;;   (elnode-stop 8002)
+
+
+
+#+END_SRC
+** initialize the system
+   :PROPERTIES:
+   :ID:       F5D1BE76-E07C-4269-B092-DCDA79403323
+   :END:
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-bullet/init ()
+    "Initialize org-bullet mode"
+    (org-bullet/set-org-agenda-files))
+
+  (org-bullet/init)
+
+#+END_SRC
