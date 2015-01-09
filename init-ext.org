@@ -678,10 +678,10 @@ Quick way to tell org to tangle the current buffer.
 
 ** Toolbar
 
-Hide the toolbar when running in a window-system on a mac.  Otherwise enable it.
+Hide the toolbar when running in a window-system on a mac or x.  Otherwise enable it.
 
 #+BEGIN_SRC emacs-lisp
-  (if (equal window-system 'mac)
+  (if (member window-system '(x mac))
     (tool-bar-mode -1)
     (tool-bar-mode 1))
 #+END_SRC
