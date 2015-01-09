@@ -24,10 +24,19 @@ See /gordy30.org/ for more info.
 
 
 #+END_SRC
-** GUI Tweaks
+** Font Customization
 
-Disable /tool-bar-mode/ to save space on this tiny Chromebook display.
+I recently installed a couple of cool Adobe open source fonts:
+
+- [[http://store1.adobe.com/cfusion/store/html/index.cfm?event%3DdisplayFontPackage&code%3D1960][Source Code Pro]]
+- [[https://store1.adobe.com/cfusion/store/html/index.cfm?event%3DdisplayFontPackage&code%3D1959][Source Sans Pro]]
+
+The following updates the default font and size when running on my
+laptop.
 
 #+BEGIN_SRC emacs-lisp
-(tool-bar-mode -1)
+  (let* ((font-family "Source Code Pro")
+         (font-description (concat font-family "-11")))
+    (when (find-font (font-spec :name font-family))
+      (set-frame-font font-description nil t)))
 #+END_SRC
