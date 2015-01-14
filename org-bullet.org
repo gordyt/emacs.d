@@ -1234,7 +1234,7 @@ t)
    :END:
 
 #+BEGIN_SRC emacs-lisp
-  (defvar org-bullet/doc-root "~/Documents/Personal/org-bullet")
+  (defvar org-bullet/doc-root org-bullet/root)
   (setq elnode-webserver-docroot org-bullet/doc-root)
   (defun my-elnode-org-handler (httpcon)
       (elnode-docroot-for org-bullet/doc-root
