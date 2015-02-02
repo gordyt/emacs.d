@@ -13,3 +13,4 @@ init-ext.el
 /tramp
 /url
 /smex-items
+/oauth2.plstore
