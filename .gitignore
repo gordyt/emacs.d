@@ -6,6 +6,7 @@ init-ext.el
 /darwin.el
 /gordy30.el
 /gordychrome.el
+/localhost.el
 /org-bullet.el
 /.private.el
 /elpa
