@@ -257,7 +257,6 @@ Add all top-level directories in =got/dotfiles-dir= to the load path.
     (normal-top-level-add-subdirs-to-load-path))
 #+END_SRC
 
-
 * Meta-Information
 
 These variables are used to configure where other services store various files that
@@ -1012,6 +1011,14 @@ Modify the default place where globally-defined ID's are stored.
   (setq org-id-locations-file
         (expand-file-name "org-id-locations" got/metafiles-dir))
 
+#+END_SRC
+
+*** Configure ispell to skip property and source blocks
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'ispell)
+    (add-to-list 'ispell-skip-region-alist '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
+    (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC")))
 #+END_SRC
 
 ** org-reveal
