@@ -46,6 +46,23 @@ at /point/.
 - You just do your text drawings in the SRC block (using artist-mode)
 - Evaluate via ~C-c C-c~
 - Toggle inline images on/off via ~C-c C-x C-v~
+** PlantUML Support in Org Mode
+
+- ~brew install plantuml~
+- Make not of the location of the ~plantuml*.jar~ file.
+
+#+BEGIN_SRC emacs-lisp
+  (let ((plantuml-jar-path "/usr/local/Cellar/plantuml/8018/plantuml.8018.jar"))
+    (if (file-exists-p plantuml-jar-path)
+        (progn
+          (message "Setting org-plantuml-jar-path to '%s'" plantuml-jar-path)
+          (setq org-plantuml-jar-path plantuml-jar-path))
+      (message (concat "Unable to location plantuml jar file at path: "
+                       plantuml-jar-path))))
+
+#+END_SRC
+
+
 
 ** Font Customization
 

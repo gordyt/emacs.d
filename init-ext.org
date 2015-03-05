@@ -44,8 +44,10 @@ to the prompt.
 | bind-key                        | A simple way to manage personal keybindings                                        |
 | cask                            | Cask: Project management for Emacs package development                             |
 | cider                           | Clojure Integrated Development Environment and REPL                                |
+| clojure-cheatsheet              | The Clojure Cheatsheet for Emacs                                                   |
 | clojure-mode                    | Major mode for Clojure code                                                        |
 | clojure-mode-extra-font-locking | Extra font-locking for Clojure mode                                                |
+| clojure-snippets                | Yasnippets for clojure                                                             |
 | color-theme-sanityinc-tomorrow  | A version of Chris Kempson's various Tomorrow themes                               |
 | concurrent                      | Concurrent utility functions for emacs lisp                                        |
 | creole                          | A parser for the Creole Wiki language                                              |
@@ -70,6 +72,7 @@ to the prompt.
 | flx-ido                         | flx integration for ido                                                            |
 | flycheck                        | Modern on-the-fly syntax checking for GNU Emacs                                    |
 | flycheck-cask                   | Cask support in Flycheck                                                           |
+| flycheck-clojure                | Flycheck: Clojure support                                                          |
 | git-commit-mode                 | Major mode for editing git commit messages                                         |
 | git-rebase-mode                 | Major mode for editing git rebase files                                            |
 | gmail-message-mode              | A major-mode for editing gmail messages using markdown syntax.                     |
@@ -85,7 +88,8 @@ to the prompt.
 | ido-ubiquitous                  | Use ido (nearly) everywhere.                                                       |
 | ido-vertical-mode               | Makes ido-mode display vertically.                                                 |
 | jabber                          | A Jabber client for Emacs.                                                         |
-| jedi                            | Python auto-completion for Emacs                                                   |
+| jedi                            | a Python auto-completion for Emacs                                                 |
+| jedi-core                       | Common code of jedi.el and company-jedi.el                                         |
 | json-reformat                   | Reformatting tool for JSON                                                         |
 | jsx-mode                        | major mode for JSX                                                                 |
 | kv                              | key/value data structure functions                                                 |
@@ -93,6 +97,7 @@ to the prompt.
 | magit                           | control Git from Emacs                                                             |
 | markdown-mode                   | Emacs Major mode for Markdown-formatted text files                                 |
 | markdown-mode+                  | extra functions for markdown-mode                                                  |
+| mode-compile                    | Smart command for compiling files                                                  |
 | multiple-cursors                | Multiple cursors for Emacs.                                                        |
 | noflet                          | locally override functions                                                         |
 | nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
@@ -114,6 +119,7 @@ to the prompt.
 | restclient                      | An interactive HTTP client for Emacs                                               |
 | s                               | The long lost Emacs string manipulation library.                                   |
 | shut-up                         | Shut up would you!                                                                 |
+| slamhound                       | Rip Clojure namespaces apart and rebuild them.                                     |
 | slime                           | Superior Lisp Interaction Mode for Emacs                                           |
 | smartparens                     | Automatic insertion, wrapping and paredit-like navigation with user defined pairs. |
 | smex                            | M-x interface with Ido-style fuzzy matching.                                       |
@@ -801,6 +807,18 @@ whether or not you are in a project, just do the following instead:
   #+BEGIN_EXAMPLE
   {:user {:plugins [[cider/cider-nrepl "0.7.0-SNAPSHOT"]]}}  
   #+END_EXAMPLE
+
+*** flycheck-mode for Clojure
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'flycheck-clojure)
+    (eval-after-load 'flycheck '(flycheck-clojure-setup))
+    (eval-after-load 'flycheck '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
+    (add-hook 'clojure-mode-hook 'flycheck-mode))
+
+
+#+END_SRC
+
 
 ** gmail-message-mode
 
