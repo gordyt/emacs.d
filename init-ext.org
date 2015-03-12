@@ -49,6 +49,7 @@ to the prompt.
 | clojure-mode-extra-font-locking | Extra font-locking for Clojure mode                                                |
 | clojure-snippets                | Yasnippets for clojure                                                             |
 | color-theme-sanityinc-tomorrow  | A version of Chris Kempson's various Tomorrow themes                               |
+| company                         | Modular text completion framework                                                  |
 | concurrent                      | Concurrent utility functions for emacs lisp                                        |
 | creole                          | A parser for the Creole Wiki language                                              |
 | ctable                          | Table component for Emacs Lisp                                                     |
@@ -73,6 +74,7 @@ to the prompt.
 | flycheck                        | Modern on-the-fly syntax checking for GNU Emacs                                    |
 | flycheck-cask                   | Cask support in Flycheck                                                           |
 | flycheck-clojure                | Flycheck: Clojure support                                                          |
+| flycheck-pos-tip                | Flycheck errors display in tooltip                                                 |
 | git-commit-mode                 | Major mode for editing git commit messages                                         |
 | git-rebase-mode                 | Major mode for editing git rebase files                                            |
 | gmail-message-mode              | A major-mode for editing gmail messages using markdown syntax.                     |
