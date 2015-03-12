@@ -158,6 +158,20 @@ Got the idea from [[http://ericjmritz.name/2014/06/30/send-emacs-buffer-to-jrnl/
     (call-process-region start end "jrnl"))
 #+END_SRC
 
+** jme buffer cleanup
+
+#+BEGIN_SRC emacs-lisp
+  (defun jme/cleanup-buffer-safe ()
+    "Perform a bunch of safe operations on the whitespace content of a buffer.
+  Does not indent buffer, because it is used for a `before-save-hook', and that
+  might be bad."
+    (interactive)
+    (message "running cleanup")
+    (untabify (point-min) (point-max))
+    (delete-trailing-whitespace)
+    (set-buffer-file-coding-system 'utf-8))
+#+END_SRC
+
 ** uconv
 
 This is a great formula for working with spreadsheets.
@@ -333,18 +347,6 @@ rather than make a sound (which I find annoying).
 
 #+BEGIN_SRC emacs-lisp
 (setq visible-bell t)
-#+END_SRC
-
-** Autocomplete
-
-#+BEGIN_SRC emacs-lisp
-  (when (require 'auto-complete-config nil 'noerror)
-    (ac-config-default)
-      (setq ac-comphist-file
-        (expand-file-name "ac-comphist.dat" got/metafiles-dir))
-      (setq ac-auto-start nil)
-      (ac-set-trigger-key "<backtab>"))
-
 #+END_SRC
 
 ** Automatic indentation
@@ -808,6 +810,12 @@ whether or not you are in a project, just do the following instead:
   {:user {:plugins [[cider/cider-nrepl "0.7.0-SNAPSHOT"]]}}  
   #+END_EXAMPLE
 
+*** cider configuration
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'cider-mode-hook #'eldoc-mode)
+#+END_SRC
+
 *** flycheck-mode for Clojure
 
 #+BEGIN_SRC emacs-lisp
@@ -819,6 +827,13 @@ whether or not you are in a project, just do the following instead:
 
 #+END_SRC
 
+** clojure-mode
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'clojure-mode-hook
+            '(lambda ()
+               (add-hook 'before-save-hook 'jme/cleanup-buffer-safe)))
+#+END_SRC
 
 ** gmail-message-mode
 
