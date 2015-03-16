@@ -513,8 +513,11 @@ Basic usage:
 - Be sure and commit your changes in your local git repo (in the
   /source/ branch).
 - Branches
-  - /source/ - this is where you compose everything
-  - /master/ - this is what is served to the public from GitHub pages.
+  - /source/ - this is where you compose everything and this is what
+    the main repo directory stays in.
+  - /master/ - this is what is served to the public from GitHub
+    pages.  The ~_deploy~ directory is its own repo and is always on
+    master.
 
 
 #+BEGIN_SRC emacs-lisp

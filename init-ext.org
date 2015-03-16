@@ -422,7 +422,6 @@ Customize where Emacs stores its bookmarks file
     (global-company-mode))
 #+END_SRC
 
-
 ** Dired+
 
 Configure ~dired+~ to reuse the directory buffer when navigating about
