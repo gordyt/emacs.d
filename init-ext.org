@@ -351,6 +351,15 @@ rather than make a sound (which I find annoying).
 (setq visible-bell t)
 #+END_SRC
 
+** Autocompile
+
+#+BEGIN_SRC emacs-lisp
+(when (require 'auto-compile nil 'noerror)
+    (auto-compile-on-load-mode))
+
+    
+#+END_SRC
+
 ** Automatic indentation
 
 Using ~C-j~ instead of ~RET~ normally runs the =newline-and-indent=
@@ -405,6 +414,14 @@ Customize where Emacs stores its bookmarks file
 #+BEGIN_SRC emacs-lisp
   (setq bookmark-default-file got/bookmark-default-file)
 #+END_SRC
+
+** Company Mode
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'company)
+    (global-company-mode))
+#+END_SRC
+
 
 ** Dired+
 
@@ -779,7 +796,9 @@ Make my custom themes directory available to Emacs.
 Now let's load a new theme I found.
 
 #+BEGIN_SRC emacs-lisp
-  (load-theme 'sanityinc-tomorrow-bright t)
+  (when (require 'color-theme-sanityinc-tomorrow nil :noerror)
+    (color-theme-sanityinc-tomorrow 'bright))
+
 #+END_SRC
 
 * Mode-Specific Hooks, Notes, and Configuration
