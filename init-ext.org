@@ -160,6 +160,23 @@ Got the idea from [[http://ericjmritz.name/2014/06/30/send-emacs-buffer-to-jrnl/
     (call-process-region start end "jrnl"))
 #+END_SRC
 
+** got/sort-words
+
+This is a handy function that let's you select some words, separated
+by whitespace, and sort them in place.
+
+#+BEGIN_SRC emacs-lisp
+(defun got/sort-words (start end)
+  "Sort the words in the region (presumed to be on one line).
+Assumes they are separated by a single space."
+  (interactive "r")
+  (let* ((input (sort (split-string (buffer-substring start end)) #'string-lessp))
+        (output (mapconcat #'identity input " ")))
+    (delete-region start end)
+    (insert output)))
+#+END_SRC
+
+
 ** jme buffer cleanup
 
 #+BEGIN_SRC emacs-lisp
@@ -357,7 +374,7 @@ rather than make a sound (which I find annoying).
 (when (require 'auto-compile nil 'noerror)
     (auto-compile-on-load-mode))
 
-    
+
 #+END_SRC
 
 ** Automatic indentation
@@ -565,14 +582,14 @@ about.
 #+BEGIN_SRC emacs-lisp :tangle no
 (when (package-installed-p 'jabber)
   (setq starttls-use-gnutls t
-		starttls-gnutls-program "gnutls-cli"
-		starttls-extra-arguments '("--starttls" "--insecure" "--no-ca-verification"))
+        starttls-gnutls-program "gnutls-cli"
+        starttls-extra-arguments '("--starttls" "--insecure" "--no-ca-verification"))
 
   (setq jabber-account-list
-		'(("<my-account-name>@<jabber-server-address>"
-		   (:network-server . "<jabber-server-address>")
-		   (:password . "<my-account-password>")
-		   (:connection-type . ssl)))))
+        '(("<my-account-name>@<jabber-server-address>"
+           (:network-server . "<jabber-server-address>")
+           (:password . "<my-account-password>")
+           (:connection-type . ssl)))))
 #+END_SRC
 
 *** Miscellaneous Commands
@@ -622,7 +639,7 @@ The following configures Jabber message history.
           jabber-history-size-limit 1024           ; when files get this big
           jabber-history-enable-rotation t         ; then rotate them
           jabber-use-global-history nil))          ; disable global history file
-          
+
 #+END_SRC
 
 *** Jabber Notifications
@@ -710,10 +727,10 @@ Quick way to tell org to tangle the current buffer.
 
 #+BEGIN_SRC emacs-lisp
 (bind-key "C-c C-g t"
-		  '(lambda ()
-			 "Tangle the current buffer"
-			 (interactive)
-			 (org-babel-tangle-file buffer-file-name)))
+          '(lambda ()
+             "Tangle the current buffer"
+             (interactive)
+             (org-babel-tangle-file buffer-file-name)))
 #+END_SRC
 
 ** Toolbar
@@ -768,18 +785,18 @@ around the region.  I have this function bound to =C-c C-g w=.
   "Wrap the region delineated by START and END with TEXT"
   (interactive "r\nstext: ")
   (save-excursion
-	(goto-char end)
-	(insert text)
-	(goto-char start)
-	(insert text)))
-	
+    (goto-char end)
+    (insert text)
+    (goto-char start)
+    (insert text)))
+
 
 (bind-key "C-c C-g w" 'got/wrap-region)
 #+END_SRC
 
 * Theme Configuration
 
-Make my custom themes directory available to Emacs.  
+Make my custom themes directory available to Emacs.
 
 - Do ~M-x customize-themes~ to see a list of all your available themes.
 - Do ~M-x load-theme~ to load a new theme.
@@ -827,7 +844,7 @@ whether or not you are in a project, just do the following instead:
 - Create a file called ~profiles.clj~ in ~$HOME/.lein~
 - Add this line:
   #+BEGIN_EXAMPLE
-  {:user {:plugins [[cider/cider-nrepl "0.7.0-SNAPSHOT"]]}}  
+  {:user {:plugins [[cider/cider-nrepl "0.7.0-SNAPSHOT"]]}}
   #+END_EXAMPLE
 
 *** cider configuration
@@ -889,7 +906,7 @@ npm install -g jshint
 #+BEGIN_SRC emacs-lisp
   (when (package-installed-p 'flycheck)
     (if (= (length (shell-command-to-string "which jshint")) 0)
-        (warn "flycheck-mode not enabled for Javascript.  Please install jshint")    
+        (warn "flycheck-mode not enabled for Javascript.  Please install jshint")
       (add-hook 'js-mode-hook 'flycheck-mode)))
 #+END_SRC
 
@@ -1079,7 +1096,7 @@ Modify the default place where globally-defined ID's are stored.
 #+BEGIN_SRC emacs-lisp
   (when  (require 'ox-reveal nil :no-error)
     (setq org-reveal-slide-number nil))
-      
+
 #+END_SRC
 
 ** python-mode
@@ -1199,22 +1216,22 @@ Configuration for [[http://www.emacswiki.org/emacs/TwitteringMode][twittering-mo
 - open another timeline
   - ~v~ open timelime at point
   - ~V~ open a various timeline by spec:
-	- ~:home~
-	- ~:mentions~
-	- ~:public~
-	- user
-	- user/listname
-	- ~:direct_messages~
-	- ~:direct_messages_sent~
-	- ~:favorites~
-	- ~:favorites/~ user
-	- #hashtag
-	- ~:retweeted_by_me~
-	- ~:retweeted_by_user/~ user
-	- ~:retweeted_to_me~
-	- ~:retweeted_to_user/~ user
-	- ~:retweets_of_me~
-	- ~:search/~ query-string ~/~  (inside query-string must escape
+    - ~:home~
+    - ~:mentions~
+    - ~:public~
+    - user
+    - user/listname
+    - ~:direct_messages~
+    - ~:direct_messages_sent~
+    - ~:favorites~
+    - ~:favorites/~ user
+    - #hashtag
+    - ~:retweeted_by_me~
+    - ~:retweeted_by_user/~ user
+    - ~:retweeted_to_me~
+    - ~:retweeted_to_user/~ user
+    - ~:retweets_of_me~
+    - ~:search/~ query-string ~/~  (inside query-string must escape
       slash and back-slash)
   - ~f~ switch to next timeline buffer
   - ~b~ switch to previous timeline buffer
@@ -1222,9 +1239,9 @@ Configuration for [[http://www.emacswiki.org/emacs/TwitteringMode][twittering-mo
   - ~u~ or ~C-c C-s~ post a tweet
   - ~C-m~ post a reply to tweet at point
   - ~C-c C-m~ or ~C-c ENTER~ post non-official (organic) retweet of
-	tweet at point
+    tweet at point
   - ~C-u C-c C-m~ or ~C-u C-c ENTER~ post official (native) retweet of
-	tweet at point
+    tweet at point
   - ~d~ send a direct message
 - invoke external browser
   - ~C-c C-v~ open user's page at point
@@ -1252,7 +1269,7 @@ Configuration for [[http://www.emacswiki.org/emacs/TwitteringMode][twittering-mo
     (do
         (warn "not configuring twittering mode - need gnupg installed")
         (setq got/twittering-mode-available nil)))
-      
+
 #+END_SRC
 
 *** Use master password
