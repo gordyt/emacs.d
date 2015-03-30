@@ -809,12 +809,12 @@ Make my custom themes directory available to Emacs.
 ;; (load-theme 'gordy t)
 #+END_SRC
 
+
 Now let's load a new theme I found.
 
 #+BEGIN_SRC emacs-lisp
   (when (require 'color-theme-sanityinc-tomorrow nil :noerror)
-    (color-theme-sanityinc-tomorrow 'bright))
-
+    (load-theme 'sanityinc-tomorrow-bright t))
 #+END_SRC
 
 * Mode-Specific Hooks, Notes, and Configuration
