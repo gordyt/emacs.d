@@ -53,6 +53,7 @@
 (depends-on "html-to-markdown")
 (depends-on "htmlize")
 (depends-on "idle-highlight-mode")
+(depends-on "ido-completing-read+")
 (depends-on "ido-ubiquitous")
 (depends-on "ido-vertical-mode")
 (depends-on "jabber")
