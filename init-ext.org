@@ -697,6 +697,14 @@ Add a newline to the end of a file on save.
 (setq require-final-newline t)
 #+END_SRC
 
+** Server For Client Processes
+
+Allow Emacs to be a server for client processes.
+
+#+BEGIN_SRC emacs-lisp
+(server-start)
+#+END_SRC
+
 ** show-paren-mode
 
 Enable matching of parenthesis globally.
