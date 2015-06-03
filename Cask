@@ -90,6 +90,7 @@
 (depends-on "restclient")
 (depends-on "s")
 (depends-on "seq")
+(depends-on "shen-mode")
 (depends-on "shut-up")
 (depends-on "slamhound")
 (depends-on "slime")
