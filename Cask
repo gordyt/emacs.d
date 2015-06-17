@@ -44,6 +44,7 @@
 (depends-on "git-commit-mode")
 (depends-on "git-rebase-mode")
 (depends-on "gmail-message-mode")
+(depends-on "go-mode")
 (depends-on "graphviz-dot-mode")
 (depends-on "guru-mode")
 (depends-on "ham-mode")
