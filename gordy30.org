@@ -63,7 +63,6 @@ at /point/.
 #+END_SRC
 
 
-
 ** Font Customization
 
 I recently installed a couple of cool Adobe open source fonts:
@@ -528,4 +527,29 @@ Basic usage:
           org-octopress-directory-org-posts (concat org-octopress-directory-org-top "/blog")
           org-octopress-setup-file "~/.emacs.d/octopress-setupfile.txt"
           ))
+#+END_SRC
+** Frame size customization
+
+Set up initial frame size and position to occupy the full height of
+the monitor that is available, half the width, and positioned on the
+far right side.  This function should be called /after/ setting the
+theme.
+
+
+#+BEGIN_SRC emacs-lisp
+  (defun got/resize-frame ()
+    "Resize the current Frame to take up 1/2 of the vertical space,
+     positioned on the right side."
+    (let* ((workarea (cdr (assoc 'workarea (car (display-monitor-attributes-list)))))
+           (x (first workarea))
+           (y (second workarea))
+           (w (third workarea))
+           (h (fourth workarea))
+           (fw (/ w 2))
+           (fh h)
+           (fx fw)
+           (fy y)
+           (frm (car (frame-list))))
+      (set-frame-size frm fw fh t)
+      (set-frame-position frm fx fy)))
 #+END_SRC

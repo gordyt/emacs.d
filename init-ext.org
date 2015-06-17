@@ -833,6 +833,13 @@ Now let's load a new theme I found.
     (load-theme 'sanityinc-tomorrow-bright t))
 #+END_SRC
 
+Lastly, resize the frame, if applicable.
+
+#+BEGIN_SRC emacs-lisp
+  (when (fboundp 'got/resize-frame)
+    (got/resize-frame))
+#+END_SRC
+
 * Mode-Specific Hooks, Notes, and Configuration
 ** cider-mode
 
