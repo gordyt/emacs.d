@@ -518,55 +518,6 @@ helm session.  This will bring you back into the helm session.
   ))
 #+END_SRC
 
-** Ido
-
-Enable ~ido-ubiquitous-mode~ if that package is available.
-
-#+BEGIN_SRC emacs-lisp
-  (when (package-installed-p 'ido-ubiquitous)
-    (ido-ubiquitous-mode 1))
-#+END_SRC
-
-Require ~flx-ido~ if it is available.
-
-#+BEGIN_SRC emacs-lisp
-(when (package-installed-p 'flx-ido)
-  (require 'flx-ido)
-  (setq flx-ido-mode 1))
-#+END_SRC
-
-Enable ~ido-mode~ if it is available.
-
-#+BEGIN_SRC emacs-lisp
-    (when (package-installed-p 'ido)
-      (ido-mode t)
-      (setq
-       ido-save-directory-list-file got/meta-ido    ; file where id state is saved between invocations
-       confirm-nonexistent-file-or-buffer nil       ; Turn off annoying confirmation
-       ido-case-fold t                              ; be case-insensitive
-       ido-enable-last-directory-history t          ; remember latest selected directory name
-       ido-max-work-directory-list 50               ; maximum number of working directories to record
-       ido-max-work-file-list 50                    ; maximum number of names of recently opened files to record
-       ido-use-filename-at-point nil                ; do not look for filename at point
-       ido-use-url-at-point nil                     ; do not look for URL at point
-       ido-enable-flex-matching nil                 ; do not try too hard to find matches
-       ido-max-prospects 12                         ; max number of items in prospect list
-       ido-create-new-buffer 'always                ; ido creates new buffer unconditionally
-       ido-confirm-unique-completion t              ; even a unique confirmation must be confirmed
-       )
-
-    ;; enable ido for all buffer/file reading
-    (ido-everywhere))
-
-#+END_SRC
-
-Enable ~ido-vertical-mode~ if it is available.
-
-#+BEGIN_SRC emacs-lisp
-  (when (package-installed-p 'ido-vertical-mode)
-    (ido-vertical-mode 1))
-#+END_SRC
-
 ** Jabber
 
 *** fsm-debug
@@ -713,20 +664,6 @@ Enable matching of parenthesis globally.
 
 #+BEGIN_SRC emacs-lisp
 (show-paren-mode 1)
-#+END_SRC
-
-** Smex
-
-[[http://www.emacswiki.org/emacs/Smex][Smex]] is a M-x enhancement for Emacs. Built on top of IDO, it provides
-a convenient interface to your recently and most frequently used
-commands. And to all the other commands, too.
-
-#+BEGIN_SRC emacs-lisp
-  (when (package-installed-p 'smex)
-    (smex-initialize)
-    (global-set-key (kbd "M-x") 'smex)
-    (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-    )
 #+END_SRC
 
 ** tab width
