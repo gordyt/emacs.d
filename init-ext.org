@@ -507,7 +507,8 @@ Enable =guru-mode= everywhere.
 Basic helm configuration from [[http://tuhdo.github.io/helm-intro.html][here.]]
 
 #+BEGIN_SRC emacs-lisp
-  (when (require 'helm nil :noerror)
+  (when (and (require 'helm nil :noerror)
+             (require 'helm-config nil :noerror))
     ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
     ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
     ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
