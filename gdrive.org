@@ -1,0 +1,465 @@
+* Notes
+** Authoriztion Setup
+
+- Go to the [[https://console.developers.google.com/project][Google Developer's Console]] and create a project.
+- Select the /APIs & auth/ section, select /APIs/ and enable the
+  /Drive API/
+- Select the /APIs & auth/ section, select /Credentials/, and create a
+  new Client ID.
+- Record the following information:
+  - /Client ID/
+  - /Client Secret/
+- There are also /Redirect URIs/, but I think these never change. We
+  will be using ~urn:ietf:wg:oauth:2.0:oob~.
+
+Note that you can click the button to /Download JSON/.  The resulting
+file will look like this:
+
+#+BEGIN_SRC javascript
+  {
+      "installed": {
+          "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+          "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+          "client_email": "",
+          "client_id": CLIENTID,
+          "client_secret": CLIENTSECRET
+          "client_x509_cert_url": "",
+          "redirect_uris": [
+              "urn:ietf:wg:oauth:2.0:oob",
+              "http://localhost"
+          ],
+          "token_uri": "https://accounts.google.com/o/oauth2/token"
+      }
+  }
+#+END_SRC
+
+** Authorization Flow Example
+
+In the examples that follow, I will be using the following information
+that you obtained during /Authorization Setup/:
+
+- CLIENTID
+- CLIENTSECRET
+- REDIRECTURI
+
+Also, here is the scope we will be using:
+
+- SCOPE = "https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive"
+
+Start things out by having Emacs open the following URL in a browser:
+
+#+BEGIN_EXAMPLE
+https://accounts.google.com/o/oauth2/auth?scope=SCOPE&redirect_uri=REDIRECTURI&response_type=code&client_id=CLIENTID
+#+END_EXAMPLE
+
+The user should accept the dialog, and copy the code that is
+displayed.  In the example that follows I will use
+~AUTHORIZATION-CODE~.
+
+Now we have to exchange the AUTHORIZATION-CODE for an ACCESSTOKEN.
+
+Here is a sample curl command:
+
+#+BEGIN_SRC sh
+curl -H "Content-Type: application/x-www-form-urlencoded" \
+  -d 'code=AUTHORIZATION-CODE&client_id=CLIENTID&client_secret=CLIENTSECRET&redirect_uri=REDIRECTURI&grant_type=authorization_code' \
+  https://accounts.google.com/o/oauth2/token
+#+END_SRC
+
+The response will look like this:
+
+#+BEGIN_EXAMPLE
+{
+    "access_token": ACCESSTOKEN,
+    "token_type": "Bearer",
+    "expires_in": 3600,
+    "refresh_token": REFRESHTOKEN
+}
+#+END_EXAMPLE
+
+You will use the ACCESSTOKEN to authenticate future requests.  When
+it expires you must use the REFRESHTOKEN to renew it.
+
+This is what you do to renew your token:
+
+#+BEGIN_SRC sh
+curl -d "client_id=$CLIENTID&client_secret=$CLIENTSECRET&refresh_token=$REFRESHTOKEN&grant_type=refresh_token" https://accounts.google.com/o/oauth2/token
+#+END_SRC
+
+You will get back something like this:
+
+#+BEGIN_EXAMPLE
+{
+    "access_token": ACCESSTOKEN,
+    "token_type": "Bearer",
+    "expires_in": 3600
+}
+#+END_EXAMPLE
+
+** Various Methods
+
+*** Listing the children of a folder
+
+GET https://www.googleapis.com/drive/v2/files/folderId/children
+
+- Use ~root~ to list the top-level contents
+- See [[https://developers.google.com/drive/v2/reference/children/list][this page]] for more details.
+
+#+BEGIN_EXAMPLE
+curl https://www.googleapis.com/drive/v2/files/root/children\?access_token\=$ACCESSTOKEN
+#+END_EXAMPLE
+
+Example output
+
+#+BEGIN_EXAMPLE
+{
+ "kind": "drive#childList",
+ "etag": "\"TWjOkra-965jSFTh8v_qSQFrI70/QAda8xbVLTiro3MK3hiXKgo4rFY\"",
+ "selfLink": "https://www.googleapis.com/drive/v2/files/root/children",
+ "items": [
+  {
+   "kind": "drive#childReference",
+   "id": "0B1ANE6iH7S6KSkg1SkVWdUFUZGc",
+   "selfLink": "https://www.googleapis.com/drive/v2/files/0AFANE6iH7S6KUk9PVA/children/0B1ANE6iH7S6KSkg1SkVWdUFUZGc",
+   "childLink": "https://www.googleapis.com/drive/v2/files/0B1ANE6iH7S6KSkg1SkVWdUFUZGc"
+  },
+  ...
+ ]
+}
+#+END_EXAMPLE
+
+By the way, if your token is no longer any good you will get this:
+
+#+BEGIN_EXAMPLE
+{
+ "error": {
+  "errors": [
+   {
+    "domain": "global",
+    "reason": "authError",
+    "message": "Invalid Credentials",
+    "locationType": "header",
+    "location": "Authorization"
+   }
+  ],
+  "code": 401,
+  "message": "Invalid Credentials"
+ }
+}
+#+END_EXAMPLE
+
+To get the name and other information you have to fetch it, using it's
+ID:
+
+#+BEGIN_EXAMPLE
+curl https://www.googleapis.com/drive/v2/files/0B1ANE6iH7S6KSkg1SkVWdUFUZGc\?access_token\=$ACCESSTOKEN
+#+END_EXAMPLE
+
+Example output:
+
+#+BEGIN_EXAMPLE
+{
+ "kind": "drive#file",
+ "id": "0B1ANE6iH7S6KSkg1SkVWdUFUZGc",
+ "etag": "\"TWjOkra-965jSFTh8v_qSQFrI70/MTM5OTA1MzY4MzA3MQ\"",
+ "selfLink": "https://www.googleapis.com/drive/v2/files/0B1ANE6iH7S6KSkg1SkVWdUFUZGc",
+ "alternateLink": "https://docs.google.com/folderview?id=0B1ANE6iH7S6KSkg1SkVWdUFUZGc&usp=drivesdk",
+ "iconLink": "https://ssl.gstatic.com/docs/doclist/images/icon_11_collection_list_1.png",
+ "title": "Reference",
+ "mimeType": "application/vnd.google-apps.folder",
+ "labels": {
+  "starred": false,
+  "hidden": false,
+  "trashed": false,
+  "restricted": false,
+  "viewed": true
+ },
+ "createdDate": "2012-07-21T15:11:34.736Z",
+ "modifiedDate": "2014-05-02T18:01:23.071Z",
+ "modifiedByMeDate": "2014-05-02T18:01:23.071Z",
+ "lastViewedByMeDate": "2015-06-16T18:14:17.894Z",
+ "markedViewedByMeDate": "2014-08-02T16:55:38.779Z",
+ "version": "103275",
+ "parents": [
+  {
+   "kind": "drive#parentReference",
+   "id": "0AFANE6iH7S6KUk9PVA",
+   "selfLink": "https://www.googleapis.com/drive/v2/files/0B1ANE6iH7S6KSkg1SkVWdUFUZGc/parents/0AFANE6iH7S6KUk9PVA",
+   "parentLink": "https://www.googleapis.com/drive/v2/files/0AFANE6iH7S6KUk9PVA",
+   "isRoot": true
+  }
+ ],
+ "userPermission": {
+  "kind": "drive#permission",
+  "etag": "\"TWjOkra-965jSFTh8v_qSQFrI70/uyntb-B2TdOgm0ONMUyFeiGCNV4\"",
+  "id": "me",
+  "selfLink": "https://www.googleapis.com/drive/v2/files/0B1ANE6iH7S6KSkg1SkVWdUFUZGc/permissions/me",
+  "role": "owner",
+  "type": "user"
+ },
+ "quotaBytesUsed": "0",
+ "ownerNames": [
+  "Gordon Tillman"
+ ],
+ "owners": [
+  {
+   "kind": "drive#user",
+   "displayName": "Gordon Tillman",
+   "picture": {
+    "url": "https://lh5.googleusercontent.com/-BBBrH3q7o4s/AAAAAAAAAAI/AAAAAAAAJvM/yUi6iYktjZU/s64/photo.jpg"
+   },
+   "isAuthenticatedUser": true,
+   "permissionId": "11761039560398835276",
+   "emailAddress": "gordyt@gmail.com"
+  }
+ ],
+ "lastModifyingUserName": "Gordon Tillman",
+ "lastModifyingUser": {
+  "kind": "drive#user",
+  "displayName": "Gordon Tillman",
+  "picture": {
+   "url": "https://lh5.googleusercontent.com/-BBBrH3q7o4s/AAAAAAAAAAI/AAAAAAAAJvM/yUi6iYktjZU/s64/photo.jpg"
+  },
+  "isAuthenticatedUser": true,
+  "permissionId": "11761039560398835276",
+  "emailAddress": "gordyt@gmail.com"
+ },
+ "editable": true,
+ "copyable": false,
+ "writersCanShare": true,
+ "shared": false,
+ "explicitlyTrashed": false,
+ "appDataContents": false,
+ "spaces": [
+  "drive"
+ ]
+}
+#+END_EXAMPLE
+
+You can include the ~fields~ query parameter to limit the output:
+
+#+BEGIN_EXAMPLE
+curl https://www.googleapis.com/drive/v2/files/0B1ANE6iH7S6KSkg1SkVWdUFUZGc\?access_token\=$ACCESSTOKEN\&fields=etag,title,mimeType
+#+END_EXAMPLE
+
+Example output:
+
+#+BEGIN_EXAMPLE
+{
+ "etag": "\"TWjOkra-965jSFTh8v_qSQFrI70/MTM5OTA1MzY4MzA3MQ\"",
+ "title": "Reference",
+ "mimeType": "application/vnd.google-apps.folder"
+}
+#+END_EXAMPLE
+
+** References
+
+- [[https://developers.google.com/drive/web/about-sdk][Google Drive REST API]]
+- [[https://console.developers.google.com/project][Google Developers Console]]
+* Code
+** Settings
+
+#+BEGIN_SRC elisp
+  (defvar gdrive-credentials "~/.gdrive.gpg"
+  "Store Gdrive credentials in this GPG-encrypted file.")
+  ;;; allow emacs to cache the symmetric password so you
+  ;;; do not have to enter it multiple times in a single
+  ;;; emacs session
+  (setq epa-file-cache-passphrase-for-symmetric-encryption t)
+#+END_SRC
+
+** External Requirements
+
+#+BEGIN_SRC elisp
+(require 'json)
+(require 'web)
+(require 'url)
+#+END_SRC
+
+** Define Structure to hold API info
+
+#+BEGIN_SRC elisp
+  (defstruct gdrive-info
+    client-id
+    client-secret
+    (redirect-uri "urn:ietf:wg:oauth:2.0:oob")
+    (scope "https://www.googleapis.com/auth/drive")
+    access-token
+    refresh-token)
+#+END_SRC
+
+** Functions to persist/read drive-info securely
+
+#+BEGIN_SRC elisp
+  (defun gdrive-save-info (gdrive-info)
+    "Save GDRIVE-INFO to GDRIVE-CREDENTIALS"
+    (with-temp-buffer
+      (insert (prin1-to-string gdrive-info))
+      (write-region (point-min)
+                    (point-max)
+                    gdrive-credentials)))
+
+  (defun gdrive-load-info ()
+    "Load GDRIVE-INFO from GDRIVE-CREDENTIALS.
+    If the file doesn't exist, return empty creds"
+    (if (file-exists-p gdrive-credentials)
+        (first (read-from-string
+                (with-temp-buffer
+                  (insert-file-contents gdrive-credentials)
+                  (buffer-string))))))
+
+#+END_SRC
+
+** Function to prompt user for client-id/secret
+
+#+BEGIN_SRC elisp
+  (defun gdrive-init-info (client-id client-secret)
+    "Ask user for client-id and client-secret, use that
+     to initialize a gdrive-info and save it to the
+     gdrive-credentials encrypted file."
+    (interactive
+     "sEnter your CLIENT-ID: \nsEnter your CLIENT-SECRET: ")
+    (let ((gdrive-info (make-gdrive-info
+                        :client-id client-id
+                        :client-secret client-secret)))
+      (gdrive-save-info gdrive-info)))
+      
+#+END_SRC
+
+** Request User Authorization
+
+#+BEGIN_SRC emacs-lisp
+  (defun gdrive-make-authorization-code-uri (scope redirect-uri client-id)
+    "Build the URI required to get an authorization code"
+    (format "https://accounts.google.com/o/oauth2/auth?%s"
+            (url-build-query-string
+             `(("scope" ,scope)
+              ("redirect_uri" ,redirect-uri)
+              ("response_type" "code")
+              ("client_id" ,client-id)))))
+
+
+  (defun gdrive-request-authorization-code (gdrive-info)
+    "Given a users GDRIVE-INFO, which must contain the client-id and
+     client-secret, open a browser and let the client authorize the app
+     and enter the authorization code.
+     Returns the authorization code, which must be excanged for a 
+     token."
+    (interactive)
+    (let* ((client-id (gdrive-info-client-id gdrive-info))
+           (scope (gdrive-info-scope gdrive-info))
+           (redirect-uri (gdrive-info-redirect-uri gdrive-info))
+           (uri (gdrive-make-authorization-code-uri
+                 scope
+                 redirect-uri
+                 client-id)))
+      (browse-url uri)
+      (read-string "Please copy and paste the authorization code: ")))
+      
+#+END_SRC
+
+** Exchange the authorization code for a token
+
+#+BEGIN_SRC elisp
+  (defun gdrive-get-access-token (gdrive-info authorization-code)
+    "Given an instance of GDRIVE-INFO and an AUTHORIZATION-code,
+    request an access token.  Updates and returns GDRIVE-INFO 
+    with the ACCESS-TOKEN and REFRESH-TOKEN filled out.  Also
+    updates the encrypted value on disk.  If there was an error,
+    returns nil"
+
+    (let* ((client-id (gdrive-info-client-id gdrive-info))
+           (client-secret (gdrive-info-client-secret gdrive-info))
+           (redirect-uri (gdrive-info-redirect-uri gdrive-info))
+           (query-data (make-hash-table :test 'equal))
+           (new-gdrive-info :false))
+      (puthash 'code authorization-code query-data)
+      (puthash 'client_id client-id query-data)
+      (puthash 'client_secret client-secret query-data)
+      (puthash 'redirect_uri redirect-uri query-data)
+      (puthash 'grant_type "authorization_code" query-data)
+      (web-http-post
+       (lambda (con header data)
+         (let* ((resp-alist (json-read-from-string data))
+                (err (cdr (assoc 'error resp-alist)))
+                (access-token (cdr (assoc 'access_token resp-alist)))
+                (refresh-token (cdr (assoc 'refresh_token resp-alist))))
+           (if (null err)
+                 (setq new-gdrive-info gdrive-info))
+             (setq new-gdrive-info nil))))
+       :url "https://accounts.google.com/o/oauth2/token"
+       :data query-data)
+      (while (eq new-gdrive-info :false)
+        (sleep-for 1))
+      new-gdrive-info))
+
+#+END_SRC
+
+** Refresh your token
+
+#+BEGIN_SRC elisp
+  (defun gdrive-refresh-access-token (gdrive-info)
+    "Given an instance of GDRIVE-INFO that contains an
+    expired access token, request a refresh.
+    Updates and returns GDRIVE-INFO with the new ACCESS-TOKEN.  Also
+    updates the encrypted value on disk.  If there was an error,
+    returns nil"
+
+    (let* ((client-id (gdrive-info-client-id gdrive-info))
+           (client-secret (gdrive-info-client-secret gdrive-info))
+           (refresh-token (gdrive-info-refresh-token gdrive-info))
+           (query-data (make-hash-table :test 'equal))
+           (new-gdrive-info :false))
+      (puthash 'client_id client-id query-data)
+      (puthash 'client_secret client-secret query-data)
+      (puthash 'refresh_token refresh-token query-data)
+      (puthash 'grant_type "refresh_token" query-data)
+      (web-http-post
+       (lambda (con header data)
+         (let* ((resp-alist (json-read-from-string data))
+                (err (cdr (assoc 'error resp-alist)))
+                (access-token (cdr (assoc 'access_token resp-alist))))
+           (if (null err)
+               (progn
+                 (setf (gdrive-info-access-token gdrive-info) access-token)
+                 (gdrive-save-info gdrive-info)
+                 (setq new-gdrive-info gdrive-info))
+             (setq new-gdrive-info nil))))
+       :url "https://accounts.google.com/o/oauth2/token"
+       :data query-data)
+      (while (eq new-gdrive-info :false)
+        (sleep-for 1))
+      new-gdrive-info))
+
+#+END_SRC
+
+** GET requests
+
+These need to handle expired tokens.
+
+#+BEGIN_SRC elisp
+  (defun gdrive-get (gdrive-info url)
+    "Retrieve the requested GET URL using the access-token in
+     in GDRIVE-INFO.  If your token is expired, it will automatically
+     refresh it."
+    (let* ((access-token (gdrive-info-access-token gdrive-info))
+           (query-data (make-hash-table :test 'equal))
+           (get-resp :false))
+      (puthash 'access_token access-token query-data)
+      (web-http-get
+       (lambda (con header data)
+         (let* ((resp-alist (json-read-from-string data))
+                (err (cdr (assoc 'error resp-alist))))
+           (if (null err)
+               (setq get-resp resp-alist)
+             (setq get-resp (gdrive-get (gdrive-refresh-access-token gdrive-info)
+                                        url)))))
+       :url (concat url "?" (web-to-query-string query-data)))
+      (while (eq get-resp :false)
+        (sleep-for 1))
+      get-resp))
+      
+#+END_SRC
+
+
+
