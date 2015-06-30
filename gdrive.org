@@ -272,7 +272,7 @@ Example output:
 
 #+BEGIN_SRC elisp
 (require 'json)
-(require 'web)
+(require 'request)
 (require 'url)
 #+END_SRC
 
@@ -285,7 +285,8 @@ Example output:
     (redirect-uri "urn:ietf:wg:oauth:2.0:oob")
     (scope "https://www.googleapis.com/auth/drive")
     access-token
-    refresh-token)
+    refresh-token
+    (token-type "Bearer"))
 #+END_SRC
 
 ** Functions to persist/read drive-info securely
@@ -323,7 +324,7 @@ Example output:
                         :client-id client-id
                         :client-secret client-secret)))
       (gdrive-save-info gdrive-info)))
-      
+
 #+END_SRC
 
 ** Request User Authorization
@@ -343,9 +344,8 @@ Example output:
     "Given a users GDRIVE-INFO, which must contain the client-id and
      client-secret, open a browser and let the client authorize the app
      and enter the authorization code.
-     Returns the authorization code, which must be excanged for a 
+     Returns the authorization code, which must be excanged for a
      token."
-    (interactive)
     (let* ((client-id (gdrive-info-client-id gdrive-info))
            (scope (gdrive-info-scope gdrive-info))
            (redirect-uri (gdrive-info-redirect-uri gdrive-info))
@@ -355,7 +355,7 @@ Example output:
                  client-id)))
       (browse-url uri)
       (read-string "Please copy and paste the authorization code: ")))
-      
+
 #+END_SRC
 
 ** Exchange the authorization code for a token
@@ -363,9 +363,9 @@ Example output:
 #+BEGIN_SRC elisp
   (defun gdrive-get-access-token (gdrive-info authorization-code)
     "Given an instance of GDRIVE-INFO and an AUTHORIZATION-code,
-    request an access token.  Updates and returns GDRIVE-INFO 
-    with the ACCESS-TOKEN and REFRESH-TOKEN filled out.  Also
-    updates the encrypted value on disk.  If there was an error,
+    request an access token.  Updates and returns GDRIVE-INFO
+    with the ACCESS-TOKEN,  REFRESH-TOKEN, and TOKEN-TYPE filled out.
+    Also updates the encrypted value on disk.  If there was an error,
     returns nil"
 
     (let* ((client-id (gdrive-info-client-id gdrive-info))
@@ -383,8 +383,14 @@ Example output:
          (let* ((resp-alist (json-read-from-string data))
                 (err (cdr (assoc 'error resp-alist)))
                 (access-token (cdr (assoc 'access_token resp-alist)))
+                (token-type (cdr (assoc 'token_type resp-alist)))
                 (refresh-token (cdr (assoc 'refresh_token resp-alist))))
            (if (null err)
+               (progn
+                 (setf (gdrive-info-access-token gdrive-info) access-token)
+                 (setf (gdrive-info-token-type gdrive-info) token-type)
+                 (setf (gdrive-info-refresh-token gdrive-info) refresh-token)
+                 (gdrive-save-info gdrive-info)
                  (setq new-gdrive-info gdrive-info))
              (setq new-gdrive-info nil))))
        :url "https://accounts.google.com/o/oauth2/token"
@@ -458,8 +464,5 @@ These need to handle expired tokens.
       (while (eq get-resp :false)
         (sleep-for 1))
       get-resp))
-      
+
 #+END_SRC
-
-
-
