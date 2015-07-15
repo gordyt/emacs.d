@@ -76,8 +76,7 @@ to the prompt.
 | flycheck-cask                   | Cask support in Flycheck                                                           |
 | flycheck-clojure                | Flycheck: Clojure support                                                          |
 | flycheck-pos-tip                | Flycheck errors display in tooltip                                                 |
-| git-commit-mode                 | Major mode for editing git commit messages                                         |
-| git-rebase-mode                 | Major mode for editing git rebase files                                            |
+| git-commit                      | Edit Git commit messages                                                           |
 | gmail-message-mode              | A major-mode for editing gmail messages using markdown syntax.                     |
 | go-mode                         | Major mode for the Go programming language                                         |
 | graphviz-dot-mode               | Mode for the dot-language used by graphviz (att).                                  |
@@ -86,6 +85,7 @@ to the prompt.
 | handlebars-mode                 | A major mode for editing Handlebars files.                                         |
 | haskell-mode                    | A Haskell editing mode                                                             |
 | helm                            | Helm is an Emacs incremental and narrowing framework                               |
+| helm-core                       | Development files for Helm the Emacs incremental and narrowing framework           |
 | html-to-markdown                | HTML to Markdown converter written in Emacs-lisp.                                  |
 | htmlize                         | Convert buffer text and decorations to HTML.                                       |
 | idle-highlight-mode             | highlight the word the point is on                                                 |
@@ -99,7 +99,8 @@ to the prompt.
 | jsx-mode                        | major mode for JSX                                                                 |
 | kv                              | key/value data structure functions                                                 |
 | let-alist                       | Easily let-bind values of an assoc-list by their names                             |
-| magit                           | control Git from Emacs                                                             |
+| magit                           | A Git porcelain inside Emacs                                                       |
+| magit-popup                     | Define prefix-infix-suffix command combos                                          |
 | markdown-mode                   | Emacs Major mode for Markdown-formatted text files                                 |
 | markdown-mode+                  | extra functions for markdown-mode                                                  |
 | mode-compile                    | Smart command for compiling files                                                  |
@@ -123,6 +124,8 @@ to the prompt.
 | python-environment              | virtualenv API for Emacs Lisp                                                      |
 | queue                           | Queue data structure                                                               |
 | react-snippets                  | Yasnippets for React                                                               |
+| request                         | Compatible layer for URL request in Emacs                                          |
+| request-deferred                | Wrap request.el by deferred                                                        |
 | restclient                      | An interactive HTTP client for Emacs                                               |
 | s                               | The long lost Emacs string manipulation library.                                   |
 | seq                             | Sequence manipulation functions                                                    |
@@ -138,6 +141,7 @@ to the prompt.
 | use-package                     | A use-package declaration for simplifying your .emacs                              |
 | web                             | useful HTTP client                                                                 |
 | web-mode                        | major mode for editing web templates                                               |
+| with-editor                     | Use the Emacsclient as $EDITOR                                                     |
 | yasnippet                       | Yet another snippet extension for Emacs.                                           |
 
 * Utility Functions

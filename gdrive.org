@@ -256,6 +256,7 @@ Example output:
 
 - [[https://developers.google.com/drive/web/about-sdk][Google Drive REST API]]
 - [[https://console.developers.google.com/project][Google Developers Console]]
+
 * Code
 ** Settings
 
@@ -272,9 +273,18 @@ Example output:
 
 #+BEGIN_SRC elisp
 (require 'json)
-(require 'request)
 (require 'url)
+(require 'web) ; TODO - remove
+(require 'request)
+(require 'request-deferred)
 #+END_SRC
+
+** Communications Layer
+
+I am going to test the ~request~ module as an alternative to ~web~.
+John has worked with ~web~ and found that it is lacking in the area of
+error-handling.
+
 
 ** Define Structure to hold API info
 
