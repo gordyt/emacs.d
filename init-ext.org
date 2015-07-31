@@ -623,6 +623,13 @@ The following configures Jabber message history.
 *** Jabber Notifications
 
 See the file ~darwin.org~ for some notifications customization.
+Here we enable custom notifications, if available.
+
+#+BEGIN_SRC emacs-lisp
+  (when (fboundp 'got/message-notify)
+    (add-hook 'jabber-alert-message-hooks (lambda (from buffer text title)
+                                            (got/message-notify title text))))
+#+END_SRC
 
 *** Jabber Reconnecting
 
