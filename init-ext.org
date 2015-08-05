@@ -620,6 +620,19 @@ The following configures Jabber message history.
 
 #+END_SRC
 
+*** Jaber Alerts
+
+From [[http://www.emacswiki.org/emacs/JabberEl#toc15][here]]:
+
+#+BEGIN_SRC emacs-lisp
+  (define-jabber-alert echo "Show a message in the echo area"
+    (lambda (msg)
+      (unless (minibuffer-prompt)
+        (message "%s" msg))))
+#+END_SRC
+
+That fix keeps your entry in the echo area from getting clobbered.
+
 *** Jabber Notifications
 
 See the file ~darwin.org~ for some notifications customization.
