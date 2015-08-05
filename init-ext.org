@@ -640,8 +640,12 @@ Here we enable custom notifications, if available.
 
 #+BEGIN_SRC emacs-lisp
   (when (fboundp 'got/message-notify)
+    ;; This handles private chat buffers
     (add-hook 'jabber-alert-message-hooks (lambda (from buffer text title)
-                                            (got/message-notify title text))))
+                                            (got/message-notify title text)))
+    ;; This handles multi-user chat buffers
+    (add-hook 'jabber-muc-hooks (lambda (nick group buffer text title)
+                                  (got/message-notify text title))))
 #+END_SRC
 
 *** Jabber Reconnecting
