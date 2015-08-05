@@ -30,15 +30,13 @@ to mac os x.
   (defvar got/enable-speech nil
     "If true, enable speech notifications.  If NIL, disable speech.")
 
-
   (defvar got/enable-mac-notification t
     "If true, enable mac notifications center notifications")
 
-  (defvar got/max-notification-text-len 64
+  (defvar got/max-notification-text-len 42
     "Any notification text longer than this will be truncated")
 
 #+END_SRC
-
 
 
 This function will let you post messages to the Mac notifications
@@ -72,10 +70,11 @@ center via a small AppleScript.
                            "\" with title \""
                            title
                            "\"")))
-        (when got/enable-speech       
+        (when got/enable-speech
           (if (require 'deferred nil 'noerror)
               (deferred:call fn title text)
-            (funcall fn title text))))))
+            (funcall fn title text)))))
+    nil)
 #+END_SRC
 
 
