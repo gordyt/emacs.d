@@ -645,7 +645,7 @@ Here we enable custom notifications, if available.
                                             (got/message-notify title text)))
     ;; This handles multi-user chat buffers
     (add-hook 'jabber-muc-hooks (lambda (nick group buffer text title)
-                                  (got/message-notify text title))))
+                                  (got/message-notify title text))))
 #+END_SRC
 
 *** Jabber Reconnecting
