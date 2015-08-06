@@ -625,10 +625,11 @@ The following configures Jabber message history.
 From [[http://www.emacswiki.org/emacs/JabberEl#toc15][here]]:
 
 #+BEGIN_SRC emacs-lisp
-  (define-jabber-alert echo "Show a message in the echo area"
-    (lambda (msg)
-      (unless (minibuffer-prompt)
-        (message "%s" msg))))
+  (when (require 'jabber nil :noerror)
+    (define-jabber-alert echo "Show a message in the echo area"
+      (lambda (msg)
+        (unless (minibuffer-prompt)
+          (message "%s" msg)))))
 #+END_SRC
 
 That fix keeps your entry in the echo area from getting clobbered.
