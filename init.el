@@ -66,8 +66,8 @@ correct order) and are followed by the non-duplicate elements of SRC-LIST"
 (cond
  ((file-exists-p "~/.cask/cask.el")
   (require 'cask "~/.cask/cask.el"))  ; location for "curl" install
- ((file-exists-p "/usr/local/share/emacs/site-lisp/cask.el")
-  (require 'cask "/usr/local/share/emacs/site-lisp/cask.el"))  ; location for homebrew install
+ ((file-exists-p "/usr/local/share/emacs/site-lisp/cask/cask.el")
+  (require 'cask "/usr/local/share/emacs/site-lisp/cask/cask.el"))  ; location for homebrew install
  (t (error "Unable to location a cask installation")))
 (cask-initialize)
 
