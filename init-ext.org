@@ -85,7 +85,7 @@ to the prompt.
 | handlebars-mode                 | A major mode for editing Handlebars files.                                         |
 | haskell-mode                    | A Haskell editing mode                                                             |
 | helm                            | Helm is an Emacs incremental and narrowing framework                               |
-| helm-core                       | Development files for Helm the Emacs incremental and narrowing framework           |
+| helm-core                       | Development files for Helm                                                         |
 | html-to-markdown                | HTML to Markdown converter written in Emacs-lisp.                                  |
 | htmlize                         | Convert buffer text and decorations to HTML.                                       |
 | idle-highlight-mode             | highlight the word the point is on                                                 |
@@ -112,6 +112,7 @@ to the prompt.
 | org-mac-link                    | Insert org-mode links to items selected in various Mac apps                        |
 | org-octopress                   | Compose octopress articles using org-mode.                                         |
 | orglue                          | more functionality to org-mode.                                                    |
+| p4                              | Simple Perforce-Emacs Integration                                                  |
 | package-build                   | Tools for assembling a package archive                                             |
 | packed                          | package manager agnostic Emacs Lisp package utilities                              |
 | pallet                          | A package management tool for Emacs, using Cask.                                   |
@@ -620,7 +621,7 @@ The following configures Jabber message history.
 
 #+END_SRC
 
-*** Jaber Alerts
+*** Jabber Alerts
 
 From [[http://www.emacswiki.org/emacs/JabberEl#toc15][here]]:
 
