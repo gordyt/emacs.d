@@ -613,7 +613,7 @@ The following configures Jabber message history.
   (when (package-installed-p 'jabber)
     (unless (file-exists-p got/jabber-history)
       (make-directory got/jabber-history))
-    (setq jabber-history-enable t                  ; enable history
+    (setq jabber-history-enabled t                 ; enable history
           jabber-history-dir got/jabber-history    ; located here
           jabber-history-size-limit 1024           ; when files get this big
           jabber-history-enable-rotation t         ; then rotate them
