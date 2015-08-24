@@ -613,11 +613,14 @@ The following configures Jabber message history.
   (when (package-installed-p 'jabber)
     (unless (file-exists-p got/jabber-history)
       (make-directory got/jabber-history))
-    (setq jabber-history-enabled t                 ; enable history
+    (setq jabber-history-enabled t                 ; enable private history
+          jabber-history-muc-enabled t             ; enable MUC history
           jabber-history-dir got/jabber-history    ; located here
           jabber-history-size-limit 1024           ; when files get this big
           jabber-history-enable-rotation t         ; then rotate them
-          jabber-use-global-history nil))          ; disable global history file
+          jabber-use-global-history nil)           ; disable global history file
+    (custom-set-variables '(jabber-show-resources nil)))
+
 
 #+END_SRC
 
@@ -659,6 +662,16 @@ network configuration changes.
   (when (package-installed-p 'jabber)
     (setq jabber-auto-reconnect t))
 
+#+END_SRC
+
+*** Disable undo in roster
+
+#+BEGIN_SRC emacs-lisp
+  (defun got/jabber-roster-setup()
+    (buffer-disable-undo (get-buffer "*jabber-roster*")))
+
+  (when (require 'jabber nil :noerror)
+    (add-hook 'jabber-roster-mode-hook 'got/jabber-roster-setup))
 #+END_SRC
 
 ** [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]
