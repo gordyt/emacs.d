@@ -1158,6 +1158,16 @@ If the /pip/ command is not available you can install it as follows:
 
 #+END_SRC
 
+** perl-mode
+
+Set indentation level to match what our company uses.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'perl-mode-hook (lambda ()
+                              (setq perl-indent-level 2)))
+
+#+END_SRC
+
 ** shift-select-mode
 
 When non-nil, shifted motion keys activate the mark momentarily.
