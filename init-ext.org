@@ -1168,6 +1168,14 @@ Set indentation level to match what our company uses.
 
 #+END_SRC
 
+Enable flycheck
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'flycheck)
+    (add-hook 'perl-mode-hook 'flycheck-mode))
+
+#+END_SRC
+
 ** shift-select-mode
 
 When non-nil, shifted motion keys activate the mark momentarily.
