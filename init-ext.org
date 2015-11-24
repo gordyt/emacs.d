@@ -1015,6 +1015,8 @@ look here for documentation.
 
 ** monkey-mode
 
+This is courtesy of [[https://github.com/jeastman/emacs.d][jeastman's emacs.d repo]].
+
 #+BEGIN_SRC emacs-lisp
   (when (require 'monkey-mode-line nil 'noerr)
     (monkeyml/monkey-mode-line))
