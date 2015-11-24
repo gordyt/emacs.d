@@ -38,6 +38,7 @@ to the prompt.
 
 #+RESULTS:
 | _Package Name_                  | _Package Description_                                                              |
+| ac-geiser                       | Auto-complete backend for geiser                                                   |
 | ac-slime                        | An auto-complete source using slime completions                                    |
 | async                           | Asynchronous processing in Emacs                                                   |
 | auto-compile                    | automatically compile Emacs Lisp libraries                                         |
@@ -69,6 +70,7 @@ to the prompt.
 | exec-path-from-shell            | Get environment variables such as $PATH from the shell                             |
 | expand-region                   | Increase selected region by semantic units.                                        |
 | f                               | Modern API for working with files and directories                                  |
+| faceup                          | Regression test system for font-lock                                               |
 | fakir                           | fakeing bits of Emacs                                                              |
 | flx                             | fuzzy matching with good sorting                                                   |
 | flx-ido                         | flx integration for ido                                                            |
@@ -76,18 +78,23 @@ to the prompt.
 | flycheck-cask                   | Cask support in Flycheck                                                           |
 | flycheck-clojure                | Flycheck: Clojure support                                                          |
 | flycheck-pos-tip                | Flycheck errors display in tooltip                                                 |
+| flymake-easy                    | Helpers for easily building flymake checkers                                       |
+| flymake-racket                  | A flymake handler for scheme-mode files                                            |
+| fsm                             | state machine library                                                              |
+| geiser                          | GNU Emacs and Scheme talk to each other                                            |
 | git-commit                      | Edit Git commit messages                                                           |
 | gmail-message-mode              | A major-mode for editing gmail messages using markdown syntax.                     |
 | go-mode                         | Major mode for the Go programming language                                         |
 | graphviz-dot-mode               | Mode for the dot-language used by graphviz (att).                                  |
 | guru-mode                       | Become an Emacs guru                                                               |
-| ham-mode                        | Html As Markdown. Transparently edit an html file using markdown.                  |
+| ham-mode                        | Html As Markdown. Transparently edit an html file using markdown                   |
 | handlebars-mode                 | A major mode for editing Handlebars files.                                         |
 | haskell-mode                    | A Haskell editing mode                                                             |
 | helm                            | Helm is an Emacs incremental and narrowing framework                               |
 | helm-core                       | Development files for Helm                                                         |
 | html-to-markdown                | HTML to Markdown converter written in Emacs-lisp.                                  |
 | htmlize                         | Convert buffer text and decorations to HTML.                                       |
+| hydra                           | Make bindings that stick around.                                                   |
 | idle-highlight-mode             | highlight the word the point is on                                                 |
 | ido-completing-read+            | A completing-read-function using ido                                               |
 | ido-ubiquitous                  | Use ido (nearly) everywhere.                                                       |
@@ -120,10 +127,12 @@ to the prompt.
 | pkg-info                        | Information about packages                                                         |
 | popup                           | Visual Popup User Interface                                                        |
 | popwin                          | Popup Window Manager.                                                              |
+| pos-tip                         | Show tooltip at point                                                              |
 | prodigy                         | Manage external services from within Emacs                                         |
 | projectile                      | Manage and navigate projects in Emacs easily                                       |
 | python-environment              | virtualenv API for Emacs Lisp                                                      |
 | queue                           | Queue data structure                                                               |
+| racket-mode                     | Major mode for Racket language.                                                    |
 | react-snippets                  | Yasnippets for React                                                               |
 | request                         | Compatible layer for URL request in Emacs                                          |
 | request-deferred                | Wrap request.el by deferred                                                        |
@@ -452,6 +461,12 @@ Customize where Emacs stores its bookmarks file
     (global-company-mode))
 #+END_SRC
 
+Remove company-mode from the mode line.
+
+#+BEGIN_SRC emacs-lisp
+  (eval-after-load "company" '(diminish 'company-mode))
+#+END_SRC
+
 ** Dired+
 
 Configure ~dired+~ to reuse the directory buffer when navigating about
@@ -507,6 +522,12 @@ Enable =guru-mode= everywhere.
   (guru-global-mode t)
 #+END_SRC
 
+Remove guru-mode from the mode line
+
+#+BEGIN_SRC emacs-lisp
+  (eval-after-load "guru-mode" '(diminish 'guru-mode))
+#+END_SRC
+
 ** Helm
 
 Basic helm configuration from [[http://tuhdo.github.io/helm-intro.html][here.]]
@@ -536,6 +557,12 @@ Basic helm configuration from [[http://tuhdo.github.io/helm-intro.html][here.]]
           helm-M-x-fuzzy-match t)                 ; fuzzy matching for helm-M-x
 
     (helm-mode 1))
+#+END_SRC
+
+Remove helm-mode from mode line.
+
+#+BEGIN_SRC emacs-lisp
+  (eval-after-load "helm" '(diminish 'helm-mode))
 #+END_SRC
 
 ** Jabber
@@ -672,6 +699,16 @@ network configuration changes.
 
   (when (require 'jabber nil :noerror)
     (add-hook 'jabber-roster-mode-hook 'got/jabber-roster-setup))
+#+END_SRC
+
+*** Disable Anonymous Authentication
+
+From [[http://www.warmenhoven.org/src/emacs.el/ew-jabber.el.html][this page]]:
+
+#+BEGIN_SRC emacs-lisp
+  (defadvice jabber-xml-get-children (after eaw-remove-anonymous)
+    (setq ad-return-value (remove '(mechanism nil "ANONYMOUS") ad-return-value)))
+  (ad-activate 'jabber-xml-get-children)
 #+END_SRC
 
 ** [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]
@@ -974,6 +1011,13 @@ look here for documentation.
   (when (boundp 'got/common-lisp-hyperspec-root)
     (setq common-lisp-hyperspec-root got/common-lisp-hyperspec-root))
 
+#+END_SRC
+
+** monkey-mode
+
+#+BEGIN_SRC emacs-lisp
+  (when (require 'monkey-mode-line nil 'noerr)
+    (monkeyml/monkey-mode-line))
 #+END_SRC
 
 ** org-mode
@@ -1352,6 +1396,12 @@ active.
     (global-undo-tree-mode))
 #+END_SRC
 
+Hide undo-tree minor mode in the modeline:
+
+#+BEGIN_SRC emacs-lisp
+  (eval-after-load "undo-tree" '(diminish 'undo-tree-mode))
+#+END_SRC
+
 ** whitespace-mode
 
 Configure whitespace visualization.  Here is a breakdown of the
@@ -1392,4 +1442,10 @@ Enable yasnippet everywhere by default.
 #+BEGIN_SRC emacs-lisp
   (when (package-installed-p 'yasnippet)
     (yas-global-mode))
+#+END_SRC
+
+Hide yas minor mode in the mode line.
+
+#+BEGIN_SRC emacs-lisp
+  (eval-after-load "yasnippet" '(diminish 'yas-minor-mode))
 #+END_SRC
