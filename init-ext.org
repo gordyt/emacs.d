@@ -171,6 +171,20 @@ to the prompt.
 
 #+END_SRC
 
+** got/minutes-to-hms-string
+
+#+BEGIN_SRC emacs-lisp
+  (defun got/minutes-to-hms-string (minutes)
+    "Convert a floating-point MINUTES to a string of the form
+  \"hh:mm:ss\""
+    (let* ((whole-minutes (floor minutes))
+           (h (/ whole-minutes 60))
+           (m (- whole-minutes (* h 60)))
+           (s (* (- minutes whole-minutes) 60)))
+      (format "%02d:%02d:%02d" h m s)))
+
+#+END_SRC
+
 ** got/send-region-to-jrnl
 
 Got the idea from [[http://ericjmritz.name/2014/06/30/send-emacs-buffer-to-jrnl/][here]].
@@ -197,7 +211,6 @@ Assumes they are separated by a single space."
     (delete-region start end)
     (insert output)))
 #+END_SRC
-
 
 ** jme buffer cleanup
 
@@ -1018,8 +1031,8 @@ look here for documentation.
 This is courtesy of [[https://github.com/jeastman/emacs.d][jeastman's emacs.d repo]].
 
 #+BEGIN_SRC emacs-lisp
-  (when (require 'monkey-mode-line nil 'noerr)
-    (monkeyml/monkey-mode-line))
+  ;; (when (require 'monkey-mode-line nil 'noerr)
+  ;;   (monkeyml/monkey-mode-line))
 #+END_SRC
 
 ** org-mode
