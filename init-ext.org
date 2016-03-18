@@ -926,7 +926,6 @@ whether or not you are in a project, just do the following instead:
 #+BEGIN_SRC emacs-lisp
   (when (package-installed-p 'flycheck-clojure)
     (eval-after-load 'flycheck '(flycheck-clojure-setup))
-    (eval-after-load 'flycheck '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
     (add-hook 'clojure-mode-hook 'flycheck-mode))
 
 
