@@ -77,7 +77,7 @@ to the prompt.
 | flycheck                        | On-the-fly syntax checking                                                         |
 | flycheck-cask                   | Cask support in Flycheck                                                           |
 | flycheck-clojure                | Flycheck: Clojure support                                                          |
-| flycheck-pos-tip                | Flycheck errors display in tooltip                                                 |
+| flycheck-pos-tip                | Display Flycheck errors in GUI tooltips                                            |
 | flymake-easy                    | Helpers for easily building flymake checkers                                       |
 | flymake-racket                  | A flymake handler for scheme-mode files                                            |
 | fsm                             | state machine library                                                              |
@@ -106,6 +106,7 @@ to the prompt.
 | jsx-mode                        | major mode for JSX                                                                 |
 | kv                              | key/value data structure functions                                                 |
 | let-alist                       | Easily let-bind values of an assoc-list by their names                             |
+| macrostep                       | interactive macro expander                                                         |
 | magit                           | A Git porcelain inside Emacs                                                       |
 | magit-popup                     | Define prefix-infix-suffix command combos                                          |
 | markdown-mode                   | Emacs Major mode for Markdown-formatted text files                                 |
@@ -151,6 +152,7 @@ to the prompt.
 | use-package                     | A use-package declaration for simplifying your .emacs                              |
 | web                             | useful HTTP client                                                                 |
 | web-mode                        | major mode for editing web templates                                               |
+| which-key                       | Display available keybindings in popup                                             |
 | with-editor                     | Use the Emacsclient as $EDITOR                                                     |
 | yasnippet                       | Yet another snippet extension for Emacs.                                           |
 
