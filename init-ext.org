@@ -109,7 +109,7 @@ to the prompt.
 | macrostep                       | interactive macro expander                                                         |
 | magit                           | A Git porcelain inside Emacs                                                       |
 | magit-popup                     | Define prefix-infix-suffix command combos                                          |
-| markdown-mode                   | Emacs Major mode for Markdown-formatted text files                                 |
+| markdown-mode                   | Major mode for Markdown-formatted text                                             |
 | markdown-mode+                  | extra functions for markdown-mode                                                  |
 | mode-compile                    | Smart command for compiling files                                                  |
 | multiple-cursors                | Multiple cursors for Emacs.                                                        |
@@ -140,6 +140,7 @@ to the prompt.
 | restclient                      | An interactive HTTP client for Emacs                                               |
 | s                               | The long lost Emacs string manipulation library.                                   |
 | seq                             | Sequence manipulation functions                                                    |
+| shen-elisp                      | Shen implementation in Elisp                                                       |
 | shen-mode                       | Utilities for working with Shen code.                                              |
 | shut-up                         | Shut up would you!                                                                 |
 | slamhound                       | Rip Clojure namespaces apart and rebuild them.                                     |

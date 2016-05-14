@@ -1,7 +1,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Emacs 24 configuration file
-;; 
+;;
 ;; Author:  Gordon Tillman, currently based almost entirely on
 ;;          configuration from John Eastman's emacs configuration:
 ;;          https://github.com/jeastman/emacs.d
@@ -47,13 +47,13 @@ correct order) and are followed by the non-duplicate elements of SRC-LIST"
 ;; set up package management with cask and pallet
 ;;
 ;; Prerequisites:
-;; 
+;;
 ;; 1. Install cask using instructions from https://github.com/cask/cask:
 ;;      curl -fsSkL https://raw.github.com/cask/cask/master/go | python
 ;;    -or-
 ;;    Install using homebrew:
 ;;      brew install cask
-;; 2. Add the Cask bin directory to your PATH if you installed cask via the 
+;; 2. Add the Cask bin directory to your PATH if you installed cask via the
 ;;    "curl" method: ~/.cask/bin
 ;; 3. cd to your $HOME/.emacs.d directory and run the "cask install" command.
 ;;
@@ -120,3 +120,4 @@ correct order) and are followed by the non-duplicate elements of SRC-LIST"
 
 
 
+(put 'scroll-left 'disabled nil)
