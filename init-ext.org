@@ -158,7 +158,7 @@ to the prompt.
 | yasnippet                       | Yet another snippet extension for Emacs.                                           |
 
 * Utility Functions
-** got/convert 
+** got/convert
 
 #+BEGIN_SRC emacs-lisp
   (defun got/convert (from to)
@@ -166,9 +166,9 @@ to the prompt.
       calcFunc-uconv
       calc-eval
      It converts the units used in `FROM` to the units in `TO`
-	 
-	 See the documentation for the `math-standard-units` variable
-	 for a complete list of all of the units that calc understands."
+
+     See the documentation for the `math-standard-units` variable
+     for a complete list of all of the units that calc understands."
 
     (calcFunc-uconv (calc-eval from 'raw) to))
 #+END_SRC

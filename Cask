@@ -1,6 +1,7 @@
 (source gnu)
 (source marmalade)
 (source melpa)
+(source melpa-stable)
 (source org)
 
 (depends-on "ac-geiser")
@@ -105,6 +106,7 @@
 (depends-on "restclient")
 (depends-on "s")
 (depends-on "seq")
+(depends-on "shen-elisp")
 (depends-on "shen-mode")
 (depends-on "shut-up")
 (depends-on "slamhound")
