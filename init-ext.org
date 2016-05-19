@@ -1249,6 +1249,20 @@ Modify the default place where globally-defined ID's are stored.
 
 #+END_SRC
 
+** parinfer-mode
+
+This provides a [[http://shaunlebron.github.io/parinfer/index.html][parinfer mode]] for Emacs.  It is not available in the
+repos.  I have added it as a git submodule.
+
+#+BEGIN_SRC emacs-lisp
+  (let* ((parinfo-dir (expand-file-name "parinfer-mode" got/vendor-dir))
+         (parinfo-file (expand-file-name "parinfer-mode.el" parinfo-dir)))
+    (when (file-exists-p parinfo-file)
+      (got/with-current-directory
+       (cd parinfo-dir)
+       (load-file parinfo-file))))
+#+END_SRC
+
 ** python-mode
 *** flycheck-mode for python
 
