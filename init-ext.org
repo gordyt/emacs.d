@@ -871,6 +871,13 @@ Hide the toolbar when running in a window-system on a mac or x.  Otherwise enabl
     (tool-bar-mode 1))
 #+END_SRC
 
+** Tramp
+
+Set the default connection method used by tramp.
+
+#+BEGIN_SRC emacs-lisp
+  (setq tramp-default-method "sshx")
+#+END_SRC
 ** truncate lines
 
 Respect the value of =truncate-lines= with respect to line truncation.
