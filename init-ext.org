@@ -202,6 +202,19 @@ to the prompt.
 
 #+END_SRC
 
+** got/with-current-directory
+
+#+BEGIN_SRC emacs-lisp
+  (defmacro got/with-current-directory (&rest body)
+    "Macro to save Emacs current working directory and evaluate the body
+     form. The current directory is restored after the body form is
+     evaluated."
+    `(let ((cur-dir default-directory))
+       ,@body
+       (cd cur-dir)))
+
+#+END_SRC
+
 ** got/send-region-to-jrnl
 
 Got the idea from [[http://ericjmritz.name/2014/06/30/send-emacs-buffer-to-jrnl/][here]].
