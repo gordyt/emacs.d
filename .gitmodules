@@ -1,0 +1,3 @@
+[submodule "vendor/parinfer-mode"]
+	path = vendor/parinfer-mode
+	url = git@github.com:edpaget/parinfer-mode.git
