@@ -426,6 +426,9 @@ they create.
   (defvar got/themes-dir
     (expand-file-name "themes" got/dotfiles-dir)
     "Location for my custom themes")
+  (defvar got/vendor-dir
+    (expand-file-name "vendor" got/dotfiles-dir)
+    "Location for elisp code that is not from the repos")
   (defvar got/meta-ido
     (expand-file-name "ido.last" got/metafiles-dir)
     "file where id state is saved between invocations")
