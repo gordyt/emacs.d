@@ -16,3 +16,5 @@ init-ext.el
 /smex-items
 /oauth2.plstore
 /ac-comphist.dat
+/games/tetris-scores
+/gdrive.el
