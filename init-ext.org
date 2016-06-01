@@ -1343,11 +1343,11 @@ Enable ~recentf~ mode which will save a list of recent files visited.
 
 #+BEGIN_SRC emacs-lisp
   (when (package-installed-p 'recentf)
-    (setq recentf-mode 1
-          recentf-save-file got/meta-recent    ; where to store the file
+    (setq recentf-save-file got/meta-recent    ; where to store the file
           recentf-max-saved-items 100          ; save 100 most recent files visited
           recentf-max-menu-items 15            ; max 15 items in the menu
-          )
+          recentf-auto-cleanup 'never          ; disable before starting
+          recentf-mode 1)
     (recentf-mode t))
 
 #+END_SRC
