@@ -825,6 +825,19 @@ Add a newline to the end of a file on save.
 (setq require-final-newline t)
 #+END_SRC
 
+** Open With External Program
+
+#+BEGIN_SRC emacs-lisp
+  (defun got/open-with-external-program ()
+    "Open the current buffer (must be visting a file) with
+     whatever external program is registered to work with it."
+    (interactive)
+    (shell-command (concat "open " buffer-file-name)))
+
+  (bind-key "C-c C-g o" 'got/open-with-external-program)
+#+END_SRC
+
+
 ** Server For Client Processes
 
 Allow Emacs to be a server for client processes.
@@ -1097,6 +1110,17 @@ look here for documentation.
   (when (boundp 'got/common-lisp-hyperspec-root)
     (setq common-lisp-hyperspec-root got/common-lisp-hyperspec-root))
 
+#+END_SRC
+
+** markdown-mode
+
+We want to disable ~auto-fill-mode~ when in ~markdown-mode~.  If not,
+then then resulting output (when rendered) is chopped.
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'markdown-mode)
+    (add-hook 'markdown-mode-hook
+              (lambda () (auto-fill-mode -1))))
 #+END_SRC
 
 ** monkey-mode
