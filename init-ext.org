@@ -113,6 +113,7 @@ to the prompt.
 | markdown-mode+                  | extra functions for markdown-mode                                                  |
 | mode-compile                    | Smart command for compiling files                                                  |
 | multiple-cursors                | Multiple cursors for Emacs.                                                        |
+| mwim                            | Move to the beginning/end of line or code                                          |
 | noflet                          | locally override functions                                                         |
 | nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
 | oauth2                          | OAuth 2.0 Authorization Protocol                                                   |
@@ -816,6 +817,17 @@ that the user has set for running commands with multiple cursors.
   (when (package-installed-p 'multiple-cursors)
     (setq mc/list-file got/mc-list-file))
 #+END_SRC
+
+** mwim
+
+[[https://github.com/alezost/mwim.el][mwim]] provides command for moving to the beginning or end of a line in
+an intelligent fashion.
+
+#+BEGIN_SRC emacs-lisp
+  (when (require 'mwim nil 'noerror)
+    (bind-key "C-a" 'mwim-beginning-of-code-or-line)
+    (bind-key "C-e" 'mwim-end-of-code-or-line))
+#+END_SRC 
 
 ** newlines
 
