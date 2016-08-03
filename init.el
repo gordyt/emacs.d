@@ -15,6 +15,13 @@
 ;; Fix up path - make sure usr/local is at top
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (require 'cl)
 (defun got-prepend-list (src-list prepend-list)
   "Prepend all of the entries in PREPEND-LIST to SRC-LIST.

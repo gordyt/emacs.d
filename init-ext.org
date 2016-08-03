@@ -79,7 +79,6 @@ to the prompt.
 | flycheck-clojure                | Flycheck: Clojure support                                                          |
 | flycheck-pos-tip                | Display Flycheck errors in GUI tooltips                                            |
 | flymake-easy                    | Helpers for easily building flymake checkers                                       |
-| flymake-racket                  | A flymake handler for scheme-mode files                                            |
 | fsm                             | state machine library                                                              |
 | geiser                          | GNU Emacs and Scheme talk to each other                                            |
 | git-commit                      | Edit Git commit messages                                                           |
@@ -105,15 +104,12 @@ to the prompt.
 | json-reformat                   | Reformatting tool for JSON                                                         |
 | jsx-mode                        | major mode for JSX                                                                 |
 | kv                              | key/value data structure functions                                                 |
-| let-alist                       | Easily let-bind values of an assoc-list by their names                             |
 | macrostep                       | interactive macro expander                                                         |
 | magit                           | A Git porcelain inside Emacs                                                       |
 | magit-popup                     | Define prefix-infix-suffix command combos                                          |
 | markdown-mode                   | Major mode for Markdown-formatted text                                             |
 | markdown-mode+                  | extra functions for markdown-mode                                                  |
-| mode-compile                    | Smart command for compiling files                                                  |
 | multiple-cursors                | Multiple cursors for Emacs.                                                        |
-| mwim                            | Move to the beginning/end of line or code                                          |
 | noflet                          | locally override functions                                                         |
 | nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
 | oauth2                          | OAuth 2.0 Authorization Protocol                                                   |
@@ -1243,6 +1239,15 @@ Define basic /org-capture/ templates.  I currently have just one.
            "** TODO %?\n   CONTEXT: %a\n   OPENED: %U"
            )))
 #+END_SRC
+
+*** org-export-backends
+
+Add support for /markdown/ export.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-export-backends 'md)
+#+END_SRC
+
 
 *** org-src-mode settings
 
