@@ -825,7 +825,7 @@ an intelligent fashion.
   (when (require 'mwim nil 'noerror)
     (bind-key "C-a" 'mwim-beginning-of-code-or-line)
     (bind-key "C-e" 'mwim-end-of-code-or-line))
-#+END_SRC 
+#+END_SRC
 
 ** newlines
 
@@ -847,7 +847,6 @@ Add a newline to the end of a file on save.
   (bind-key "C-c C-g o" 'got/open-with-external-program)
 #+END_SRC
 
-
 ** Server For Client Processes
 
 Allow Emacs to be a server for client processes.
@@ -862,6 +861,15 @@ Enable matching of parenthesis globally.
 
 #+BEGIN_SRC emacs-lisp
 (show-paren-mode 1)
+#+END_SRC
+
+** System Clipboard Integration
+
+Save the clipboard strings into the kill ring before replacing them.
+
+
+#+BEGIN_SRC emacs-lisp
+(setq save-interprogram-paste-before-kill t)
 #+END_SRC
 
 ** tab width
