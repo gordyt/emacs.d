@@ -32,7 +32,7 @@ at /point/.
 - Make note of the location of the ~ditaa*.jar~ file.
 
 #+BEGIN_SRC emacs-lisp
-  (let ((ditaa-jar-path "/usr/local/Cellar/ditaa/0.9/libexec/ditaa0_9.jar"))
+  (let ((ditaa-jar-path "/usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar"))
     (if (file-exists-p ditaa-jar-path)
         (progn
           (message "Setting org-ditaa-jar-path to '%s'" ditaa-jar-path)
@@ -52,7 +52,7 @@ at /point/.
 - Make not of the location of the ~plantuml*.jar~ file.
 
 #+BEGIN_SRC emacs-lisp
-  (let ((plantuml-jar-path "/usr/local/Cellar/plantuml/8018/plantuml.8018.jar"))
+  (let ((plantuml-jar-path "/usr/local/Cellar/plantuml/8048/plantuml.8048.jar"))
     (if (file-exists-p plantuml-jar-path)
         (progn
           (message "Setting org-plantuml-jar-path to '%s'" plantuml-jar-path)
