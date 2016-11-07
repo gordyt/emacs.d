@@ -104,27 +104,11 @@ correct order) and are followed by the non-duplicate elements of SRC-LIST"
 
 (require 'org)
 
-(when (string-lessp (org-version) "8.2")
-  (warn "Org-mode is out of date.  Expected version >= 8.2, found %s" (org-version)))
+(when (string-lessp (org-version) "9.0")
+  (warn "Org-mode is out of date.  Expected version >= 9.0, found %s" (org-version)))
 
 (let ((main-init-file (expand-file-name "init-ext.org" got/dotfiles-dir)))
   (when (file-exists-p main-init-file)
       (org-babel-load-file main-init-file)))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 (put 'scroll-left 'disabled nil)
