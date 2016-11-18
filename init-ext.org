@@ -1295,8 +1295,9 @@ Modify the default place where globally-defined ID's are stored.
 ** org-reveal
 
 #+BEGIN_SRC emacs-lisp
-  (when  (require 'ox-reveal nil :no-error)
-    (setq org-reveal-slide-number nil))
+;; 2016-11-17 (got) Commenting out due to init error
+;;  (when  (require 'ox-reveal nil :no-error)
+;;    (setq org-reveal-slide-number nil))
 
 #+END_SRC
 
