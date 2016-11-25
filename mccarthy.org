@@ -125,7 +125,7 @@ Change default or add new bookmarks by updating the variable
 
 #+BEGIN_SRC emacs-lisp
   (unless (require 'mu4e nil 'noerror)
-    (warn "Package mu4e not found.  Will skip mu4e configuration"))
+    (message "Package mu4e not found.  Will skip mu4e configuration"))
      
 #+END_SRC
 *** View message in Browser
