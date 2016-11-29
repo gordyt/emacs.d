@@ -1,6 +1,6 @@
-* gordy30
+* mccarthy
 
-Configuration that is specific to /gordy30/.
+Configuration that is specific to /mccarthy/.
 
 ** Beamer Presentations
 
