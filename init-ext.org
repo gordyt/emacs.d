@@ -576,6 +576,13 @@ Override the default location for /eshell/ control files.
   (setq eshell-directory-name got/eshell-directory-name)
 #+END_SRC
 
+Have /eshell/ use the same history size as my /HISTSIZE/ environment
+variable.
+
+#+BEGIN_SRC emacs-lisp
+  (setq eshell-history-size nil)
+#+END_SRC
+
 ** expand-regiocn
 
 Create ~C-=~ keybinding to invoce the =er/expand-region=
