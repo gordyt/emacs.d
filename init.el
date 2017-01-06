@@ -45,7 +45,7 @@ correct order) and are followed by the non-duplicate elements of SRC-LIST"
                  '(
                    "/usr/local/bin"
                    "/usr/local/sbin"
-                   "/usr/texbin"
+                   "/Library/TeX/texbin"
                    )) ":"))
 
 (add-to-list 'exec-path "/usr/local/bin")
