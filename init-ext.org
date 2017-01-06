@@ -1158,6 +1158,17 @@ This is courtesy of [[https://github.com/jeastman/emacs.d][jeastman's emacs.d re
 #+END_SRC
 
 ** org-mode
+*** inline image handling
+
+Try to get with via examination of #+ATTR.* keyword, if possible, else
+fallback to original width.  These two keywords affect it:
+
+- For HTML output: ~#+ATTR_HTML: :width 100~
+- For inline previews: ~#+ATTR_ORG: :width 100~
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-image-actual-width nil)
+#+END_SRC
 *** handle x-devonthink-item links
 
 I got this tip from [[https://github.com/jwiegley/dot-emacs/blob/master/lisp/org-devonthink.el][John Wiegley's org-devonthink.el]] file:
@@ -1264,7 +1275,6 @@ Add support for /markdown/ export.
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'org-export-backends 'md)
 #+END_SRC
-
 
 *** org-src-mode settings
 
