@@ -2,6 +2,7 @@
 (source melpa)
 (source melpa-stable)
 (source org)
+(source marmalade)
 
 (depends-on "ac-geiser")
 (depends-on "ac-slime")
