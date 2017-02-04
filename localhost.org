@@ -33,13 +33,13 @@ See /gordy30.org/ for more info.
 
 
 #+BEGIN_SRC emacs-lisp
-  (when (require 'org-octopress nil :noerror)
-    (setq org-octopress-directory-top "/media/removable/gordy/Documents/g/gordyt.github.io/source"
-          org-octopress-directory-posts (concat org-octopress-directory-top "/_posts")
-          org-octopress-directory-org-top org-octopress-directory-top
-          org-octopress-directory-org-posts (concat org-octopress-directory-org-top "/blog")
-          org-octopress-setup-file "~/.emacs.d/octopress-setupfile.txt"
-          ))
+;;  (when (require 'org-octopress nil :noerror)
+;;    (setq org-octopress-directory-top "/media/removable/gordy/Documents/g/gordyt.github.io/source"
+;;          org-octopress-directory-posts (concat org-octopress-directory-top "/_posts")
+;;          org-octopress-directory-org-top org-octopress-directory-top
+;;          org-octopress-directory-org-posts (concat org-octopress-directory-org-top "/blog")
+;;          org-octopress-setup-file "~/.emacs.d/octopress-setupfile.txt"
+;;          ))
 
 
 #+END_SRC
