@@ -40,11 +40,11 @@ to the prompt.
 | _Package Name_                  | _Package Description_                                                              |
 | ac-geiser                       | Auto-complete backend for geiser                                                   |
 | ac-slime                        | An auto-complete source using slime completions                                    |
+| adoc-mode                       | a major-mode for editing AsciiDoc files in Emacs                                   |
 | async                           | Asynchronous processing in Emacs                                                   |
 | auto-compile                    | automatically compile Emacs Lisp libraries                                         |
 | auto-complete                   | Auto Completion for GNU Emacs                                                      |
 | bind-key                        | A simple way to manage personal keybindings                                        |
-| caml                            | No description available.                                                          |
 | cask                            | Cask: Project management for Emacs package development                             |
 | cider                           | Clojure Interactive Development Environment that Rocks                             |
 | clojure-cheatsheet              | The Clojure Cheatsheet for Emacs                                                   |
@@ -110,6 +110,7 @@ to the prompt.
 | magit-popup                     | Define prefix-infix-suffix command combos                                          |
 | markdown-mode                   | Major mode for Markdown-formatted text                                             |
 | markdown-mode+                  | extra functions for markdown-mode                                                  |
+| markup-faces                    | collection of faces for markup language modes                                      |
 | multiple-cursors                | Multiple cursors for Emacs.                                                        |
 | noflet                          | locally override functions                                                         |
 | nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
@@ -146,7 +147,6 @@ to the prompt.
 | smartparens                     | Automatic insertion, wrapping and paredit-like navigation with user defined pairs. |
 | smex                            | M-x interface with Ido-style fuzzy matching.                                       |
 | spinner                         | Add spinners and progress-bars to the mode-line for ongoing operations             |
-| tuareg                          | OCaml mode for Emacs.                                                              |
 | twittering-mode                 | Major mode for Twitter                                                             |
 | undo-tree                       | Treat undo history as a tree                                                       |
 | use-package                     | A use-package declaration for simplifying your .emacs                              |
@@ -998,6 +998,15 @@ Lastly, resize the frame, if applicable.
 #+END_SRC
 
 * Mode-Specific Hooks, Notes, and Configuration
+** Asciidoc (adoc) Mode
+
+#+BEGIN_SRC emacs-lisp
+  (when (require 'adoc-mode nil 'noerror)
+	(add-hook 'adoc-mode-hook 'turn-on-auto-fill)
+	(add-to-list 'auto-mode-alist '("\\.adoc\\'" . adoc-mode)))
+
+#+END_SRC
+
 ** cider-mode
 
 Really just a few notes here.  If you want to use /cider/ to connect
@@ -1414,6 +1423,9 @@ The following setting disables the use of shift+arrows for mark.
   (setq shift-select-mode nil)
 #+END_SRC
 ** resentf-mode
+   :PROPERTIES:
+   :ORDERED:  t
+   :END:
 
 Enable ~recentf~ mode which will save a list of recent files visited.
 
