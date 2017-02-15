@@ -3,6 +3,7 @@
 \#*
 init-ext.el
 .DS_Store
+network-security.data
 /darwin.el
 /gordy30.el
 /gordychrome.el
