@@ -1116,7 +1116,7 @@ REPL:
 #+BEGIN_SRC emacs-lisp
   (let ((slime-software (expand-file-name "quicklisp/dists/quicklisp/software" (getenv "HOME"))))
     (when (file-exists-p slime-software)
-      (let ((slime-pkg (car (reverse (directory-files slime-software t "slime-[0-9]")))))
+      (let ((slime-pkg (car (reverse (directory-files slime-software t "slime-v[0-9]")))))
         (when slime-pkg
           (progn
             (add-to-list 'load-path slime-pkg)
