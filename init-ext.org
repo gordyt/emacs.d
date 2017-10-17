@@ -41,12 +41,14 @@ to the prompt.
 | ac-geiser                       | Auto-complete backend for geiser                                                   |
 | ac-slime                        | An auto-complete source using slime completions                                    |
 | adoc-mode                       | a major-mode for editing AsciiDoc files in Emacs                                   |
+| alert                           | Growl-style notification system for Emacs                                          |
 | async                           | Asynchronous processing in Emacs                                                   |
 | auto-compile                    | automatically compile Emacs Lisp libraries                                         |
 | auto-complete                   | Auto Completion for GNU Emacs                                                      |
 | bind-key                        | A simple way to manage personal keybindings                                        |
 | cask                            | Cask: Project management for Emacs package development                             |
 | cider                           | Clojure Interactive Development Environment that Rocks                             |
+| circe                           | Client for IRC in Emacs                                                            |
 | clojure-cheatsheet              | The Clojure Cheatsheet for Emacs                                                   |
 | clojure-mode                    | Major mode for Clojure code                                                        |
 | clojure-mode-extra-font-locking | Extra font-locking for Clojure mode                                                |
@@ -64,6 +66,7 @@ to the prompt.
 | drag-stuff                      | Drag stuff (lines, words, region, etc...) around                                   |
 | edit-server                     | server that responds to edit requests from Chrome                                  |
 | elnode                          | The Emacs webserver.                                                               |
+| emojify                         | Display emojis in Emacs                                                            |
 | epc                             | A RPC stack for the Emacs Lisp                                                     |
 | epic                            | Evernote Picker for Cocoa Emacs                                                    |
 | epl                             | Emacs Package Library                                                              |
@@ -71,7 +74,7 @@ to the prompt.
 | exec-path-from-shell            | Get environment variables such as $PATH from the shell                             |
 | expand-region                   | Increase selected region by semantic units.                                        |
 | f                               | Modern API for working with files and directories                                  |
-| faceup                          | Regression test system for font-lock                                               |
+| faceup                          | Markup language for faces and font-lock regression testing                         |
 | fakir                           | fakeing bits of Emacs                                                              |
 | flx                             | fuzzy matching with good sorting                                                   |
 | flx-ido                         | flx integration for ido                                                            |
@@ -84,6 +87,7 @@ to the prompt.
 | geiser                          | GNU Emacs and Scheme talk to each other                                            |
 | git-commit                      | Edit Git commit messages                                                           |
 | gmail-message-mode              | A major-mode for editing gmail messages using markdown syntax.                     |
+| gntp                            | Growl Notification Protocol for Emacs                                              |
 | go-mode                         | Major mode for the Go programming language                                         |
 | graphviz-dot-mode               | Mode for the dot-language used by graphviz (att).                                  |
 | guru-mode                       | Become an Emacs guru                                                               |
@@ -92,6 +96,7 @@ to the prompt.
 | haskell-mode                    | A Haskell editing mode                                                             |
 | helm                            | Helm is an Emacs incremental and narrowing framework                               |
 | helm-core                       | Development files for Helm                                                         |
+| ht                              | The missing hash table library for Emacs                                           |
 | html-to-markdown                | HTML to Markdown converter written in Emacs-lisp.                                  |
 | htmlize                         | Convert buffer text and decorations to HTML.                                       |
 | hydra                           | Make bindings that stick around.                                                   |
@@ -105,12 +110,14 @@ to the prompt.
 | json-reformat                   | Reformatting tool for JSON                                                         |
 | jsx-mode                        | major mode for JSX                                                                 |
 | kv                              | key/value data structure functions                                                 |
+| log4e                           | provide logging framework for elisp                                                |
 | macrostep                       | interactive macro expander                                                         |
 | magit                           | A Git porcelain inside Emacs                                                       |
 | magit-popup                     | Define prefix-infix-suffix command combos                                          |
 | markdown-mode                   | Major mode for Markdown-formatted text                                             |
 | markdown-mode+                  | extra functions for markdown-mode                                                  |
 | markup-faces                    | collection of faces for markup language modes                                      |
+| memoize                         | Memoization functions                                                              |
 | multiple-cursors                | Multiple cursors for Emacs.                                                        |
 | noflet                          | locally override functions                                                         |
 | nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
@@ -142,6 +149,7 @@ to the prompt.
 | shen-elisp                      | Shen implementation in Elisp                                                       |
 | shen-mode                       | Utilities for working with Shen code.                                              |
 | shut-up                         | Shut up would you!                                                                 |
+| slack                           | Slack client for Emacs                                                             |
 | slamhound                       | Rip Clojure namespaces apart and rebuild them.                                     |
 | slime                           | Superior Lisp Interaction Mode for Emacs                                           |
 | smartparens                     | Automatic insertion, wrapping and paredit-like navigation with user defined pairs. |
@@ -152,8 +160,10 @@ to the prompt.
 | use-package                     | A use-package declaration for simplifying your .emacs                              |
 | web                             | useful HTTP client                                                                 |
 | web-mode                        | major mode for editing web templates                                               |
+| websocket                       | Emacs WebSocket client and server                                                  |
 | which-key                       | Display available keybindings in popup                                             |
 | with-editor                     | Use the Emacsclient as $EDITOR                                                     |
+| yaml-mode                       | Major mode for editing YAML files                                                  |
 | yasnippet                       | Yet another snippet extension for Emacs.                                           |
 
 * Utility Functions
