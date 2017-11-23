@@ -17,3 +17,10 @@ to gnu/linux.
   ;;;
 
 #+END_SRC
+
+** Load a basic color scheme
+We need one that works well in a terminal with limited color support.
+
+#+BEGIN_SRC emacs-lisp
+  (load-theme 'wombat t)
+#+END_SRC
