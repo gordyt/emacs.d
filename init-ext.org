@@ -58,6 +58,11 @@ to the prompt.
 | dash                            | A modern list library for Emacs                                                    |
 | deferred                        | Simple asynchronous functions for emacs lisp                                       |
 | diminish                        | Diminished modes are minor modes with no modeline display                          |
+| docker                          | Emacs interface to Docker                                                          |
+| docker-api                      | Emacs interface to the Docker API                                                  |
+| docker-compose-mode             | Major mode for editing docker-compose files                                        |
+| docker-tramp                    | TRAMP integration for docker containers                                            |
+| dockerfile-mode                 | Major mode for editing Docker's Dockerfiles                                        |
 | drag-stuff                      | Drag stuff (lines, words, region, etc...) around                                   |
 | edit-server                     | server that responds to edit requests from Chrome                                  |
 | epc                             | A RPC stack for the Emacs Lisp                                                     |
@@ -96,10 +101,11 @@ to the prompt.
 | jabber                          | A Jabber client for Emacs.                                                         |
 | jedi                            | a Python auto-completion for Emacs                                                 |
 | jedi-core                       | Common code of jedi.el and company-jedi.el                                         |
+| json-mode                       | Major mode for editing JSON files.                                                 |
 | json-reformat                   | Reformatting tool for JSON                                                         |
+| json-snatcher                   | Grabs the path to JSON values in a JSON file                                       |
 | jsx-mode                        | major mode for JSX                                                                 |
 | kv                              | key/value data structure functions                                                 |
-| let-alist                       | Easily let-bind values of an assoc-list by their names                             |
 | macrostep                       | interactive macro expander                                                         |
 | magit                           | A Git porcelain inside Emacs.                                                      |
 | magit-popup                     | Define prefix-infix-suffix command combos                                          |
@@ -134,6 +140,7 @@ to the prompt.
 | smartparens                     | Automatic insertion, wrapping and paredit-like navigation with user defined pairs. |
 | smex                            | M-x interface with Ido-style fuzzy matching.                                       |
 | spinner                         | Add spinners and progress-bars to the mode-line for ongoing operations             |
+| tablist                         | Extended tabulated-list-mode                                                       |
 | twittering-mode                 | Major mode for Twitter                                                             |
 | undo-tree                       | Treat undo history as a tree                                                       |
 | use-package                     | A configuration macro for simplifying your .emacs                                  |
@@ -1383,7 +1390,8 @@ Set indentation level to match what our company uses.
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'perl-mode-hook (lambda ()
-                              (setq perl-indent-level 2)))
+							  (setq indent-tabs-mode nil)
+							  (setq perl-indent-level 3)))
 
 #+END_SRC
 
