@@ -856,10 +856,10 @@ Add a newline to the end of a file on save.
 
 #+BEGIN_SRC emacs-lisp
   (defun got/open-with-external-program ()
-    "Open the current buffer (must be visting a file) with
-     whatever external program is registered to work with it."
-    (interactive)
-    (shell-command (concat "open " buffer-file-name)))
+	"Open the current buffer (must be visting a file) with
+	 whatever external program is registered to work with it."
+	(interactive)
+	(shell-command (concat "open \"" buffer-file-name "\"")))
 
   (bind-key "C-c C-g o" 'got/open-with-external-program)
 #+END_SRC
