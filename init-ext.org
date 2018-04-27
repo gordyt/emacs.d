@@ -51,7 +51,7 @@ to the prompt.
 | clojure-mode                    | Major mode for Clojure code                                                        |
 | clojure-mode-extra-font-locking | Extra font-locking for Clojure mode                                                |
 | clojure-snippets                | Yasnippets for clojure                                                             |
-| color-theme-sanityinc-tomorrow  | A version of Chris Kempson's various Tomorrow themes                               |
+| color-theme-sanityinc-tomorrow  | A version of Chris Kempson's "tomorrow" themes                                     |
 | company                         | Modular text completion framework                                                  |
 | concurrent                      | Concurrent utility functions for emacs lisp                                        |
 | creole                          | A parser for the Creole Wiki language                                              |
@@ -60,7 +60,6 @@ to the prompt.
 | db                              | A database for EmacsLisp                                                           |
 | deferred                        | Simple asynchronous functions for emacs lisp                                       |
 | diminish                        | Diminished modes are minor modes with no modeline display                          |
-| dired+                          | Extensions to Dired.                                                               |
 | drag-stuff                      | Drag stuff (lines, words, region, etc...) around                                   |
 | edit-server                     | server that responds to edit requests from Chrome                                  |
 | elnode                          | The Emacs webserver.                                                               |
@@ -71,7 +70,7 @@ to the prompt.
 | exec-path-from-shell            | Get environment variables such as $PATH from the shell                             |
 | expand-region                   | Increase selected region by semantic units.                                        |
 | f                               | Modern API for working with files and directories                                  |
-| faceup                          | Regression test system for font-lock                                               |
+| faceup                          | Markup language for faces and font-lock regression testing                         |
 | fakir                           | fakeing bits of Emacs                                                              |
 | flx                             | fuzzy matching with good sorting                                                   |
 | flx-ido                         | flx integration for ido                                                            |
@@ -82,6 +81,7 @@ to the prompt.
 | flymake-easy                    | Helpers for easily building flymake checkers                                       |
 | fsm                             | state machine library                                                              |
 | geiser                          | GNU Emacs and Scheme talk to each other                                            |
+| ghub                            | minuscule client library for the Github API                                        |
 | git-commit                      | Edit Git commit messages                                                           |
 | gmail-message-mode              | A major-mode for editing gmail messages using markdown syntax.                     |
 | go-mode                         | Major mode for the Go programming language                                         |
@@ -97,7 +97,6 @@ to the prompt.
 | hydra                           | Make bindings that stick around.                                                   |
 | idle-highlight-mode             | highlight the word the point is on                                                 |
 | ido-completing-read+            | A completing-read-function using ido                                               |
-| ido-ubiquitous                  | Use ido (nearly) everywhere.                                                       |
 | ido-vertical-mode               | Makes ido-mode display vertically.                                                 |
 | jabber                          | A Jabber client for Emacs.                                                         |
 | jedi                            | a Python auto-completion for Emacs                                                 |
@@ -106,17 +105,16 @@ to the prompt.
 | jsx-mode                        | major mode for JSX                                                                 |
 | kv                              | key/value data structure functions                                                 |
 | macrostep                       | interactive macro expander                                                         |
-| magit                           | A Git porcelain inside Emacs                                                       |
+| magit                           | A Git porcelain inside Emacs.                                                      |
 | magit-popup                     | Define prefix-infix-suffix command combos                                          |
 | markdown-mode                   | Major mode for Markdown-formatted text                                             |
 | markdown-mode+                  | extra functions for markdown-mode                                                  |
 | markup-faces                    | collection of faces for markup language modes                                      |
+| memoize                         | Memoization functions                                                              |
 | multiple-cursors                | Multiple cursors for Emacs.                                                        |
 | noflet                          | locally override functions                                                         |
 | nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
 | oauth2                          | OAuth 2.0 Authorization Protocol                                                   |
-| org                             | Outline-based notes management and organizer                                       |
-| org-mac-link                    | Insert org-mode links to items selected in various Mac apps                        |
 | org-octopress                   | Compose octopress articles using org-mode.                                         |
 | orglue                          | more functionality to org-mode.                                                    |
 | p4                              | Simple Perforce-Emacs Integration                                                  |
@@ -138,18 +136,16 @@ to the prompt.
 | request-deferred                | Wrap request.el by deferred                                                        |
 | restclient                      | An interactive HTTP client for Emacs                                               |
 | s                               | The long lost Emacs string manipulation library.                                   |
-| seq                             | Sequence manipulation functions                                                    |
 | shen-elisp                      | Shen implementation in Elisp                                                       |
 | shen-mode                       | Utilities for working with Shen code.                                              |
 | shut-up                         | Shut up would you!                                                                 |
-| slamhound                       | Rip Clojure namespaces apart and rebuild them.                                     |
 | slime                           | Superior Lisp Interaction Mode for Emacs                                           |
 | smartparens                     | Automatic insertion, wrapping and paredit-like navigation with user defined pairs. |
 | smex                            | M-x interface with Ido-style fuzzy matching.                                       |
 | spinner                         | Add spinners and progress-bars to the mode-line for ongoing operations             |
 | twittering-mode                 | Major mode for Twitter                                                             |
 | undo-tree                       | Treat undo history as a tree                                                       |
-| use-package                     | A use-package declaration for simplifying your .emacs                              |
+| use-package                     | A configuration macro for simplifying your .emacs                                  |
 | web                             | useful HTTP client                                                                 |
 | web-mode                        | major mode for editing web templates                                               |
 | which-key                       | Display available keybindings in popup                                             |
@@ -1249,8 +1245,7 @@ By default only emacs-lisp is enabled.
      (js . t)
      (lisp . t)
      (dot . t)
-     (scheme . t)
-     (sh . t)))
+     (scheme . t)))
 
 #+END_SRC
 
