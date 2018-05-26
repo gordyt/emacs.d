@@ -51,7 +51,7 @@ correct order) and are followed by the non-duplicate elements of SRC-LIST"
 (add-to-list 'exec-path "/usr/local/bin")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; set up package management with cask and pallet
+;; set up package management with cask
 ;;
 ;; Prerequisites:
 ;;
@@ -77,12 +77,6 @@ correct order) and are followed by the non-duplicate elements of SRC-LIST"
   (require 'cask "/usr/local/share/emacs/site-lisp/cask/cask.el"))  ; location for homebrew install
  (t (error "Unable to location a cask installation")))
 (cask-initialize)
-
-;; Pallet maintains the "Cask" file in your .emacs.d directory.
-(unless (package-installed-p 'pallet)
-  (error "Package 'pallet' not available.  Please cd to %s and run 'cask install'" got/dotfiles-dir))
-(require 'pallet nil t)
-(pallet-mode t)
 
 ;; Workaround for this bug:
 ;; https://github.com/jwiegley/use-package/issues/85
