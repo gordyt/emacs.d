@@ -1295,6 +1295,17 @@ This minor mode is turned on in two situations:
    )
 #+END_SRC
 
+*** org TODO States
+
+#+BEGIN_SRC emacs-lisp
+
+  (setq org-todo-keywords '((sequence "TODO"
+									  "INPROGRESS"
+									  "|"
+									  "DONE"
+									  "DELEGATED"
+									  "CANCELLED")))
+#+END_SRC
 *** org-id-locations
 
 Modify the default place where globally-defined ID's are stored.
