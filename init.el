@@ -107,3 +107,4 @@ correct order) and are followed by the non-duplicate elements of SRC-LIST"
       (org-babel-load-file main-init-file)))
 
 (put 'scroll-left 'disabled nil)
+(load custom-file)

@@ -41,14 +41,12 @@ to the prompt.
 | ac-geiser                       | Auto-complete backend for geiser                                                   |
 | ac-slime                        | An auto-complete source using slime completions                                    |
 | adoc-mode                       | a major-mode for editing AsciiDoc files in Emacs                                   |
-| alert                           | Growl-style notification system for Emacs                                          |
 | async                           | Asynchronous processing in Emacs                                                   |
 | auto-compile                    | automatically compile Emacs Lisp libraries                                         |
 | auto-complete                   | Auto Completion for GNU Emacs                                                      |
 | bind-key                        | A simple way to manage personal keybindings                                        |
 | cask                            | Cask: Project management for Emacs package development                             |
 | cider                           | Clojure Interactive Development Environment that Rocks                             |
-| circe                           | Client for IRC in Emacs                                                            |
 | clojure-cheatsheet              | The Clojure Cheatsheet for Emacs                                                   |
 | clojure-mode                    | Major mode for Clojure code                                                        |
 | clojure-mode-extra-font-locking | Extra font-locking for Clojure mode                                                |
@@ -56,18 +54,18 @@ to the prompt.
 | color-theme-sanityinc-tomorrow  | A version of Chris Kempson's "tomorrow" themes                                     |
 | company                         | Modular text completion framework                                                  |
 | concurrent                      | Concurrent utility functions for emacs lisp                                        |
-| creole                          | A parser for the Creole Wiki language                                              |
 | ctable                          | Table component for Emacs Lisp                                                     |
 | dash                            | A modern list library for Emacs                                                    |
-| db                              | A database for EmacsLisp                                                           |
 | deferred                        | Simple asynchronous functions for emacs lisp                                       |
 | diminish                        | Diminished modes are minor modes with no modeline display                          |
+| docker                          | Emacs interface to Docker                                                          |
+| docker-api                      | Emacs interface to the Docker API                                                  |
+| docker-compose-mode             | Major mode for editing docker-compose files                                        |
+| docker-tramp                    | TRAMP integration for docker containers                                            |
+| dockerfile-mode                 | Major mode for editing Docker's Dockerfiles                                        |
 | drag-stuff                      | Drag stuff (lines, words, region, etc...) around                                   |
 | edit-server                     | server that responds to edit requests from Chrome                                  |
-| elnode                          | The Emacs webserver.                                                               |
-| emojify                         | Display emojis in Emacs                                                            |
 | epc                             | A RPC stack for the Emacs Lisp                                                     |
-| epic                            | Evernote Picker for Cocoa Emacs                                                    |
 | epl                             | Emacs Package Library                                                              |
 | erlang                          | Erlang major mode                                                                  |
 | exec-path-from-shell            | Get environment variables such as $PATH from the shell                             |
@@ -87,16 +85,13 @@ to the prompt.
 | ghub                            | minuscule client library for the Github API                                        |
 | git-commit                      | Edit Git commit messages                                                           |
 | gmail-message-mode              | A major-mode for editing gmail messages using markdown syntax.                     |
-| gntp                            | Growl Notification Protocol for Emacs                                              |
 | go-mode                         | Major mode for the Go programming language                                         |
 | graphviz-dot-mode               | Mode for the dot-language used by graphviz (att).                                  |
 | guru-mode                       | Become an Emacs guru                                                               |
 | ham-mode                        | Html As Markdown. Transparently edit an html file using markdown                   |
-| handlebars-mode                 | A major mode for editing Handlebars files.                                         |
 | haskell-mode                    | A Haskell editing mode                                                             |
 | helm                            | Helm is an Emacs incremental and narrowing framework                               |
 | helm-core                       | Development files for Helm                                                         |
-| ht                              | The missing hash table library for Emacs                                           |
 | html-to-markdown                | HTML to Markdown converter written in Emacs-lisp.                                  |
 | htmlize                         | Convert buffer text and decorations to HTML.                                       |
 | hydra                           | Make bindings that stick around.                                                   |
@@ -106,23 +101,22 @@ to the prompt.
 | jabber                          | A Jabber client for Emacs.                                                         |
 | jedi                            | a Python auto-completion for Emacs                                                 |
 | jedi-core                       | Common code of jedi.el and company-jedi.el                                         |
+| json-mode                       | Major mode for editing JSON files.                                                 |
 | json-reformat                   | Reformatting tool for JSON                                                         |
+| json-snatcher                   | Grabs the path to JSON values in a JSON file                                       |
 | jsx-mode                        | major mode for JSX                                                                 |
 | kv                              | key/value data structure functions                                                 |
-| log4e                           | provide logging framework for elisp                                                |
 | macrostep                       | interactive macro expander                                                         |
 | magit                           | A Git porcelain inside Emacs.                                                      |
 | magit-popup                     | Define prefix-infix-suffix command combos                                          |
 | markdown-mode                   | Major mode for Markdown-formatted text                                             |
-| markdown-mode+                  | extra functions for markdown-mode                                                  |
 | markup-faces                    | collection of faces for markup language modes                                      |
 | memoize                         | Memoization functions                                                              |
 | multiple-cursors                | Multiple cursors for Emacs.                                                        |
 | noflet                          | locally override functions                                                         |
 | nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
 | oauth2                          | OAuth 2.0 Authorization Protocol                                                   |
-| org-octopress                   | Compose octopress articles using org-mode.                                         |
-| orglue                          | more functionality to org-mode.                                                    |
+| org                             | Outline-based notes management and organizer                                       |
 | p4                              | Simple Perforce-Emacs Integration                                                  |
 | package-build                   | Tools for assembling a package archive                                             |
 | packed                          | package manager agnostic Emacs Lisp package utilities                              |
@@ -142,17 +136,16 @@ to the prompt.
 | restclient                      | An interactive HTTP client for Emacs                                               |
 | s                               | The long lost Emacs string manipulation library.                                   |
 | shut-up                         | Shut up would you!                                                                 |
-| slack                           | Slack client for Emacs                                                             |
 | slime                           | Superior Lisp Interaction Mode for Emacs                                           |
 | smartparens                     | Automatic insertion, wrapping and paredit-like navigation with user defined pairs. |
 | smex                            | M-x interface with Ido-style fuzzy matching.                                       |
 | spinner                         | Add spinners and progress-bars to the mode-line for ongoing operations             |
+| tablist                         | Extended tabulated-list-mode                                                       |
 | twittering-mode                 | Major mode for Twitter                                                             |
 | undo-tree                       | Treat undo history as a tree                                                       |
 | use-package                     | A configuration macro for simplifying your .emacs                                  |
 | web                             | useful HTTP client                                                                 |
 | web-mode                        | major mode for editing web templates                                               |
-| websocket                       | Emacs WebSocket client and server                                                  |
 | which-key                       | Display available keybindings in popup                                             |
 | with-editor                     | Use the Emacsclient as $EDITOR                                                     |
 | yaml-mode                       | Major mode for editing YAML files                                                  |
@@ -1302,6 +1295,17 @@ This minor mode is turned on in two situations:
    )
 #+END_SRC
 
+*** org TODO States
+
+#+BEGIN_SRC emacs-lisp
+
+  (setq org-todo-keywords '((sequence "TODO"
+									  "INPROGRESS"
+									  "|"
+									  "DONE"
+									  "DELEGATED"
+									  "CANCELLED")))
+#+END_SRC
 *** org-id-locations
 
 Modify the default place where globally-defined ID's are stored.
@@ -1397,7 +1401,8 @@ Set indentation level to match what our company uses.
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'perl-mode-hook (lambda ()
-                              (setq perl-indent-level 2)))
+							  (setq indent-tabs-mode nil)
+							  (setq perl-indent-level 3)))
 
 #+END_SRC
 
