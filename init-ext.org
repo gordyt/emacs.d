@@ -1384,8 +1384,8 @@ sudo pip install epc
 Or you may install these packages without root access as follows:
 
 #+BEGIN_SRC sh
-sudo pip install --user jedi
-sudo pip install --user epc
+pip install --user jedi
+pip install --user epc
 #+END_SRC
 
 If the /pip/ command is not available you can install it as follows:
