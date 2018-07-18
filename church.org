@@ -1,0 +1,11 @@
+* Specific settings for church
+** Font Setting
+
+I like this font a bunch.
+
+#+BEGIN_SRC emacs-lisp
+(let* ((font-family "Source Code Pro")
+	   (font-description (concat font-family "-11")))
+  (when (find-font (font-spec :name font-family))
+	(set-frame-font font-description nil t)))
+#+END_SRC
