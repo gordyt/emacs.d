@@ -552,6 +552,12 @@ visited.
   (diredp-toggle-find-file-reuse-dir 1))
 #+END_SRC
 
+** Docker
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'docker)
+	(require 'docker))
+#+END_SRC
 ** Ediff
 
 You can invoke /ediff/ from within /magit/ by typing ~e~ with the
