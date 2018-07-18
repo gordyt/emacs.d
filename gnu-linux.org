@@ -22,5 +22,5 @@ to gnu/linux.
 We need one that works well in a terminal with limited color support.
 
 #+BEGIN_SRC emacs-lisp
-  (load-theme 'wombat t)
+;;  (load-theme 'wombat t)
 #+END_SRC
