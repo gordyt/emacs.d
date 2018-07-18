@@ -1310,14 +1310,33 @@ This minor mode is turned on in two situations:
 
 *** org TODO States
 
-#+BEGIN_SRC emacs-lisp
+I am defining my TODO states as follows:
 
+- Active States
+  - ~TODO~ Have not started yet
+  - ~INPROGRESS~ Working on it
+- Completed States
+  - ~DONE~ Completed the task
+  - ~DELEGATED~ Assigned it to someone else
+  - ~CANCELLED~ Decided not to do it after all
+  - ~CONTINUED~
+	- This is a pseudo-completed state.
+	- I am using it to mean that I have started working on this task,
+      but have relocated it to another org document and so am tracking
+      it from a different location.
+	- This is a flag to let me know to go see the task elsewhere.
+	- Would be good to add a ~LOCATION~ property that contains a link
+      to where I moved the task.
+
+
+#+BEGIN_SRC emacs-lisp
   (setq org-todo-keywords '((sequence "TODO"
 									  "INPROGRESS"
 									  "|"
 									  "DONE"
 									  "DELEGATED"
-									  "CANCELLED")))
+									  "CANCELLED"
+									  "CONTINUED")))
 #+END_SRC
 *** org-id-locations
 
