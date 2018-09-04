@@ -1257,7 +1257,7 @@ By default only emacs-lisp is enabled.
      (lisp . t)
      (dot . t)
      (scheme . t)
-     (sh . t)))
+     (shell . t)))
 
 #+END_SRC
 
