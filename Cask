@@ -80,7 +80,6 @@
 (depends-on "nyan-mode")
 (depends-on "oauth2")
 (depends-on "org" "9.0")
-(depends-on "org")
 (depends-on "p4")
 (depends-on "package-build")
 (depends-on "packed")
