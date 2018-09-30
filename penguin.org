@@ -1,0 +1,13 @@
+* penguin
+
+Config that is specific to the Crostini container "penguin" on my Pixelbook
+ 
+** Font Customization
+
+
+#+BEGIN_SRC emacs-lisp
+  (let* ((font-family "Noto Mono")
+         (font-description (concat font-family "-14")))
+    (when (find-font (font-spec :name font-family))
+      (set-frame-font font-description nil t)))
+#+END_SRC
