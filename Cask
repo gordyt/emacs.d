@@ -50,6 +50,7 @@
 (depends-on "ghub")
 (depends-on "git-commit")
 (depends-on "gmail-message-mode")
+(depends-on "go-complete")
 (depends-on "go-mode")
 (depends-on "graphviz-dot-mode")
 (depends-on "guru-mode")

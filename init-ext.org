@@ -41,6 +41,7 @@ to the prompt.
 | ac-geiser                       | Auto-complete backend for geiser                                                   |
 | ac-slime                        | An auto-complete source using slime completions                                    |
 | adoc-mode                       | a major-mode for editing AsciiDoc files in Emacs                                   |
+| ansi                            | Turn string into ansi strings                                                      |
 | async                           | Asynchronous processing in Emacs                                                   |
 | auto-compile                    | automatically compile Emacs Lisp libraries                                         |
 | auto-complete                   | Auto Completion for GNU Emacs                                                      |
@@ -54,18 +55,17 @@ to the prompt.
 | color-theme-sanityinc-tomorrow  | A version of Chris Kempson's "tomorrow" themes                                     |
 | company                         | Modular text completion framework                                                  |
 | concurrent                      | Concurrent utility functions for emacs lisp                                        |
+| creole                          | A parser for the Creole Wiki language                                              |
 | ctable                          | Table component for Emacs Lisp                                                     |
 | dash                            | A modern list library for Emacs                                                    |
+| db                              | A database for EmacsLisp                                                           |
 | deferred                        | Simple asynchronous functions for emacs lisp                                       |
 | diminish                        | Diminished modes are minor modes with no modeline display                          |
-| docker                          | Emacs interface to Docker                                                          |
-| docker-api                      | Emacs interface to the Docker API                                                  |
-| docker-compose-mode             | Major mode for editing docker-compose files                                        |
-| docker-tramp                    | TRAMP integration for docker containers                                            |
-| dockerfile-mode                 | Major mode for editing Docker's Dockerfiles                                        |
 | drag-stuff                      | Drag stuff (lines, words, region, etc...) around                                   |
 | edit-server                     | server that responds to edit requests from Chrome                                  |
+| elnode                          | The Emacs webserver.                                                               |
 | epc                             | A RPC stack for the Emacs Lisp                                                     |
+| epic                            | Evernote Picker for Cocoa Emacs                                                    |
 | epl                             | Emacs Package Library                                                              |
 | erlang                          | Erlang major mode                                                                  |
 | exec-path-from-shell            | Get environment variables such as $PATH from the shell                             |
@@ -82,13 +82,16 @@ to the prompt.
 | flymake-easy                    | Helpers for easily building flymake checkers                                       |
 | fsm                             | state machine library                                                              |
 | geiser                          | GNU Emacs and Scheme talk to each other                                            |
-| ghub                            | minuscule client library for the Github API                                        |
+| ghub                            | Minuscule client libraries for Git forge APIs.                                     |
 | git-commit                      | Edit Git commit messages                                                           |
 | gmail-message-mode              | A major-mode for editing gmail messages using markdown syntax.                     |
+| go-complete                     | Native code completion for Go                                                      |
 | go-mode                         | Major mode for the Go programming language                                         |
+| graphql                         | GraphQL utilities                                                                  |
 | graphviz-dot-mode               | Mode for the dot-language used by graphviz (att).                                  |
 | guru-mode                       | Become an Emacs guru                                                               |
 | ham-mode                        | Html As Markdown. Transparently edit an html file using markdown                   |
+| handlebars-mode                 | A major mode for editing Handlebars files.                                         |
 | haskell-mode                    | A Haskell editing mode                                                             |
 | helm                            | Helm is an Emacs incremental and narrowing framework                               |
 | helm-core                       | Development files for Helm                                                         |
@@ -102,9 +105,7 @@ to the prompt.
 | jabber                          | A Jabber client for Emacs.                                                         |
 | jedi                            | a Python auto-completion for Emacs                                                 |
 | jedi-core                       | Common code of jedi.el and company-jedi.el                                         |
-| json-mode                       | Major mode for editing JSON files.                                                 |
 | json-reformat                   | Reformatting tool for JSON                                                         |
-| json-snatcher                   | Grabs the path to JSON values in a JSON file                                       |
 | jsx-mode                        | major mode for JSX                                                                 |
 | kv                              | key/value data structure functions                                                 |
 | let-alist                       | Easily let-bind values of an assoc-list by their names                             |
@@ -112,6 +113,7 @@ to the prompt.
 | magit                           | A Git porcelain inside Emacs.                                                      |
 | magit-popup                     | Define prefix-infix-suffix command combos                                          |
 | markdown-mode                   | Major mode for Markdown-formatted text                                             |
+| markdown-mode+                  | extra functions for markdown-mode                                                  |
 | markup-faces                    | collection of faces for markup language modes                                      |
 | memoize                         | Memoization functions                                                              |
 | multiple-cursors                | Multiple cursors for Emacs.                                                        |
@@ -119,6 +121,8 @@ to the prompt.
 | nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
 | oauth2                          | OAuth 2.0 Authorization Protocol                                                   |
 | org                             | Outline-based notes management and organizer                                       |
+| org-octopress                   | Compose octopress articles using org-mode.                                         |
+| orglue                          | more functionality to org-mode.                                                    |
 | p4                              | Simple Perforce-Emacs Integration                                                  |
 | package-build                   | Tools for assembling a package archive                                             |
 | packed                          | package manager agnostic Emacs Lisp package utilities                              |
@@ -147,7 +151,8 @@ to the prompt.
 | smartparens                     | Automatic insertion, wrapping and paredit-like navigation with user defined pairs. |
 | smex                            | M-x interface with Ido-style fuzzy matching.                                       |
 | spinner                         | Add spinners and progress-bars to the mode-line for ongoing operations             |
-| tablist                         | Extended tabulated-list-mode                                                       |
+| srv                             | perform SRV DNS requests                                                           |
+| treepy                          | Generic tree traversal tools                                                       |
 | twittering-mode                 | Major mode for Twitter                                                             |
 | undo-tree                       | Treat undo history as a tree                                                       |
 | use-package                     | A configuration macro for simplifying your .emacs                                  |
@@ -1085,6 +1090,28 @@ send the results back to the browser.
 #+BEGIN_SRC emacs-lisp
 (when (require 'edit-server nil :noerror)
   (edit-server-start))
+#+END_SRC
+
+** go-complete
+
+Enable =go-complete= when opening a Go buffer, if the ~gocode~ binary
+is available.
+
+/Note:/ I am using [[https://github.com/stamblerre/gocode][this version]] of code.  To install:
+
+#+BEGIN_SRC sh
+  go get -u github.com/stamblerre/gocode
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'go-complete)
+	(if (= (length (shell-command-to-string "which gocode")) 0)
+		(warn "go-complete not enabled for Go code.  Please install gocode if desired.")
+	  (progn
+		(require 'go-complete)
+		(add-hook 'completion-at-point-functions 'go-complete-at-point))))
+
+
 #+END_SRC
 
 ** Javascript mode
