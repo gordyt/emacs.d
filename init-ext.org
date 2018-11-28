@@ -1110,8 +1110,6 @@ is available.
 	  (progn
 		(require 'go-complete)
 		(add-hook 'completion-at-point-functions 'go-complete-at-point))))
-
-
 #+END_SRC
 
 ** Javascript mode
@@ -1391,7 +1389,7 @@ Modify the default place where globally-defined ID's are stored.
     (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC")))
 #+END_SRC
 
-*** Daily log template
+** Daily log template
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'org-structure-template-alist
