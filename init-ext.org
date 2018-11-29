@@ -1097,11 +1097,14 @@ send the results back to the browser.
 Enable =go-complete= when opening a Go buffer, if the ~gocode~ binary
 is available.
 
-/Note:/ I am using [[https://github.com/stamblerre/gocode][this version]] of code.  To install:
+/Note:/ I am using [[https://github.com/mdempsky/gocode][this version]] of code.  To install:
 
 #+BEGIN_SRC sh
-  go get -u github.com/stamblerre/gocode
+  go get -u github.com/mdempsky/gocode
 #+END_SRC
+
+You must then copy the file ~go-autocomplete.el~ to a directory in
+your Emac's ~load-path~.
 
 #+BEGIN_SRC emacs-lisp
   (when (package-installed-p 'go-complete)
@@ -1111,6 +1114,8 @@ is available.
 		(require 'go-complete)
 		(add-hook 'completion-at-point-functions 'go-complete-at-point))))
 #+END_SRC
+
+To invoke completion, just do =M-TAB= (or =ESC-TAB=) at point.
 
 ** Javascript mode
 *** flycheck-mode for Javascript
