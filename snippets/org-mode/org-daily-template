@@ -1,0 +1,14 @@
+# name : org-daily-template
+# key : <dt
+# keybinding : keybinding
+# --
+#+TITLE: `(format-time-string "%Y-%m-%d (%A)")`
+#+LATEX_CLASS: article
+#+LATEX_HEADER: \usepackage[legalpaper, landscape, margin=1in]{geometry}
+#+OPTIONS: prop:t c:t d:t p:t toc:nil H:nil
+* Personal
+** Tasks
+** Log
+* Work
+** Tasks
+** Log
