@@ -1394,25 +1394,6 @@ Modify the default place where globally-defined ID's are stored.
     (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC")))
 #+END_SRC
 
-** Daily log template
-
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'org-structure-template-alist
-			   (list "GT" (mapconcat 'identity (list (concat "#+TITLE: Log " (format-time-string "%Y-%m-%d"))
-													 (concat "#+AUTHOR: " user-full-name)
-													 "#+LATEX_CLASS: article"
-													 "#+LATEX_HEADER: \\usepackage[legalpaper, landscape, margin=1in]{geometry}"
-													 "#+OPTIONS: prop:t c:t d:t p:t toc:nil H:nil"
-													 ""
-													 "* Personal"
-													 "** Tasks"
-													 "** Log"
-													 "* Work"
-													 "** Tasks"
-													 "** Log"
-													 )
-									 "\n")))
-#+END_SRC
 ** org-reveal
 
 #+BEGIN_SRC emacs-lisp
