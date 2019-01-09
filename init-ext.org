@@ -1373,7 +1373,8 @@ This minor mode is turned on in two situations:
 Restore legacy behavior for inserting code blocks.
 
 #+begin_src emacs-lisp
-  (require 'org-tempo)
+  (unless (require 'org-tempo nil :no-error)
+	(message "org-tempo not available in current version of org-mode"))
 #+end_src
 *** org TODO States
 
