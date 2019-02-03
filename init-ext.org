@@ -119,7 +119,6 @@ to the prompt.
 | hydra                           | Make bindings that stick around.                                                   |
 | idle-highlight-mode             | highlight the word the point is on                                                 |
 | ido-completing-read+            | A completing-read-function using ido                                               |
-| ido-ubiquitous                  | Use ido (nearly) everywhere.                                                       |
 | ido-vertical-mode               | Makes ido-mode display vertically.                                                 |
 | jabber                          | A Jabber client for Emacs.                                                         |
 | jedi                            | a Python auto-completion for Emacs                                                 |
@@ -129,7 +128,6 @@ to the prompt.
 | json-snatcher                   | Grabs the path to JSON values in a JSON file                                       |
 | jsx-mode                        | major mode for JSX                                                                 |
 | kv                              | key/value data structure functions                                                 |
-| let-alist                       | Easily let-bind values of an assoc-list by their names                             |
 | log4e                           | provide logging framework for elisp                                                |
 | macrostep                       | interactive macro expander                                                         |
 | magit                           | A Git porcelain inside Emacs.                                                      |
@@ -141,7 +139,6 @@ to the prompt.
 | noflet                          | locally override functions                                                         |
 | nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
 | oauth2                          | OAuth 2.0 Authorization Protocol                                                   |
-| org                             | Outline-based notes management and organizer                                       |
 | p4                              | Simple Perforce-Emacs Integration                                                  |
 | package-build                   | Tools for assembling a package archive                                             |
 | packed                          | package manager agnostic Emacs Lisp package utilities                              |
@@ -161,7 +158,6 @@ to the prompt.
 | request-deferred                | Wrap request.el by deferred                                                        |
 | restclient                      | An interactive HTTP client for Emacs                                               |
 | s                               | The long lost Emacs string manipulation library.                                   |
-| seq                             | Sequence manipulation functions                                                    |
 | sesman                          | Generic Session Manager                                                            |
 | shen-elisp                      | Shen implementation in Elisp                                                       |
 | shen-mode                       | Utilities for working with Shen code.                                              |
