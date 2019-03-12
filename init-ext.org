@@ -123,6 +123,7 @@ to the prompt.
 | jabber                          | A Jabber client for Emacs.                                                         |
 | jedi                            | a Python auto-completion for Emacs                                                 |
 | jedi-core                       | Common code of jedi.el and company-jedi.el                                         |
+| jira-markup-mode                | Emacs Major mode for JIRA-markup-formatted text files                              |
 | json-mode                       | Major mode for editing JSON files.                                                 |
 | json-reformat                   | Reformatting tool for JSON                                                         |
 | json-snatcher                   | Grabs the path to JSON values in a JSON file                                       |
@@ -168,6 +169,7 @@ to the prompt.
 | spinner                         | Add spinners and progress-bars to the mode-line for ongoing operations             |
 | srv                             | perform SRV DNS requests                                                           |
 | tablist                         | Extended tabulated-list-mode                                                       |
+| transient                       | Transient commands                                                                 |
 | treepy                          | Generic tree traversal tools                                                       |
 | twittering-mode                 | Major mode for Twitter                                                             |
 | undo-tree                       | Treat undo history as a tree                                                       |
@@ -1303,17 +1305,18 @@ By default only emacs-lisp is enabled.
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
-     (python . t)
-     (ditaa . t)
-     (plantuml . t)
-     (clojure . t)
-     (calc . t)
-     (ruby . t)
-     (js . t)
-     (lisp . t)
-     (dot . t)
-     (scheme . t)
-     (shell . t)))
+	 (python . t)
+	 (ditaa . t)
+	 (plantuml . t)
+	 (clojure . t)
+	 (calc . t)
+	 (ruby . t)
+	 (js . t)
+	 (lisp . t)
+	 (dot . t)
+	 (scheme . t)
+	 (shell . t)))
+
 
 #+END_SRC
 
