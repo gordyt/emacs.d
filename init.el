@@ -108,3 +108,4 @@ correct order) and are followed by the non-duplicate elements of SRC-LIST"
 
 (put 'scroll-left 'disabled nil)
 (load custom-file)
+(put 'upcase-region 'disabled nil)

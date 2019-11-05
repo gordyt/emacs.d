@@ -53,6 +53,7 @@ to the prompt.
 
 #+RESULTS:
 | _Package Name_                  | _Package Description_                                                              |
+| a                               | Associative data structure functions                                               |
 | ac-geiser                       | Auto-complete backend for geiser                                                   |
 | ac-slime                        | An auto-complete source using slime completions                                    |
 | adoc-mode                       | a major-mode for editing AsciiDoc files in Emacs                                   |
@@ -65,7 +66,6 @@ to the prompt.
 | cask                            | Cask: Project management for Emacs package development                             |
 | cider                           | Clojure Interactive Development Environment that Rocks                             |
 | circe                           | Client for IRC in Emacs                                                            |
-| clojure-cheatsheet              | The Clojure Cheatsheet for Emacs                                                   |
 | clojure-mode                    | Major mode for Clojure code                                                        |
 | clojure-mode-extra-font-locking | Extra font-locking for Clojure mode                                                |
 | clojure-snippets                | Yasnippets for clojure                                                             |
@@ -130,6 +130,7 @@ to the prompt.
 | jsx-mode                        | major mode for JSX                                                                 |
 | kv                              | key/value data structure functions                                                 |
 | log4e                           | provide logging framework for elisp                                                |
+| lv                              | Other echo area                                                                    |
 | macrostep                       | interactive macro expander                                                         |
 | magit                           | A Git porcelain inside Emacs.                                                      |
 | magit-popup                     | Define prefix-infix-suffix command combos                                          |
@@ -140,11 +141,14 @@ to the prompt.
 | noflet                          | locally override functions                                                         |
 | nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
 | oauth2                          | OAuth 2.0 Authorization Protocol                                                   |
+| org-plus-contrib                | Outline-based notes management and organizer                                       |
 | p4                              | Simple Perforce-Emacs Integration                                                  |
 | package-build                   | Tools for assembling a package archive                                             |
 | packed                          | package manager agnostic Emacs Lisp package utilities                              |
 | pallet                          | A package management tool for Emacs, using Cask.                                   |
 | paradox                         | A modern Packages Menu. Colored, with package ratings, and customizable.           |
+| parseclj                        | Clojure/EDN parser                                                                 |
+| parseedn                        | Clojure/EDN parser                                                                 |
 | pkg-info                        | Information about packages                                                         |
 | popup                           | Visual Popup User Interface                                                        |
 | popwin                          | Popup Window Manager.                                                              |
@@ -180,7 +184,7 @@ to the prompt.
 | which-key                       | Display available keybindings in popup                                             |
 | with-editor                     | Use the Emacsclient as $EDITOR                                                     |
 | yaml-mode                       | Major mode for editing YAML files                                                  |
-| yasnippet                       | Yet another snippet extension for Emacs.                                           |
+| yasnippet                       | Yet another snippet extension for Emacs                                            |
 | yasnippet-snippets              | Collection of yasnippet snippets                                                   |
 
 * Utility Functions
@@ -1012,7 +1016,7 @@ Make my custom themes directory available to Emacs.
 ;; EXAMPLE: Loading a new theme
 ;; specifying the t option to load-theme prevents being asked about
 ;; loading an unsafe theme.
-;; (load-theme 'gordy t)
+(load-theme 'gordy t)
 #+END_SRC
 
 
@@ -1399,11 +1403,12 @@ I am defining my TODO states as follows:
 #+BEGIN_SRC emacs-lisp
   (setq org-todo-keywords '((sequence "TODO"
 									  "INPROGRESS"
+									  "CONTINUED"
 									  "|"
 									  "DONE"
 									  "DELEGATED"
 									  "CANCELLED"
-									  "CONTINUED")))
+									  )))
 #+END_SRC
 *** org-id-locations
 
