@@ -10,8 +10,7 @@
 ** Tasks
 ** Log
 * Work
-#+BEGIN: clocktable :scope subtree :maxlevel 3 :tags t
-#+CAPTION: Clock summary at [2019-11-05 Tue 11:05]
+#+BEGIN: clocktable-by-tag :tags ("meeting" "development" "support" "maintenance" "request") :maxlevel 3
 #+END:
 ** Tasks
 ** Log

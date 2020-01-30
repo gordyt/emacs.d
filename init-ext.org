@@ -1428,6 +1428,67 @@ Modify the default place where globally-defined ID's are stored.
     (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC")))
 #+END_SRC
 
+*** clocktable-by-tag
+
+Put the following in your org-mod file...
+
+#+begin_example
+#+BEGIN: clocktable-by-tag :tags ("meeting" "development" "support" "maintenance" "request") :maxlevel 3
+#+END:
+#+end_example
+
+From the following:
+
+- [[https://stackoverflow.com/questions/17353591/timetable-grouped-by-tag][Timetable grouped by tag (stack overflow)]]
+- [[https://gist.github.com/ironchicken/6b5424bc2024b3d0a58a8a130f73c2ee][ironchicken/clocktable-by-tag.el]]
+
+I just modified the code to just look at the current (org) buffer
+instead of using ~org-agenda-files~.
+
+#+begin_src emacs-lisp
+(defun clocktable-by-tag/shift-cell (n)
+  (let ((str ""))
+    (dotimes (i n)
+      (setq str (concat str "| ")))
+    str))
+
+(defun clocktable-by-tag/insert-tag (params)
+  (let ((tag (plist-get params :tags)))
+    (insert "|--\n")
+    (insert (format "| %s | *Tag time* |\n" tag))
+    (let ((total 0))
+      (mapcar
+       (lambda (file)
+         (let ((clock-data (with-current-buffer (find-file-noselect file)
+                             (org-clock-get-table-data (buffer-name) params))))
+           (when (> (nth 1 clock-data) 0)
+             (setq total (+ total (nth 1 clock-data)))
+             (insert (format "| | File *%s* | %.2f |\n"
+                             (file-name-nondirectory file)
+                             (/ (nth 1 clock-data) 60.0)))
+             (dolist (entry (nth 2 clock-data))
+               (insert (format "| | . %s%s | %s %.2f |\n"
+                               (org-clocktable-indent-string (nth 0 entry))
+                               (nth 1 entry)
+                               (clocktable-by-tag/shift-cell (nth 0 entry))
+                               (/ (nth 4 entry) 60.0)))))))
+	   (list (buffer-file-name)))
+      (save-excursion
+        (re-search-backward "*Tag time*")
+        (org-table-next-field)
+        (org-table-blank-field)
+        (insert (format "*%.2f*" (/ total 60.0)))))
+    (org-table-align)))
+
+(defun org-dblock-write:clocktable-by-tag (params)
+  (insert "| Tag | Headline | Time (h) |\n")
+  (insert "|     |          | <r>  |\n")
+  (let ((tags (plist-get params :tags)))
+    (mapcar (lambda (tag)
+              (clocktable-by-tag/insert-tag (plist-put (plist-put params :match tag) :tags tag)))
+            tags)))
+#+end_src
+
 ** org-reveal
 
 #+BEGIN_SRC emacs-lisp
