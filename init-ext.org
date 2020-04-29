@@ -142,6 +142,8 @@ to the prompt.
 | nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
 | oauth2                          | OAuth 2.0 Authorization Protocol                                                   |
 | org-plus-contrib                | Outline-based notes management and organizer                                       |
+| ox-jira                         | JIRA Backend for Org Export Engine                                                 |
+| ox-json                         | JSON export backend for Org mode                                                   |
 | p4                              | Simple Perforce-Emacs Integration                                                  |
 | package-build                   | Tools for assembling a package archive                                             |
 | packed                          | package manager agnostic Emacs Lisp package utilities                              |

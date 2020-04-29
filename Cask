@@ -91,6 +91,8 @@
 (depends-on "nyan-mode")
 (depends-on "oauth2")
 (depends-on "org-plus-contrib")
+(depends-on "ox-jira")
+(depends-on "ox-json")
 (depends-on "p4")
 (depends-on "package-build")
 (depends-on "packed")
