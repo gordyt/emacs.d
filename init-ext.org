@@ -1621,6 +1621,23 @@ Enable ~recentf~ mode which will save a list of recent files visited.
   (require 'inf-shen nil :noerror)
 #+END_SRC
 
+** sh-mode
+
+Disable tabs.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'sh-mode-hook (lambda ()
+							(setq indent-tabs-mode nil)))
+#+END_SRC
+
+Enable flycheck
+
+#+BEGIN_SRC emacs-lisp
+  (when (package-installed-p 'flycheck)
+    (add-hook 'perl-mode-hook 'flycheck-mode))
+
+#+END_SRC
+
 ** Term Mode
 
 Disable /yasnippet/ in Term mode.
