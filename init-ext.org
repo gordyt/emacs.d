@@ -1353,10 +1353,11 @@ Define basic /org-capture/ templates.  I currently have just one.
 
 *** org-export-backends
 
-Add support for /markdown/ export.
+Add support for /markdown/  and /jira/ export.
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'org-export-backends 'md)
+  (add-to-list 'org-export-backends 'jira)
 #+END_SRC
 
 *** org-src-mode settings
