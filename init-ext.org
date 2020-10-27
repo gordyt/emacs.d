@@ -138,6 +138,7 @@ to the prompt.
 | markup-faces                    | collection of faces for markup language modes                                      |
 | memoize                         | Memoization functions                                                              |
 | multiple-cursors                | Multiple cursors for Emacs.                                                        |
+| nadvice                         | Forward compatibility for Emacs-24.4's nadvice                                     |
 | noflet                          | locally override functions                                                         |
 | nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
 | oauth2                          | OAuth 2.0 Authorization Protocol                                                   |
@@ -153,13 +154,13 @@ to the prompt.
 | parseedn                        | Clojure/EDN parser                                                                 |
 | pkg-info                        | Information about packages                                                         |
 | popup                           | Visual Popup User Interface                                                        |
-| popwin                          | Popup Window Manager.                                                              |
+| popwin                          | Popup Window Manager                                                               |
 | pos-tip                         | Show tooltip at point                                                              |
 | prodigy                         | Manage external services from within Emacs                                         |
 | projectile                      | Manage and navigate projects in Emacs easily                                       |
 | python-environment              | virtualenv API for Emacs Lisp                                                      |
 | queue                           | Queue data structure                                                               |
-| racket-mode                     | Major mode for Racket language.                                                    |
+| racket-mode                     | Racket editing, REPL, and more                                                     |
 | react-snippets                  | Yasnippets for React                                                               |
 | request                         | Compatible layer for URL request in Emacs                                          |
 | request-deferred                | Wrap request.el by deferred                                                        |

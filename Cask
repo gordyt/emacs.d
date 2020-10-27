@@ -87,6 +87,7 @@
 (depends-on "markup-faces")
 (depends-on "memoize")
 (depends-on "multiple-cursors")
+(depends-on "nadvice")
 (depends-on "noflet")
 (depends-on "nyan-mode")
 (depends-on "oauth2")
