@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: image
+# key: <gim
+# --
+#+ATTR_HTML: :width 600
+#+ATTR_LATEX: :width 600pt
+#+caption: ${1:caption of the image}
+[[file:${2:image_path}]]$0
