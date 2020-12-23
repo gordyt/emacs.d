@@ -127,7 +127,6 @@ to the prompt.
 | json-mode                       | Major mode for editing JSON files.                                                 |
 | json-reformat                   | Reformatting tool for JSON                                                         |
 | json-snatcher                   | Grabs the path to JSON values in a JSON file                                       |
-| jsx-mode                        | major mode for JSX                                                                 |
 | kv                              | key/value data structure functions                                                 |
 | log4e                           | provide logging framework for elisp                                                |
 | lv                              | Other echo area                                                                    |
@@ -142,6 +141,8 @@ to the prompt.
 | noflet                          | locally override functions                                                         |
 | nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
 | oauth2                          | OAuth 2.0 Authorization Protocol                                                   |
+| org                             | Outline-based notes management and organizer                                       |
+| org-drill                       | Self-testing using spaced repetition                                               |
 | org-plus-contrib                | Outline-based notes management and organizer                                       |
 | ox-jira                         | JIRA Backend for Org Export Engine                                                 |
 | ox-json                         | JSON export backend for Org mode                                                   |
@@ -152,6 +153,7 @@ to the prompt.
 | paradox                         | A modern Packages Menu. Colored, with package ratings, and customizable.           |
 | parseclj                        | Clojure/EDN parser                                                                 |
 | parseedn                        | Clojure/EDN parser                                                                 |
+| persist                         | Persist Variables between Emacs Sessions                                           |
 | pkg-info                        | Information about packages                                                         |
 | popup                           | Visual Popup User Interface                                                        |
 | popwin                          | Popup Window Manager                                                               |
@@ -166,6 +168,7 @@ to the prompt.
 | request-deferred                | Wrap request.el by deferred                                                        |
 | restclient                      | An interactive HTTP client for Emacs                                               |
 | s                               | The long lost Emacs string manipulation library.                                   |
+| seq                             | Sequence manipulation functions                                                    |
 | sesman                          | Generic Session Manager                                                            |
 | shen-elisp                      | Shen implementation in Elisp                                                       |
 | shen-mode                       | Utilities for working with Shen code.                                              |
@@ -1493,6 +1496,16 @@ instead of using ~org-agenda-files~.
             tags)))
 #+end_src
 
+** org-drill
+
+#+begin_src emacs-lisp
+  (when (require 'org-drill nil 'noerror)
+	(setq org-drill-hint-separator "|")
+	(setq org-drill-cram-hours 12)  ; this is the default
+	(setq org-drill-sm5-initial-interval 1.0)  ; 1 day (for now) default is 4.0
+	)
+#+end_src
+
 ** org-reveal
 
 #+BEGIN_SRC emacs-lisp
@@ -1522,8 +1535,8 @@ repos.  I have added it as a git submodule.
 Enable =flycheck-mode= when opening a Python buffer, if flycheck is available
 
 #+BEGIN_SRC emacs-lisp
-(when (package-installed-p 'flycheck)
-(add-hook 'python-mode-hook 'flycheck-mode))
+;; (when (package-installed-p 'flycheck)
+;; (add-hook 'python-mode-hook 'flycheck-mode))
 #+END_SRC
 
 *** jedi
@@ -1557,10 +1570,10 @@ If the /pip/ command is not available you can install it as follows:
 - /Mac OS X:/ ~sudo easy_install pip~
 
 #+BEGIN_SRC emacs-lisp
-  (when (package-installed-p 'jedi)
-    (setq jedi:setup-keys t)
-    (setq jedi:complete-on-dot t)
-    (add-hook 'python-mode-hook 'jedi:setup))
+  ;; (when (package-installed-p 'jedi)
+  ;;   (setq jedi:setup-keys t)
+  ;;   (setq jedi:complete-on-dot t)
+  ;;   (add-hook 'python-mode-hook 'jedi:setup))
 
 #+END_SRC
 
