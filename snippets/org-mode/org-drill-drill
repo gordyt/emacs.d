@@ -1,0 +1,8 @@
+# name : org-drill-drill
+# key : <odd
+# keybinding : keybinding
+# --
+
+** ${1:drill-category}                                                :drill:
+
+${2:text-with-clozes}

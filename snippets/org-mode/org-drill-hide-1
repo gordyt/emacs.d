@@ -1,0 +1,11 @@
+# name : org-drill-hide-one
+# key : <odh1
+# keybinding : keybinding
+# --
+
+** ${1:drill-category}                                                :drill:
+   :PROPERTIES:
+   :DRILL_CARD_TYPE: hide1cloze
+   :END:
+
+${2:text-with-clozes}
