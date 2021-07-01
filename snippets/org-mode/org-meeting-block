@@ -8,7 +8,8 @@ ${2:times}
 **** Info
 
 - URL: ${3:url}
-- RE: meeting-reference
+- Organizer: ${4:organizer}
+- RE: ${5:meeting-reference}
 - Attendees
 
 **** Agenda
