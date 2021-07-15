@@ -12,6 +12,7 @@
 * Work
 #+BEGIN: clocktable-by-tag :tags ("meeting" "development" "support" "maintenance" "request") :maxlevel 3
 #+END:
+** Meetings
 ** Tasks
 *** TODO Planning                                               :maintenance:
 
