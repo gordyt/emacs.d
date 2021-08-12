@@ -10,7 +10,7 @@
 ** Tasks
 ** Log
 * Work
-#+BEGIN: clocktable-by-tag :tags ("meeting" "development" "support" "maintenance" "request") :maxlevel 3
+#+BEGIN: clocktable-by-tag :tags ("meeting" "development" "support" "maintenance" "request" "study") :maxlevel 3
 #+END:
 ** Meetings
 ** Tasks
@@ -19,7 +19,6 @@
 - [ ] Work Time Allocation
 - [ ] Meetings
 - [ ] Carry over
-- [ ] Standup Notes
-- [ ] Mattermost
+- [ ] Slack
 
 ** Log
