@@ -1164,7 +1164,8 @@ is available.
 /Note:/ For this to work, you should install [[http://www.jshint.com/][jshint]] as follows:
 
 #+BEGIN_SRC sh
-npm install -g jshint
+  sudo apt install nodejs npm
+  sudo npm install -g jshint
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
