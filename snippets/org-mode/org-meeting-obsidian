@@ -1,0 +1,14 @@
+# name : org-meeting-obsidian
+# key : <mo
+# keybinding : keybinding
+# --
+*** TODO ${1:meeting}                                               :meeting:
+${2:times}
+
+**** Info
+
+- URL: ${3:url}
+- Organizer: ${4:organizer}
+- RE: ${5:meeting-reference}
+- Obsidian
+
