@@ -63,7 +63,7 @@ to the prompt.
 | auto-compile                    | automatically compile Emacs Lisp libraries                                         |
 | auto-complete                   | Auto Completion for GNU Emacs                                                      |
 | bind-key                        | A simple way to manage personal keybindings                                        |
-| cask                            | Cask: Project management for Emacs package development                             |
+| cask                            | Cask: Project management for package development                                   |
 | cider                           | Clojure Interactive Development Environment that Rocks                             |
 | circe                           | Client for IRC in Emacs                                                            |
 | clojure-mode                    | Major mode for Clojure code                                                        |
@@ -89,7 +89,6 @@ to the prompt.
 | exec-path-from-shell            | Get environment variables such as $PATH from the shell                             |
 | expand-region                   | Increase selected region by semantic units.                                        |
 | f                               | Modern API for working with files and directories                                  |
-| faceup                          | Markup language for faces and font-lock regression testing                         |
 | fakir                           | fakeing bits of Emacs                                                              |
 | flx                             | fuzzy matching with good sorting                                                   |
 | flx-ido                         | flx integration for ido                                                            |
@@ -101,7 +100,7 @@ to the prompt.
 | fsm                             | state machine library                                                              |
 | geiser                          | GNU Emacs and Scheme talk to each other                                            |
 | ghub                            | Minuscule client libraries for Git forge APIs.                                     |
-| git-commit                      | Edit Git commit messages                                                           |
+| git-commit                      | Edit Git commit messages.                                                          |
 | gmail-message-mode              | A major-mode for editing gmail messages using markdown syntax.                     |
 | gntp                            | Growl Notification Protocol for Emacs                                              |
 | go-complete                     | Native code completion for Go                                                      |
@@ -117,9 +116,9 @@ to the prompt.
 | html-to-markdown                | HTML to Markdown converter written in Emacs-lisp.                                  |
 | htmlize                         | Convert buffer text and decorations to HTML.                                       |
 | hydra                           | Make bindings that stick around.                                                   |
-| idle-highlight-mode             | highlight the word the point is on                                                 |
+| idle-highlight-mode             | Highlight the word the point is on                                                 |
 | ido-completing-read+            | A completing-read-function using ido                                               |
-| ido-vertical-mode               | Makes ido-mode display vertically.                                                 |
+| ido-vertical-mode               | Makes ido-mode display vertically                                                  |
 | jabber                          | A Jabber client for Emacs.                                                         |
 | jedi                            | a Python auto-completion for Emacs                                                 |
 | jedi-core                       | Common code of jedi.el and company-jedi.el                                         |
@@ -133,11 +132,11 @@ to the prompt.
 | macrostep                       | interactive macro expander                                                         |
 | magit                           | A Git porcelain inside Emacs.                                                      |
 | magit-popup                     | Define prefix-infix-suffix command combos                                          |
+| magit-section                   | Sections for read-only buffers                                                     |
 | markdown-mode                   | Major mode for Markdown-formatted text                                             |
 | markup-faces                    | collection of faces for markup language modes                                      |
 | memoize                         | Memoization functions                                                              |
 | multiple-cursors                | Multiple cursors for Emacs.                                                        |
-| nadvice                         | Forward compatibility for Emacs-24.4's nadvice                                     |
 | noflet                          | locally override functions                                                         |
 | nyan-mode                       | Nyan Cat shows position in current buffer in mode-line.                            |
 | oauth2                          | OAuth 2.0 Authorization Protocol                                                   |
@@ -164,7 +163,7 @@ to the prompt.
 | queue                           | Queue data structure                                                               |
 | racket-mode                     | Racket editing, REPL, and more                                                     |
 | react-snippets                  | Yasnippets for React                                                               |
-| request                         | Compatible layer for URL request in Emacs                                          |
+| request                         | Compatible layer for URL request                                                   |
 | request-deferred                | Wrap request.el by deferred                                                        |
 | restclient                      | An interactive HTTP client for Emacs                                               |
 | s                               | The long lost Emacs string manipulation library.                                   |
