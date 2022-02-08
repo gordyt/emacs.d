@@ -7,8 +7,6 @@ ${2:times}
 
 **** Info
 
-- URL: ${3:url}
-- Organizer: ${4:organizer}
-- RE: ${5:meeting-reference}
+- RE: ${3:meeting-reference}
 - Obsidian
 
