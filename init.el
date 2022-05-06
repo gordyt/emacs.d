@@ -76,7 +76,6 @@ correct order) and are followed by the non-duplicate elements of SRC-LIST"
  ((file-exists-p "/usr/local/share/emacs/site-lisp/cask/cask.el")
   (require 'cask "/usr/local/share/emacs/site-lisp/cask/cask.el"))  ; location for homebrew install
  (t (error "Unable to location a cask installation")))
-(cask-initialize)
 
 ;; Workaround for this bug:
 ;; https://github.com/jwiegley/use-package/issues/85
